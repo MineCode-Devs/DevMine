@@ -15,3 +15,5 @@ pocketmine\block --> devmine\inventory\blocks <br>
 pocketmine\item --> devmine\inventory\items <br>
 pocketmine\inventory --> devmine\inventory\layout <br>
 pocketmine\tile --> devmine\inventory\solidentity <br>
+pocketmine\katana --> devmine\utilities\logger <br>
+pocketmine\utils --> devmine\utilities\main <br>
