@@ -15,7 +15,7 @@ pocketmine\block --> devmine\inventory\blocks <br>
 pocketmine\item --> devmine\inventory\items <br>
 pocketmine\inventory --> devmine\inventory\layout <br>
 pocketmine\tile --> devmine\inventory\solidentity <br>
-pocketmine\katana --> devmine\server\logger <br>
+pocketmine\updater --> devmine\server\updater <br>
 pocketmine\utils --> devmine\utilities\main <br>
 pocketmine not in folder (exclude player and iplayer) --> devmine\server <br>
 pocketmine\network --> devmine\server\network <br>
