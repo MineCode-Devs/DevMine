@@ -8,9 +8,9 @@ Simply because you need to understand php in order to convert PocketMine plugins
 It allows for much better organization so it is easier to edit. Also, we automatically remove unneeded code.
 
 # What is DevMine's folder structure?
-DevMine's folder structure is basically the ImagicalMine project (https://github.com/Inactive-to-Reactive/ImagicalMine) with a different folder structure! Everything else is basically the same. Also, a few additional features were added in, that were originally from plugins. Have fun using it! It is expected to be in the beta stage by mid-August 2016 at the max, if not late July 2016.
+DevMine's folder structure is basically the ImagicalMine project (https://github.com/Inactive-to-Reactive/ImagicalMine) with a different folder structure! Everything else is basically the same. Also, a few additional features were added in, that were originally from plugins. Have fun using it! It is expected to be in the beta stage by July 19th, 2016.
 
-# Pocketmine Structure to DevMine Structure
+# PocketMine Structure to DevMine Structure
 pocketmine\block --> devmine\inventory\blocks <br>
 pocketmine\item --> devmine\inventory\items <br>
 pocketmine\inventory --> devmine\inventory\layout <br>
@@ -38,4 +38,8 @@ spl --> spl <br>
 
 # Files Renamed
 pocketmine\PocketMine.php --> devmine\server\DevMine.php <br>
-pocketmine\tile\Tile.php --> devmine\inventory\solidentity\SolidEntity.php
+pocketmine\tile\Tile.php --> devmine\inventory\solidentity\SolidEntity.php <br>
+pocketmine\katana\Katana.php --> devmine\server\logger\Logger.php <br>
+pocketmine\katana\KatanaModule.php --> devmine\server\logger\LoggerModule.php <br>
+pocketmine\level\Level.php --> devmine\worlds\World.php
+## PERSONAL REMINDER: RENAME METADATA FILES
