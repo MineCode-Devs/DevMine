@@ -15,5 +15,15 @@ pocketmine\block --> devmine\inventory\blocks <br>
 pocketmine\item --> devmine\inventory\items <br>
 pocketmine\inventory --> devmine\inventory\layout <br>
 pocketmine\tile --> devmine\inventory\solidentity <br>
-pocketmine\katana --> devmine\utilities\logger <br>
-pocketmine\utils --> devmine\utilities\main <br>
+pocketmine\katana --> devmine\server <br>
+pocketmine\utils --> devmine\utilities <br>
+pocketmine not in folder (exclude player and iplayer) --> devmine\server <br>
+pocketmine\network --> devmine\server\network <br>
+pocketmine\lang --> devmine\utilities\languages <br>
+pocketmine\wizard --> devmine\utilities\wizard <br>
+pocketmine\nbt--> devmine\creatures <br>
+player.php and iplayer.php --> devmine\creatures  <br>
+pocketmine\entity --> devmine\creatures\entities <br>
+pocketmine\command --> devmine\server\commands <br>
+pocketmine\plugin --> devmine\plugin-features <br>
+
