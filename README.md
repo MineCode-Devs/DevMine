@@ -26,4 +26,10 @@ player.php and iplayer.php --> devmine\creatures  <br>
 pocketmine\entity --> devmine\creatures\entities <br>
 pocketmine\command --> devmine\server\commands <br>
 pocketmine\plugin --> devmine\plugin-features <br>
-
+pocketmine\level --> devmine\worlds <br>
+pocketmine\metadata --> devmine\server\misc\metadata <br>
+pocketmine\math --> devmine\server\calculations <br>
+pocketmine\event --> devmine\events <br>
+pocketmine\permission --> devmine\server\permissions <br>
+pocketmine\resources --> devmine\server\resources <br>
+pocketmine\scheduler --> devmine\server\tasks <br>
