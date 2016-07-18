@@ -39,9 +39,9 @@ spl --> spl <br>
 # Files Renamed/individual files changed
 pocketmine\PocketMine.php --> devmine\server\DevMine.php <br>
 pocketmine\tile\Tile.php --> devmine\inventory\solidentity\SolidEntity.php <br>
-pocketmine\player.php --> devmine\creatures\player\player.php  <br>
-pocketmine\iplayer.php --> devmine\creatures\player\iplayer.php  <br>
-pocketmine\OfflinePlayer.php --> devmine\creatures\player\iplayer.php  <br>
+pocketmine\player.php --> devmine\creatures\player\Player.php  <br>
+pocketmine\iplayer.php --> devmine\creatures\player\iPlayer.php  <br>
+pocketmine\OfflinePlayer.php --> devmine\creatures\player\OfflinePlayer.php  <br>
 Achievement.php
 CompatibleClassLoader.php
 CrashDump.php
