@@ -37,4 +37,5 @@ raklib --> raklib <br>
 spl --> spl <br>
 
 # Files Renamed
-pocketmine\PocketMine.php --> devmine\server\DevMine.php
+pocketmine\PocketMine.php --> devmine\server\DevMine.php <br>
+pocketmine\tile\Tile.php --> devmine\inventory\solidentity\SolidEntity.php
