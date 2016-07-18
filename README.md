@@ -33,3 +33,5 @@ pocketmine\event --> devmine\events <br>
 pocketmine\permission --> devmine\server\permissions <br>
 pocketmine\resources --> devmine\server\resources <br>
 pocketmine\scheduler --> devmine\server\tasks <br>
+raklib --> raklib <br>
+spl --> spl
