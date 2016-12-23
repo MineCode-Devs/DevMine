@@ -1,0 +1,35 @@
+<?php
+
+
+
+namespace devmine\inventory\blocks;
+
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+
+class WoodStairs extends Stair{
+
+	protected $id = self::WOOD_STAIRS;
+
+	public function __construct($meta = 0){
+		$this->meta = $meta;
+	}
+
+	public function getName() : string{
+		return "Wood Stairs";
+	}
+
+	public function getToolType(){
+		return Tool::TYPE_AXE;
+	}
+
+	public function getDrops(Item $item) : array {
+		return [
+			[$this->id, 0, 1],
+		];
+	}
+
+	public function getHardness() {
+		return 2;
+	}
+}
