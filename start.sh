@@ -49,7 +49,7 @@ if [ "$Devmine_FILE" == "" ]; then
 	    	DevMine_FILE="./DevMine*.phar"
 	elif [ -f ./PocketMine-MP.phar ]; then
 		DevMine_FILE="./PocketMine-MP.phar"
-	elif [ -f ./src/pocketmine/PocketMine.php ]; then
+	elif [ -f ./src/devmine/server/DevMine.php ]; then
 		Devmine_FILE="./src/devmine/server/DevMine.php"
 	else
 		echo "[ERROR] Couldn't find a valid Devmine installation."
