@@ -15,24 +15,25 @@ pocketmine\block --> devmine\inventory\blocks <br>
 pocketmine\item --> devmine\inventory\items <br>
 pocketmine\inventory --> devmine\inventory\layout <br>
 pocketmine\tile --> devmine\inventory\solidentity <br>
-pocketmine\updater --> devmine\server\updater <br>
-pocketmine\utils --> devmine\utilities\main <br>
-pocketmine not in folder (exclude player and iplayer) --> devmine\server <br>
-pocketmine\network --> devmine\server\network <br>
-pocketmine\lang --> devmine\utilities\languages <br>
-pocketmine\wizard --> devmine\utilities\installer <br>
+pocketmine\plugin --> devmine\consumer\plugin <br>
+pocketmine\resourcepacks --> devmine\consumer\resourcepacks <br>
 pocketmine\nbt--> devmine\creatures\player <br>
-player.php and iplayer.php --> devmine\creatures\player  <br>
+player.php and iplayer.php and offlineplayer.php --> devmine\creatures\player  <br>
 pocketmine\entity --> devmine\creatures\entities <br>
-pocketmine\command --> devmine\server\commands <br>
-pocketmine\plugin --> devmine\plugin-features <br>
-pocketmine\level --> devmine\levels <br>
-pocketmine\metadata --> devmine\server\epilogos <br>
-pocketmine\math --> devmine\server\calculations <br>
-pocketmine\event --> devmine\events <br>
-pocketmine\permission --> devmine\server\permissions <br>
+pocketmine not in folder (exclude player and iplayer and offlineplayer) --> devmine\server <br>
+pocketmine\network --> devmine\server\network <br>
+pocketmine\permission --> devmine\server\perms <br>
 pocketmine\resources --> devmine\server\resources <br>
 pocketmine\scheduler --> devmine\server\tasks <br>
+pocketmine\command --> devmine\server\commands <br>
+pocketmine\metadata --> devmine\server\meta<br>
+pocketmine\math --> devmine\server\calculations <br>
+pocketmine\lang --> devmine\utilities\languages <br>
+pocketmine\wizard --> devmine\utilities\installer <br>
+pocketmine\utils --> devmine\utilities\main <br>
+pocketmine\plugin --> devmine\plugin-features <br>
+pocketmine\level --> devmine\worlds <br>
+pocketmine\event --> devmine\events <br>
 raklib --> raklib <br>
 spl --> spl <br>
 
@@ -42,20 +43,10 @@ pocketmine\tile\Tile.php --> devmine\inventory\solidentity\SolidEntity.php <br>
 pocketmine\player.php --> devmine\creatures\player\Player.php  <br>
 pocketmine\iplayer.php --> devmine\creatures\player\iPlayer.php  <br>
 pocketmine\OfflinePlayer.php --> devmine\creatures\player\OfflinePlayer.php  <br>
-Achievement.php
-CompatibleClassLoader.php
-CrashDump.php
-MemoryManager.php
-OfflinePlayer.php
-Server.php
-Thread.php
-ThreadManager.php
-Worker.php
 
 # THINGS TO CHANGE
 remove all instances of pocketmine, rename to devmine <br>
-remove all instances of tiles, rename to solidentity
-remove all instances of genysis, rename to devmine
-remove all instances of scheduler, rename to tasks
-remove all instances of metadata, rename to epilogos
-Everybody plz tell me if any other things i need to change.
+remove all instances of tiles, rename to solidentity <br>
+remove all instances of genysis and tesseract and pocketmine, rename to devmine <br>
+remove all instances of scheduler, rename to tasks <br>
+remove all instances of metadata, rename to meta <br>
