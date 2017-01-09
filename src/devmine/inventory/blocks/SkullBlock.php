@@ -1,24 +1,41 @@
 <?php
 
-
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
 /*
  * THIS IS COPIED FROM THE PLUGIN FlowerPot MADE BY @beito123!!
- * https://github.com/beito123/devmine-MP-Plugins/blob/master/test%2FFlowerPot%2Fsrc%2Fbeito%2FFlowerPot%2Fomake%2FSkull.php
+ * https://github.com/beito123/PocketMine-MP-Plugins/blob/master/test%2FFlowerPot%2Fsrc%2Fbeito%2FFlowerPot%2Fomake%2FSkull.php
  *
  */
-namespace devmine\inventory\blocks;
+namespace pocketmine\block;
 
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\Player;
-use devmine\inventory\solidentity\solidentity;
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\creatures\player\tag\ByteTag;
-use devmine\inventory\solidentity\Skull;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\Player;
+use pocketmine\tile\Tile;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\tile\Skull;
 
 class SkullBlock extends Transparent{
 	
@@ -67,7 +84,7 @@ class SkullBlock extends Transparent{
 				$rot = new ByteTag("Rot", 0);
 			}
 			$nbt = new CompoundTag("", [
-				new StringTag("id", solidentity::SKULL),
+				new StringTag("id", Tile::SKULL),
 				new IntTag("x", $block->x),
 				new IntTag("y", $block->y),
 				new IntTag("z", $block->z),
@@ -82,7 +99,7 @@ class SkullBlock extends Transparent{
 			}
 
 			$chunk = $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4);
-			$pot = solidentity::createsolidentity(solidentity::SKULL, $chunk, $nbt);
+			$pot = Tile::createTile(Tile::SKULL, $chunk, $nbt);
 			$this->getLevel()->setBlock($block, Block::get(Block::SKULL_BLOCK, $face), true, true);
 			return true;
 		}
@@ -114,9 +131,9 @@ class SkullBlock extends Transparent{
 	}
 
 	public function getDrops(Item $item) : array {
-		/** @var Skull $solidentity */
-		if($this->getLevel()!=null && (($solidentity = $this->getLevel()->getsolidentity($this)) instanceof Skull)){
-			return [[Item::SKULL, $solidentity->getSkullType(), 1]];
+		/** @var Skull $tile */
+		if($this->getLevel()!=null && (($tile = $this->getLevel()->getTile($this)) instanceof Skull)){
+			return [[Item::SKULL, $tile->getSkullType(), 1]];
 		}else
 			return [[Item::SKULL, 0, 1]];
 	}

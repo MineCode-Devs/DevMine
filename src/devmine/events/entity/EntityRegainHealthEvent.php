@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\creatures\entities\Entity;
-use devmine\server\events\Cancellable;
+use pocketmine\entity\Entity;
+use pocketmine\event\Cancellable;
 
 class EntityRegainHealthEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;

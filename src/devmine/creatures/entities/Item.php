@@ -1,23 +1,40 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
+
+namespace pocketmine\entity;
+
+use pocketmine\event\entity\EntityDamageEvent;
+
+use pocketmine\event\entity\ItemDespawnEvent;
+use pocketmine\event\entity\ItemSpawnEvent;
+use pocketmine\item\Item as ItemItem;
+
+use pocketmine\nbt\NBT;
 
 
-namespace devmine\creatures\entities;
-
-use devmine\server\events\entity\EntityDamageEvent;
-
-use devmine\server\events\entity\ItemDespawnEvent;
-use devmine\server\events\entity\ItemSpawnEvent;
-use devmine\inventory\items\Item as ItemItem;
-
-use devmine\creatures\player\NBT;
-
-
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\server\network\Network;
-use devmine\server\network\protocol\AddItemEntityPacket;
-use devmine\Player;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\network\Network;
+use pocketmine\network\protocol\AddItemEntityPacket;
+use pocketmine\Player;
 
 class Item extends Entity{
 	const NETWORK_ID = 64;
@@ -57,12 +74,10 @@ class Item extends Entity{
 			$this->close();
 			return;
 		}
-		$this->item = NBT::getItemHelper($this->namedtag->Item);
-		if($this->item->getId() <= 0){
-			$this->close();
-			return;
-		}
 
+		assert($this->namedtag->Item instanceof CompoundTag);
+		
+		$this->item = ItemItem::nbtDeserialize($this->namedtag->Item);
 
 		$this->server->getPluginManager()->callEvent(new ItemSpawnEvent($this));
 	}
@@ -149,7 +164,7 @@ class Item extends Entity{
 
 	public function saveNBT(){
 		parent::saveNBT();
-		$this->namedtag->Item = NBT::putItemHelper($this->item);
+		$this->namedtag->Item = $this->item->nbtSerialize(-1, "Item");
 		$this->namedtag->Health = new ShortTag("Health", $this->getHealth());
 		$this->namedtag->Age = new ShortTag("Age", $this->age);
 		$this->namedtag->PickupDelay = new ShortTag("PickupDelay", $this->pickupDelay);

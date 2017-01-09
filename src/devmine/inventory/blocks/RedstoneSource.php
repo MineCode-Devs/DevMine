@@ -1,13 +1,30 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\levels\Level;
-use devmine\server\calculations\Vector3;
-use devmine\Player;
+use pocketmine\item\Item;
+use pocketmine\level\Level;
+use pocketmine\math\Vector3;
+use pocketmine\Player;
 
 /*
  * This class is the power of all redstone blocks!
@@ -30,7 +47,6 @@ class RedstoneSource extends Flowable{
 	}
 
 	public function canCalc(){
-		return $this->getLevel()->getServer()->redstoneEnabled;
 	}
 
 	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){
@@ -98,7 +114,6 @@ class RedstoneSource extends Flowable{
 	}
 
 	public function activate(array $ignore = []){
-		if($this->canCalc()){
 			$this->activated = true;
 			/** @var Door $block */
 
@@ -111,10 +126,8 @@ class RedstoneSource extends Flowable{
 				}
 			}
 		}
-	}
 
 	public function deactivate(array $ignore = []){
-		if($this->canCalc()){
 			$this->activated = false;
 			/** @var Door $block */
 
@@ -137,7 +150,7 @@ class RedstoneSource extends Flowable{
 				$block = $this->getSide(Vector3::SIDE_DOWN, 2);
 				$this->deactivateBlock($block);
 			}
-		}
+		
 	}
 
 	public function checkPower(Block $block, array $ignore = [], $ignoreWire = false){

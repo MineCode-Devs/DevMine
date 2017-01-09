@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\player;
+namespace pocketmine\event\player;
 
-use devmine\server\events\Cancellable;
-use devmine\Player;
+use pocketmine\event\Cancellable;
+use pocketmine\Player;
 
 class PlayerToggleSneakEvent extends PlayerEvent implements Cancellable{
 	public static $handlerList = null;

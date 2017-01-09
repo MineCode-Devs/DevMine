@@ -1,34 +1,46 @@
 <?php
-/**
- * Author: gaoyichuan
- * Time: 2016/2/2 15:16
+
+/*
  *
- * Opendevmine Project
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
  */
 
+namespace pocketmine\command\defaults;
 
-namespace devmine\server\commands\defaults;
-
-use devmine\server\commands\CommandSender;
-use devmine\server\events\TranslationContainer;
-use devmine\creatures\player\NBT;
-use devmine\Player;
-use devmine\creatures\entities\Entity;
-use devmine\utilities\main\TextFormat;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\DoubleTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\FloatTag;
+use pocketmine\command\CommandSender;
+use pocketmine\event\TranslationContainer;
+use pocketmine\nbt\NBT;
+use pocketmine\Player;
+use pocketmine\entity\Entity;
+use pocketmine\utils\TextFormat;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\FloatTag;
 
 class SummonCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%devmine.command.summon.description",
+			"%pocketmine.command.summon.description",
 			"%commands.summon.usage"
 		);
-		$this->setPermission("devmine.command.summon");
+		$this->setPermission("pocketmine.command.summon");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -110,7 +122,7 @@ class SummonCommand extends VanillaCommand{
 		$entity = null;
 		$type = $args[0];
 		$level = ($sender instanceof Player) ? $sender->getLevel() : $sender->getServer()->getDefaultLevel();
-		$chunk = $level->getChunk(round($x) >> 4, round($z) >> 4);
+		$chunk = $level->getChunk($x >> 4, $z >> 4, true);
 		$nbt = new CompoundTag("", [
 			"Pos" => new ListTag("Pos", [
 				new DoubleTag("", $x),

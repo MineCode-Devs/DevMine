@@ -1,14 +1,31 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
 /**
  * Handles the creation of virtual inventories or mapped to an InventoryHolder
  */
-namespace devmine\inventory\layout;
+namespace pocketmine\inventory;
 
-use devmine\inventory\items\Item;
-use devmine\Player;
+use pocketmine\item\Item;
+use pocketmine\Player;
 
 interface Inventory{
 	const MAX_STACK = 64;
@@ -99,7 +116,7 @@ interface Inventory{
 
 	/**
 	 * Checks if the inventory contains any Item with the same material data.
-	 * It will check id, amount, and epilogos (if not null)
+	 * It will check id, amount, and metadata (if not null)
 	 *
 	 * @param Item $item
 	 *
@@ -108,7 +125,7 @@ interface Inventory{
 	public function contains(Item $item);
 
 	/**
-	 * Will return all the Items that has the same id and epilogos (if not null).
+	 * Will return all the Items that has the same id and metadata (if not null).
 	 * Won't check amount
 	 *
 	 * @param Item $item
@@ -118,7 +135,7 @@ interface Inventory{
 	public function all(Item $item);
 
 	/**
-	 * Will return the first slot has the same id and epilogos (if not null) as the Item.
+	 * Will return the first slot has the same id and metadata (if not null) as the Item.
 	 * -1 if not found, will check amount
 	 *
 	 * @param Item $item
@@ -135,7 +152,7 @@ interface Inventory{
 	public function firstEmpty();
 
 	/**
-	 * Will remove all the Items that has the same id and epilogos (if not null)
+	 * Will remove all the Items that has the same id and metadata (if not null)
 	 *
 	 * @param Item $item
 	 */
@@ -197,6 +214,7 @@ interface Inventory{
 	/**
 	 * @param int    $index
 	 * @param Item   $before
+	 * @param bool   $send
 	 */
-	public function onSlotChange($index, $before);
+	public function onSlotChange($index, $before, $send);
 }

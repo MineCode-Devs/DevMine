@@ -12,18 +12,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
-namespace devmine\server\events\inventory;
+namespace pocketmine\event\inventory;
 
-use devmine\server\events\Cancellable;
-use devmine\server\events\Event;
-use devmine\inventory\layout\Recipe;
-use devmine\inventory\items\Item;
-use devmine\Player;
+use pocketmine\event\Cancellable;
+use pocketmine\event\Event;
+use pocketmine\inventory\Recipe;
+use pocketmine\item\Item;
+use pocketmine\Player;
 
 class CraftItemEvent extends Event implements Cancellable{
 	public static $handlerList = null;
@@ -31,11 +31,11 @@ class CraftItemEvent extends Event implements Cancellable{
 	private $input = [];
 	/** @var Recipe */
 	private $recipe;
-	/** @var \devmine\Player */
+	/** @var \pocketmine\Player */
 	private $player;
 
 	/**
-	 * @param \devmine\Player $player
+	 * @param \pocketmine\Player $player
 	 * @param Item[]             $input
 	 * @param Recipe             $recipe
 	 */
@@ -50,7 +50,7 @@ class CraftItemEvent extends Event implements Cancellable{
 	 */
 	public function getInput(){
 		$items = [];
-		foreach($items as $i => $item){
+		foreach($this->input as $i => $item){
 			$items[$i] = clone $item;
 		}
 		return $items;
@@ -64,7 +64,7 @@ class CraftItemEvent extends Event implements Cancellable{
 	}
 
 	/**
-	 * @return \devmine\Player
+	 * @return \pocketmine\Player
 	 */
 	public function getPlayer(){
 		return $this->player;

@@ -1,16 +1,33 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\creatures\entities\Entity;
-use devmine\inventory\items\Item;
-use devmine\server\calculations\Math;
-use devmine\server\calculations\Vector3;
-use devmine\levels\Level;
-use devmine\levels\sound\GenericSound;
-use devmine\Player;
+use pocketmine\entity\Entity;
+use pocketmine\item\Item;
+use pocketmine\math\Math;
+use pocketmine\math\Vector3;
+use pocketmine\level\Level;
+use pocketmine\level\sound\GenericSound;
+use pocketmine\Player;
 
 class PressurePlate extends RedstoneSource{
 	protected $activateTime = 0;
@@ -25,15 +42,13 @@ class PressurePlate extends RedstoneSource{
 	}
 
 	public function onEntityCollide(Entity $entity){
-		if($this->getLevel()->getServer()->redstoneEnabled and $this->canActivate){
 			if(!$this->isActivated()){
 				$this->meta = 1;
 				$this->getLevel()->setBlock($this, $this, true, false);
 				$this->getLevel()->addSound(new GenericSound($this, 1000));
 			}
 			if(!$this->isActivated() or ($this->isActivated() and ($this->getLevel()->getServer()->getTick() % 30) == 0)){
-				$this->activate();
-			}
+				$this->activate();			
 		}
 	}
 

@@ -1,16 +1,33 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\item;
 
-namespace devmine\inventory\items;
-
-use devmine\Server;
-use devmine\Player;
-use devmine\creatures\entities\Effect;
-use devmine\creatures\entities\Entity;
-use devmine\creatures\entities\Human;
-use devmine\server\events\entity\EntityDrinkPotionEvent;
-use devmine\server\network\protocol\EntityEventPacket;
+use pocketmine\Server;
+use pocketmine\Player;
+use pocketmine\entity\Effect;
+use pocketmine\entity\Entity;
+use pocketmine\entity\Human;
+use pocketmine\event\entity\EntityDrinkPotionEvent;
+use pocketmine\network\protocol\EntityEventPacket;
 
 class Potion extends Item{
 	
@@ -53,6 +70,7 @@ class Potion extends Item{
 	const STRENGTH_TWO = 33;
 	const WEAKNESS = 34;
 	const WEAKNESS_T = 35;
+	const DECAY = 36;
 	
 	//Structure: Potion ID => [matching effect, duration in ticks, amplifier]
 	//Use false if no effects.
@@ -105,7 +123,9 @@ class Potion extends Item{
 		self::STRENGTH_TWO => [Effect::STRENGTH, (90 * 20), 1],
 		
 		self::WEAKNESS => [Effect::WEAKNESS, (90 * 20), 0],
-		self::WEAKNESS_T => [Effect::WEAKNESS, (240 * 20), 0]
+		self::WEAKNESS_T => [Effect::WEAKNESS, (240 * 20), 0],
+
+		self::DECAY => [Effect::WITHER, (40 * 20), 0]
 	];
 	
 	public function __construct($meta = 0, $count = 1){
@@ -113,7 +133,11 @@ class Potion extends Item{
 	}
 
 	public static function getColor(int $meta){
-		return Effect::getEffect(self::getEffectId($meta))->getColor();
+		$effect = Effect::getEffect(self::getEffectId($meta));
+		if($effect !== null){
+			return $effect->getColor();
+		}
+		return [0, 0, 0];
 	}
 
 	public function getMaxStackSize() : int{
@@ -124,7 +148,7 @@ class Potion extends Item{
 		return $this->meta > 0;
 	}
 	
-	public function canBeConsumedBy($entity) : bool{
+	public function canBeConsumedBy(Entity $entity) : bool{
 		return $entity instanceof Human;
 	}
 	
@@ -137,7 +161,7 @@ class Potion extends Item{
 	 * @return Effect[]
 	 */
 	public static function getEffectsById(int $id) : array{
-		if(count(self::POTIONS[$id]) === 3){
+		if(count(self::POTIONS[$id] ?? []) === 3){
 			return [Effect::getEffect(self::POTIONS[$id][0])->setDuration(self::POTIONS[$id][1])->setAmplifier(self::POTIONS[$id][2])];
 		}
 		return [];
@@ -211,7 +235,7 @@ class Potion extends Item{
 			case self::REGENERATION_TWO:
 				return Effect::REGENERATION;
 			default:
-				return Effect::WATER_BREATHING;
+				return 0;
 		}
 	}
 	
@@ -277,6 +301,8 @@ class Potion extends Item{
 			case self::WEAKNESS:
 			case self::WEAKNESS_T:
 				return "Potion of Weakness";
+			case self::DECAY:
+				return "Potion of WHTHER II";
 			default:
 				return "Potion";
 		}

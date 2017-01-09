@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\player;
+namespace pocketmine\event\player;
 
-use devmine\server\events\Event;
-use devmine\server\network\SourceInterface;
-use devmine\Player;
+use pocketmine\event\Event;
+use pocketmine\network\SourceInterface;
+use pocketmine\Player;
 
 /**
  * Allows the creation of players overriding the base Player class

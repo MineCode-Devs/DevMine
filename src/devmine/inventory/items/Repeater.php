@@ -19,9 +19,9 @@
  *
  */
 
-namespace devmine\inventory\items;
+namespace pocketmine\item;
 
-use devmine\inventory\blocks\Block;
+use pocketmine\block\Block;
 
 class Repeater extends Item{
 	public function __construct($meta = 0, $count = 1){

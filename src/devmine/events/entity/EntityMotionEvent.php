@@ -13,22 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\creatures\entities\Entity;
-use devmine\server\events;
-use devmine\server\events\Cancellable;
-use devmine\server\calculations\Vector3;
+use pocketmine\entity\Entity;
+use pocketmine\Event;
+use pocketmine\event\Cancellable;
+use pocketmine\math\Vector3;
 
 class EntityMotionEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;
 
+	/** @var Vector3 */
 	private $mot;
 
 	public function __construct(Entity $entity, Vector3 $mot){

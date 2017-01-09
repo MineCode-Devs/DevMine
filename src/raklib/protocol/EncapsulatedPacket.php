@@ -1,6 +1,23 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
 namespace raklib\protocol;
 
@@ -49,29 +66,13 @@ class EncapsulatedPacket{
 			$packet->identifierACK = null;
 		}
 
-
-		/*
-		 * From http://www.jenkinssoftware.com/raknet/manual/reliabilitytypes.html
-		 *
-		 * Default: 0b010 (2) or 0b011 (3)
-		 *
-		 * 0: UNRELIABLE
-		 * 1: UNRELIABLE_SEQUENCED
-		 * 2: RELIABLE
-		 * 3: RELIABLE_ORDERED
-		 * 4: RELIABLE_SEQUENCED
-		 * 5: UNRELIABLE_WITH_ACK_RECEIPT
-		 * 6: RELIABLE_WITH_ACK_RECEIPT
-		 * 7: RELIABLE_ORDERED_WITH_ACK_RECEIPT
-		 */
-
-		if($reliability > 0){
-			if($reliability >= 2 and $reliability !== 5){
+		if($reliability > PacketReliability::UNRELIABLE){
+			if($reliability >= PacketReliability::RELIABLE and $reliability !== PacketReliability::UNRELIABLE_WITH_ACK_RECEIPT){
 				$packet->messageIndex = Binary::readLTriad(substr($binary, $offset, 3));
 				$offset += 3;
 			}
 
-			if($reliability <= 4 and $reliability !== 2){
+			if($reliability <= PacketReliability::RELIABLE_SEQUENCED and $reliability !== PacketReliability::RELIABLE){
 				$packet->orderIndex = Binary::readLTriad(substr($binary, $offset, 3));
 				$offset += 3;
 				$packet->orderChannel = ord($binary{$offset++});
@@ -106,9 +107,9 @@ class EncapsulatedPacket{
 		return
 			chr(($this->reliability << 5) | ($this->hasSplit ? 0b00010000 : 0)) .
 			($internal ? Binary::writeInt(strlen($this->buffer)) . Binary::writeInt($this->identifierACK) : Binary::writeShort(strlen($this->buffer) << 3)) .
-			($this->reliability > 0 ?
-				(($this->reliability >= 2 and $this->reliability !== 5) ? Binary::writeLTriad($this->messageIndex) : "") .
-				(($this->reliability <= 4 and $this->reliability !== 2) ? Binary::writeLTriad($this->orderIndex) . chr($this->orderChannel) : "")
+			($this->reliability > PacketReliability::UNRELIABLE ?
+				(($this->reliability >= PacketReliability::RELIABLE and $this->reliability !== PacketReliability::UNRELIABLE_WITH_ACK_RECEIPT) ? Binary::writeLTriad($this->messageIndex) : "") .
+				(($this->reliability <= PacketReliability::RELIABLE_SEQUENCED and $this->reliability !== PacketReliability::RELIABLE) ? Binary::writeLTriad($this->orderIndex) . chr($this->orderChannel) : "")
 				: ""
 			) .
 			($this->hasSplit ? Binary::writeInt($this->splitCount) . Binary::writeShort($this->splitID) . Binary::writeInt($this->splitIndex) : "")

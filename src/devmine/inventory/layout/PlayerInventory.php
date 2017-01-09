@@ -1,20 +1,39 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\inventory;
 
-namespace devmine\inventory\layout;
-
-use devmine\creatures\entities\Human;
-use devmine\server\events\entity\EntityArmorChangeEvent;
-use devmine\server\events\entity\EntityInventoryChangeEvent;
-use devmine\server\events\player\PlayerItemHeldEvent;
-use devmine\inventory\items\Item;
-use devmine\server\network\protocol\ContainerSetContentPacket;
-use devmine\server\network\protocol\ContainerSetSlotPacket;
-use devmine\server\network\protocol\MobArmorEquipmentPacket;
-use devmine\server\network\protocol\MobEquipmentPacket;
-use devmine\Player;
-use devmine\Server;
+use pocketmine\entity\Human;
+use pocketmine\event\entity\EntityArmorChangeEvent;
+use pocketmine\event\entity\EntityInventoryChangeEvent;
+use pocketmine\event\player\PlayerItemHeldEvent;
+use pocketmine\item\Item;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\network\protocol\ContainerSetContentPacket;
+use pocketmine\network\protocol\ContainerSetSlotPacket;
+use pocketmine\network\protocol\MobArmorEquipmentPacket;
+use pocketmine\network\protocol\MobEquipmentPacket;
+use pocketmine\Player;
+use pocketmine\Server;
 
 class PlayerInventory extends BaseInventory{
 
@@ -22,9 +41,36 @@ class PlayerInventory extends BaseInventory{
 	/** @var int[] */
 	protected $hotbar;
 
-	public function __construct(Human $player){
-		$this->hotbar = array_fill(0, $this->getHotbarSize(), -1);
+	public function __construct(Human $player, $contents = null){
+		$this->hotbar = range(0, $this->getHotbarSize() - 1, 1);
 		parent::__construct($player, InventoryType::get(InventoryType::PLAYER));
+
+		if($contents !== null){
+			if($contents instanceof ListTag){ //Saved data to be loaded into the inventory
+				foreach($contents as $item){
+					if($item["Slot"] >= 0 and $item["Slot"] < $this->getHotbarSize()){ //Hotbar
+						if(isset($item["TrueSlot"])){
+
+							//Valid slot was found, change the linkage to this slot
+							if(0 <= $item["TrueSlot"] and $item["TrueSlot"] < $this->getSize()){
+								$this->hotbar[$item["Slot"]] = $item["TrueSlot"];
+
+							}elseif($item["TrueSlot"] < 0){ //Link to an empty slot (empty hand)
+								$this->hotbar[$item["Slot"]] = -1;
+							}
+						}
+						/* If TrueSlot is not set, leave the slot index as its default which was filled in above
+						 * This only overwrites slot indexes for valid links */
+					}elseif($item["Slot"] >= 100 and $item["Slot"] < 104){ //Armor
+						$this->setItem($this->getSize() + $item["Slot"] - 100, Item::nbtDeserialize($item), false);
+					}else{
+						$this->setItem($item["Slot"] - $this->getHotbarSize(), Item::nbtDeserialize($item), false);
+					}
+				}
+			}else{
+				throw new \InvalidArgumentException("Expecting ListTag, received ".gettype($contents));
+			}
+		}
 	}
 
 	public function getSize(){
@@ -36,30 +82,95 @@ class PlayerInventory extends BaseInventory{
 		$this->sendContents($this->getViewers());
 	}
 
+	/**
+	 * @param int $index
+	 *
+	 * @return int
+	 *
+	 * Returns the index of the inventory slot linked to the specified hotbar slot
+	 */
 	public function getHotbarSlotIndex($index){
 		return ($index >= 0 and $index < $this->getHotbarSize()) ? $this->hotbar[$index] : -1;
 	}
 
+	/**
+	 * @deprecated
+	 *
+	 * Changes the linkage of the specified hotbar slot. This should never be done unless it is requested by the client.
+	 */
 	public function setHotbarSlotIndex($index, $slot){
-		if ($index >= 0 and $index < $this->getHotbarSize() and $slot >= -1 and $slot < $this->getSize()) {
-			$this->hotbar[$index] = $slot;//calculate has been done by client
+		if($this->getHolder()->getServer()->getProperty("settings.deprecated-verbose") !== false){
+			trigger_error("Do not attempt to change hotbar links in plugins!", E_USER_DEPRECATED);
 		}
 	}
 
+	/**
+	 * @return int
+	 *
+	 * Returns the index of the inventory slot the player is currently holding
+	 */
 	public function getHeldItemIndex(){
 		return $this->itemInHandIndex;
 	}
 
-	public function setHeldItemIndex($index, $sendHeldItem = true){
-		if($index >= 0 and $index < $this->getHotbarSize()){
-			$this->itemInHandIndex = $index;
+	/**
+	 * @param int  $hotbarSlotIndex
+	 * @param bool $sendToHolder
+	 * @param int  $slotMapping
+	 *
+	 * Sets which hotbar slot the player is currently holding.
+	 * Allows slot remapping as specified by a MobEquipmentPacket. DO NOT CHANGE SLOT MAPPING IN PLUGINS!
+	 * This new implementation is fully compatible with older APIs.
+	 * NOTE: Slot mapping is the raw slot index sent by MCPE, which will be between 9 and 44.
+	 */
+	public function setHeldItemIndex($hotbarSlotIndex, $sendToHolder = true, $slotMapping = null){
+		if($slotMapping !== null){
+			//Get the index of the slot in the actual inventory
+			$slotMapping -= $this->getHotbarSize();
+		}
+		if(0 <= $hotbarSlotIndex and $hotbarSlotIndex < $this->getHotbarSize()){
+			$this->itemInHandIndex = $hotbarSlotIndex;
+			if($slotMapping !== null){
+				/* Handle a hotbar slot mapping change. This allows PE to select different inventory slots.
+				 * This is the only time slot mapping should ever be changed. */
 
-			if($sendHeldItem){
-				$this->sendHeldItem($this->getHolder()->getViewers());
+				if($slotMapping < 0 or $slotMapping >= $this->getSize()){
+					//Mapping was not in range of the inventory, set it to -1
+					//This happens if the client selected a blank slot (sends 255)
+					$slotMapping = -1;
+				}
+
+				$item = $this->getItem($slotMapping);
+				if($this->getHolder() instanceof Player){
+					Server::getInstance()->getPluginManager()->callEvent($ev = new PlayerItemHeldEvent($this->getHolder(), $item, $slotMapping, $hotbarSlotIndex));
+					if($ev->isCancelled()){
+						$this->sendHeldItem($this->getHolder());
+						$this->sendContents($this->getHolder());
+						return;
+					}
+				}
+
+				if(($key = array_search($slotMapping, $this->hotbar)) !== false and $slotMapping !== -1){
+					/* Do not do slot swaps if the slot was null
+					 * Chosen slot is already linked to a hotbar slot, swap the two slots around.
+					 * This will already have been done on the client-side so no changes need to be sent. */
+					$this->hotbar[$key] = $this->hotbar[$this->itemInHandIndex];
+				}
+
+				$this->hotbar[$this->itemInHandIndex] = $slotMapping;
+			}
+			$this->sendHeldItem($this->getHolder()->getViewers());
+			if($sendToHolder){
+				$this->sendHeldItem($this->getHolder());
 			}
 		}
 	}
 
+	/**
+	 * @return Item
+	 *
+	 * Returns the item the player is currently holding
+	 */
 	public function getItemInHand(){
 		$item = $this->getItem($this->getHeldItemSlot());
 		if($item instanceof Item){
@@ -73,31 +184,36 @@ class PlayerInventory extends BaseInventory{
 	 * @param Item $item
 	 *
 	 * @return bool
+	 *
+	 * Sets the item in the inventory slot the player is currently holding.
 	 */
 	public function setItemInHand(Item $item){
 		return $this->setItem($this->getHeldItemSlot(), $item);
 	}
 
+	/**
+	 * @return int[]
+	 *
+	 * Returns an array of hotbar indices
+	 */
+	public function getHotbar(){
+		return $this->hotbar;
+	}
+
+	/**
+	 * @return int
+	 *
+	 * Returns the inventory slot index of the currently equipped slot
+	 */
 	public function getHeldItemSlot(){
 		return $this->getHotbarSlotIndex($this->itemInHandIndex);
 	}
 
+	/**
+	 * @deprecated
+	 * @param int $slot
+	 */
 	public function setHeldItemSlot($slot){
-		if($slot >= -1 and $slot < $this->getSize()){
-			$item = $this->getItem($slot);
-
-			$itemIndex = $this->getHeldItemIndex();
-
-			if($this->getHolder() instanceof Player){
-				Server::getInstance()->getPluginManager()->callEvent($ev = new PlayerItemHeldEvent($this->getHolder(), $item, $slot, $itemIndex));
-				if($ev->isCancelled()){
-					$this->sendContents($this->getHolder());
-					return;
-				}
-			}
-
-			$this->setHotbarSlotIndex($itemIndex, $slot);
-		}
 	}
 
 	/**
@@ -128,15 +244,22 @@ class PlayerInventory extends BaseInventory{
 		}
 	}
 
-	public function onSlotChange($index, $before){
-		$holder = $this->getHolder();
-		if(!$holder instanceof Player or !$holder->spawned){
-			return;
+	public function onSlotChange($index, $before, $send){
+		if($send){
+			$holder = $this->getHolder();
+			if(!$holder instanceof Player or !$holder->spawned){
+				return;
+			}
+
+			parent::onSlotChange($index, $before, $send);
 		}
+		if($index === $this->itemInHandIndex){
+			$this->sendHeldItem($this->getHolder()->getViewers());
+			if($send){
+				$this->sendHeldItem($this->getHolder());
+			}
 
-		parent::onSlotChange($index, $before);
-
-		if($index >= $this->getSize()){
+		}elseif($index >= $this->getSize()){ //Armour equipment
 			$this->sendArmorSlot($index, $this->getViewers());
 			$this->sendArmorSlot($index, $this->getHolder()->getViewers());
 		}
@@ -153,6 +276,14 @@ class PlayerInventory extends BaseInventory{
 	public function setArmorItem($index, Item $item){
 		return $this->setItem($this->getSize() + $index, $item);
 	}
+	
+	public function damageArmor($index, $cost){
+ 		$this->slots[$this->getSize() + $index]->useOn($this->slots[$this->getSize() + $index], $cost);
+ 	    if($this->slots[$this->getSize() + $index]->getDamage() >= $this->slots[$this->getSize() + $index]->getMaxDurability()){
+ 		$this->setItem($this->getSize() + $index, Item::get(Item::AIR, 0, 0));
+		}
+ 		$this->sendArmorContents($this->getViewers());
+ 	}
 
 	public function getHelmet(){
 		return $this->getItem($this->getSize());
@@ -186,11 +317,11 @@ class PlayerInventory extends BaseInventory{
 		return $this->setItem($this->getSize() + 3, $boots);
 	}
 
-	public function setItem($index, Item $item){
+	public function setItem($index, Item $item, $send = true){
 		if($index < 0 or $index >= $this->size){
 			return false;
 		}elseif($item->getId() === 0 or $item->getCount() <= 0){
-			return $this->clear($index);
+			return $this->clear($index, $send);
 		}
 
 		if($index >= $this->getSize()){ //Armor change
@@ -212,12 +343,12 @@ class PlayerInventory extends BaseInventory{
 
 		$old = $this->getItem($index);
 		$this->slots[$index] = clone $item;
-		$this->onSlotChange($index, $old);
+		$this->onSlotChange($index, $old, $send);
 
 		return true;
 	}
 
-	public function clear($index){
+	public function clear($index, $send = true){
 		if(isset($this->slots[$index])){
 			$item = Item::get(Item::AIR, null, 0);
 			$old = $this->slots[$index];
@@ -250,7 +381,7 @@ class PlayerInventory extends BaseInventory{
 				unset($this->slots[$index]);
 			}
 
-			$this->onSlotChange($index, $old);
+			$this->onSlotChange($index, $old, $send);
 		}
 
 		return true;
@@ -272,8 +403,10 @@ class PlayerInventory extends BaseInventory{
 	public function clearAll(){
 		$limit = $this->getSize() + 4;
 		for($index = 0; $index < $limit; ++$index){
-			$this->clear($index);
+			$this->clear($index, false);
 		}
+		$this->hotbar = range(0, $this->getHotbarSize() - 1, 1);
+		$this->sendContents($this->getViewers());
 	}
 
 	/**
@@ -367,12 +500,17 @@ class PlayerInventory extends BaseInventory{
 			$pk->slots[$i] = $this->getItem($i);
 		}
 
+		//Because PE is stupid and shows 9 less slots than you send it, give it 9 dummy slots so it shows all the REAL slots.
+		for($i = $this->getSize(); $i < $this->getSize() + $this->getHotbarSize(); ++$i){
+			$pk->slots[$i] = Item::get(Item::AIR, 0, 0);
+		}
+
 		foreach($target as $player){
 			$pk->hotbar = [];
 			if($player === $this->getHolder()){
 				for($i = 0; $i < $this->getHotbarSize(); ++$i){
 					$index = $this->getHotbarSlotIndex($i);
-					$pk->hotbar[] = $index <= -1 ? -1 : $index + $this->getHotbarSize();
+					$pk->hotbar[$i] = $index <= -1 ? -1 : $index + $this->getHotbarSize();
 				}
 			}
 			if(($id = $player->getWindowId($this)) === -1 or $player->spawned !== true){

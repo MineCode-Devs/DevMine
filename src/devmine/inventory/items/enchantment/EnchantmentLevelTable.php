@@ -1,12 +1,29 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\item\enchantment;
 
-namespace devmine\inventory\items\enchantment;
-
-use devmine\inventory\items\Armor;
-use devmine\inventory\items\Item;
-use devmine\utilities\main\Range;
+use pocketmine\item\Armor;
+use pocketmine\item\Item;
+use pocketmine\utils\Range;
 
 class EnchantmentLevelTable{
 
@@ -41,7 +58,7 @@ class EnchantmentLevelTable{
 				new Range(29, 41)
 			],
 
-			Enchantment::TYPE_ARMOR_PROJECsolidentity_PROTECTION => [
+			Enchantment::TYPE_ARMOR_PROJECTILE_PROTECTION => [
 				new Range(3, 18),
 				new Range(9, 24),
 				new Range(15, 30),
@@ -183,7 +200,7 @@ class EnchantmentLevelTable{
 			$enchantmentIds[] = Enchantment::TYPE_ARMOR_PROTECTION; 
 			$enchantmentIds[] = Enchantment::TYPE_ARMOR_FIRE_PROTECTION; 
 			$enchantmentIds[] = Enchantment::TYPE_ARMOR_EXPLOSION_PROTECTION; 
-			$enchantmentIds[] = Enchantment::TYPE_ARMOR_PROJECsolidentity_PROTECTION; 
+			$enchantmentIds[] = Enchantment::TYPE_ARMOR_PROJECTILE_PROTECTION; 
 			$enchantmentIds[] = Enchantment::TYPE_ARMOR_THORNS; 
 
 			if($item->isBoots()){

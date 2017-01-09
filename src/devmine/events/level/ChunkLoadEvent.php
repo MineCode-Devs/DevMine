@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\level;
+namespace pocketmine\event\level;
 
-use devmine\levels\format\FullChunk;
+use pocketmine\level\format\Chunk;
 
 /**
  * Called when a Chunk is loaded
@@ -31,7 +31,7 @@ class ChunkLoadEvent extends ChunkEvent{
 
 	private $newChunk;
 
-	public function __construct(FullChunk $chunk, $newChunk){
+	public function __construct(Chunk $chunk, $newChunk){
 		parent::__construct($chunk);
 		$this->newChunk = (bool) $newChunk;
 	}

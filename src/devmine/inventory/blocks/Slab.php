@@ -1,13 +1,30 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\Player;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\Player;
 
 class Slab extends Transparent{
 	
@@ -19,6 +36,7 @@ class Slab extends Transparent{
 	const STONE_BRICK = 5;
 	const QUARTZ = 6;
 	const NETHER_BRICK = 7;
+	const PURPUR_BLOCK = 8;
 
 	protected $id = self::SLAB;
 
@@ -39,7 +57,7 @@ class Slab extends Transparent{
 			4 => "Brick",
 			5 => "Stone Brick",
 			6 => "Quartz",
-			7 => "",
+			7 => "Purpur",
 		];
 		return (($this->meta & 0x08) > 0 ? "Upper " : "") . $names[$this->meta & 0x07] . " Slab";
 	}

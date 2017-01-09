@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\creatures\entities\Creature;
-use devmine\creatures\entities\Entity;
-use devmine\creatures\entities\Human;
-use devmine\creatures\entities\Item;
-use devmine\creatures\entities\Projecsolidentity;
-use devmine\creatures\entities\Vehicle;
+use pocketmine\entity\Creature;
+use pocketmine\entity\Entity;
+use pocketmine\entity\Human;
+use pocketmine\entity\Item;
+use pocketmine\entity\Projectile;
+use pocketmine\entity\Vehicle;
 
 /**
  * Called when a entity is spawned
@@ -45,7 +45,7 @@ class EntitySpawnEvent extends EntityEvent{
 	}
 
 	/**
-	 * @return \devmine\levels\Position
+	 * @return \pocketmine\level\Position
 	 */
 	public function getPosition(){
 		return $this->entity->getPosition();
@@ -75,8 +75,8 @@ class EntitySpawnEvent extends EntityEvent{
 	/**
 	 * @return bool
 	 */
-	public function isProjecsolidentity(){
-		return $this->entity instanceof Projecsolidentity;
+	public function isProjectile(){
+		return $this->entity instanceof Projectile;
 	}
 
 	/**

@@ -1,30 +1,44 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
 /**
  * All Block classes are in here
  */
-namespace devmine\inventory\blocks;
+namespace pocketmine\block;
 
-use devmine\creatures\entities\Entity;
+use pocketmine\entity\Entity;
+use pocketmine\event\block\BlockBurnEvent;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\level\Level;
+use pocketmine\level\MovingObjectPosition;
+use pocketmine\level\Position;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\math\Vector3;
+use pocketmine\metadata\Metadatable;
+use pocketmine\metadata\MetadataValue;
+use pocketmine\Player;
+use pocketmine\plugin\Plugin;
 
-
-use devmine\server\events\block\BlockBurnEvent;
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\levels\Level;
-use devmine\levels\MovingObjectPosition;
-use devmine\levels\Position;
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\server\calculations\Vector3;
-use devmine\server\epilogos\epilogosble;
-use devmine\server\epilogos\epilogosValue;
-use devmine\Player;
-use devmine\pluginfeatures\Plugin;
-
-
-class Block extends Position implements BlockIds, epilogosble{	
+class Block extends Position implements BlockIds, Metadatable{	
 
 	/** @var \SplFixedArray */
 	public static $list = null;
@@ -47,32 +61,6 @@ class Block extends Position implements BlockIds, epilogosble{
 
 	/** @var AxisAlignedBB */
 	public $boundingBox = null;
-
-	/**
-	 * Backwards-compatibility with old way to define block properties
-	 *
-	 * @deprecated
-	 *
-	 * @param string $key
-	 *
-	 * @return mixed
-	 */
-	public function __get($key){
-		static $map = [
-			"hardness" => "getHardness",
-			"lightLevel" => "getLightLevel",
-			"frictionFactor" => "getFrictionFactor",
-			"name" => "getName",
-			"isPlaceable" => "canBePlaced",
-			"isReplaceable" => "canBeReplaced",
-			"isTransparent" => "isTransparent",
-			"isSolid" => "isSolid",
-			"isFlowable" => "canBeFlowedInto",
-			"isActivable" => "canBeActivated",
-			"hasEntityCollision" => "hasEntityCollision"
-		];
-		return isset($map[$key]) ? $this->{$map[$key]}() : null;
-	}
 
 	public static function init(){
 		if(self::$list === null){
@@ -204,6 +192,16 @@ class Block extends Position implements BlockIds, epilogosble{
 			self::$list[self::BREWING_STAND_BLOCK] = BrewingStand::class;
 			self::$list[self::END_PORTAL_FRAME] = EndPortalFrame::class;
 			self::$list[self::END_STONE] = EndStone::class;
+
+			self::$list[self::END_STONE_BRICKS] = EndStoneBricks::class;
+			self::$list[self::END_ROD] = EndRod::class;
+
+			self::$list[self::PURPUR_BLOCK] = PurpurBlock::class;
+			self::$list[self::PURPUR_STAIRS] = PurpurStairs::class;
+
+			self::$list[self::CHORUS_FLOWER] = ChorusFlower::class;
+			self::$list[self::CHORUS_PLANT] = ChorusPlant::class;
+
 			self::$list[self::SANDSTONE_STAIRS] = SandstoneStairs::class;
 			self::$list[self::EMERALD_ORE] = EmeraldOre::class;
 
@@ -211,6 +209,7 @@ class Block extends Position implements BlockIds, epilogosble{
 			self::$list[self::SPRUCE_WOOD_STAIRS] = SpruceWoodStairs::class;
 			self::$list[self::BIRCH_WOOD_STAIRS] = BirchWoodStairs::class;
 			self::$list[self::JUNGLE_WOOD_STAIRS] = JungleWoodStairs::class;
+			self::$list[self::BEACON_BLOCK] = BeaconBlock::class;
 			self::$list[self::STONE_WALL] = StoneWall::class;
 
 			self::$list[self::FLOWER_POT_BLOCK] = FlowerPot::class;
@@ -233,6 +232,8 @@ class Block extends Position implements BlockIds, epilogosble{
 			self::$list[self::DARK_OAK_WOOD_STAIRS] = DarkOakWoodStairs::class;
 
 			self::$list[self::SLIME_BLOCK] = SlimeBlock::class;
+			self::$list[self::PRISMARINE_BLOCK] = PrismarineBlock::class;
+			self::$list[self::SEA_LANTERN_BLOCK] = SeaLanternBlock::class;
 			self::$list[self::HAY_BALE] = HayBale::class;
 			self::$list[self::CARPET] = Carpet::class;
 			self::$list[self::HARDENED_CLAY] = HardenedClay::class;
@@ -287,6 +288,8 @@ class Block extends Position implements BlockIds, epilogosble{
 			self::$list[self::POWERED_REPEATER_BLOCK] = PoweredRepeater::class;
 			self::$list[self::UNPOWERED_REPEATER_BLOCK] = UnpoweredRepeater::class;
 			self::$list[self::CAULDRON_BLOCK] = Cauldron::class;
+			self::$list[self::INVISIBLE_BEDROCK] = InvisibleBedrock::class;
+			self::$list[self::HOPPER_BLOCK] = Hopper::class;
 
 			foreach(self::$list as $id => $class){
 				if($class !== null){
@@ -304,14 +307,12 @@ class Block extends Position implements BlockIds, epilogosble{
 
 					if($block->isSolid()){
 						if($block->isTransparent()){
-							if($block instanceof Lava){
-								self::$lightFilter[$id] = 15;
-							}elseif($block instanceof Liquid or $block instanceof Ice){
+							if($block instanceof Liquid or $block instanceof Ice){
 								self::$lightFilter[$id] = 2;
 							}else{
 								self::$lightFilter[$id] = 1;
 							}
-						}elseif($block->getId() == Block::GLOWSTONE){
+						}elseif($block instanceof SolidLight){
 							self::$lightFilter[$id] = 1;
 						}else{
 							self::$lightFilter[$id] = 15;
@@ -337,6 +338,10 @@ class Block extends Position implements BlockIds, epilogosble{
 	 * @return Block
 	 */
 	public static function get($id, $meta = 0, Position $pos = null){
+		if($id > 0xff){
+			trigger_error("BlockID cannot be higher than 255, defaulting to 0", E_USER_NOTICE);
+			$id = 0;
+		}
 		try{
 			$block = self::$list[$id];
 			if($block !== null){
@@ -581,7 +586,7 @@ class Block extends Position implements BlockIds, epilogosble{
 	/**
 	 * @return string
 	 */
-	public function getName() : string{
+	public function getName(){
 		return "Unknown";
 	}
 
@@ -845,29 +850,29 @@ class Block extends Position implements BlockIds, epilogosble{
 		return MovingObjectPosition::fromBlock($this->x, $this->y, $this->z, $f, $vector->add($this->x, $this->y, $this->z));
 	}
 
-	public function setepilogos($epilogosKey, epilogosValue $epilogosValue){
+	public function setMetadata($metadataKey, MetadataValue $metadataValue){
 		if($this->getLevel() instanceof Level){
-			$this->getLevel()->getBlockepilogos()->setepilogos($this, $epilogosKey, $epilogosValue);
+			$this->getLevel()->getBlockMetadata()->setMetadata($this, $metadataKey, $metadataValue);
 		}
 	}
 
-	public function getepilogos($epilogosKey){
+	public function getMetadata($metadataKey){
 		if($this->getLevel() instanceof Level){
-			return $this->getLevel()->getBlockepilogos()->getepilogos($this, $epilogosKey);
+			return $this->getLevel()->getBlockMetadata()->getMetadata($this, $metadataKey);
 		}
 
 		return null;
 	}
 
-	public function hasepilogos($epilogosKey){
+	public function hasMetadata($metadataKey){
 		if($this->getLevel() instanceof Level){
-			$this->getLevel()->getBlockepilogos()->hasepilogos($this, $epilogosKey);
+			$this->getLevel()->getBlockMetadata()->hasMetadata($this, $metadataKey);
 		}
 	}
 
-	public function removeepilogos($epilogosKey, Plugin $plugin){
+	public function removeMetadata($metadataKey, Plugin $plugin){
 		if($this->getLevel() instanceof Level){
-			$this->getLevel()->getBlockepilogos()->removeepilogos($this, $epilogosKey, $plugin);
+			$this->getLevel()->getBlockMetadata()->removeMetadata($this, $metadataKey, $plugin);
 		}
 	}
 }

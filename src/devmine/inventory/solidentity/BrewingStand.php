@@ -1,22 +1,39 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\tile;
 
-namespace devmine\inventory\solidentity;
-
-use devmine\inventory\layout\BrewingInventory;
-use devmine\inventory\layout\InventoryHolder;
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Fish;
-use devmine\levels\format\FullChunk;
-use devmine\creatures\player\NBT;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\server\network\protocol\ContainerSetDataPacket;
-use devmine\Server;
+use pocketmine\inventory\BrewingInventory;
+use pocketmine\inventory\InventoryHolder;
+use pocketmine\item\Item;
+use pocketmine\item\Fish;
+use pocketmine\level\format\Chunk;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\network\protocol\ContainerSetDataPacket;
+use pocketmine\Server;
 
 class BrewingStand extends Spawnable implements InventoryHolder, Container, Nameable{
 	const MAX_BREW_TIME = 400;
@@ -43,7 +60,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 		Item::GUNPOWDER => 0,
 	];
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		parent::__construct($chunk, $nbt);
 		$this->inventory = new BrewingInventory($this);
 
@@ -133,7 +150,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 		if($i < 0){
 			return Item::get(Item::AIR, 0, 0);
 		}else{
-			return NBT::getItemHelper($this->namedtag->Items[$i]);
+			return Item::nbtDeserialize($this->namedtag->Items[$i]);
 		}
 	}
 
@@ -148,8 +165,6 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 	public function setItem($index, Item $item){
 		$i = $this->getSlotIndex($index);
 
-		$d = NBT::putItemHelper($item, $index);
-
 		if($item->getId() === Item::AIR or $item->getCount() <= 0){
 			if($i >= 0){
 				unset($this->namedtag->Items[$i]);
@@ -160,9 +175,9 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 					break;
 				}
 			}
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}else{
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}
 
 		return true;
@@ -287,7 +302,7 @@ class BrewingStand extends Spawnable implements InventoryHolder, Container, Name
 
 	public function getSpawnCompound(){
 		$nbt = new CompoundTag("", [
-			new StringTag("id", solidentity::BREWING_STAND),
+			new StringTag("id", Tile::BREWING_STAND),
 			new IntTag("x", (int) $this->x),
 			new IntTag("y", (int) $this->y),
 			new IntTag("z", (int) $this->z),

@@ -1,25 +1,42 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\command\defaults;
 
-namespace devmine\server\commands\defaults;
-
-use devmine\server\commands\CommandSender;
-use devmine\server\events\TranslationContainer;
-use devmine\server\network\protocol\Info;
-use devmine\pluginfeatures\Plugin;
-use devmine\utilities\main\TextFormat;
+use pocketmine\command\CommandSender;
+use pocketmine\event\TranslationContainer;
+use pocketmine\network\protocol\Info;
+use pocketmine\plugin\Plugin;
+use pocketmine\utils\TextFormat;
 
 class VersionCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%devmine.command.version.description",
-			"%devmine.command.version.usage",
+			"%pocketmine.command.version.description",
+			"%pocketmine.command.version.usage",
 			["ver", "about"]
 		);
-		$this->setPermission("devmine.command.version");
+		$this->setPermission("pocketmine.command.version");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -28,14 +45,24 @@ class VersionCommand extends VanillaCommand{
 		}
 
 		if(\count($args) === 0){
-			$sender->sendMessage(new TranslationContainer("devmine.server.info.extended", [
-				$sender->getServer()->getName(),
-				$sender->getServer()->getdevmineVersion(),
-				$sender->getServer()->getCodename(),
-				$sender->getServer()->getApiVersion(),
-				$sender->getServer()->getVersion(),
-				Info::CURRENT_PROTOCOL,
-				$sender->getServer()->getiTXApiVersion()
+			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended.title"));
+			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended1", [
+											$sender->getServer()->getName(), 
+											$sender->getServer()->getFormattedVersion("-"),
+											$sender->getServer()->getCodename()
+			]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended2", [
+											phpversion()
+			]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended3", [
+											$sender->getServer()->getApiVersion()
+			
+			]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended4", [
+											$sender->getServer()->getVersion()											 
+			]));
+			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended5", [
+											Info::CURRENT_PROTOCOL
 			]));
 		}else{
 			$pluginName = \implode(" ", $args);
@@ -57,7 +84,7 @@ class VersionCommand extends VanillaCommand{
 			}
 
 			if(!$found){
-				$sender->sendMessage(new TranslationContainer("devmine.command.version.noSuchPlugin"));
+				$sender->sendMessage(new TranslationContainer("pocketmine.command.version.noSuchPlugin"));
 			}
 		}
 

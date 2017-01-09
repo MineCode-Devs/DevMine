@@ -1,13 +1,30 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
-
-namespace devmine\server\network\protocol;
+namespace pocketmine\network\protocol;
 
 #include <rules/DataPacket.h>
 
 #ifndef COMPILE
-use devmine\utilities\main\Binary;
+use pocketmine\utils\Binary;
 
 #endif
 
@@ -25,7 +42,7 @@ class AddEntityPacket extends DataPacket{
 	public $yaw;
 	public $pitch;
 	public $modifiers;
-	public $epilogos = [];
+	public $metadata = [];
 	public $links = [];
 
 	public function decode(){
@@ -34,23 +51,20 @@ class AddEntityPacket extends DataPacket{
 
 	public function encode(){
 		$this->reset();
-		$this->putLong($this->eid);
-		$this->putInt($this->type);
-		$this->putFloat($this->x);
-		$this->putFloat($this->y);
-		$this->putFloat($this->z);
-		$this->putFloat($this->speedX);
-		$this->putFloat($this->speedY);
-		$this->putFloat($this->speedZ);
-		$this->putFloat($this->yaw * 0.71111);
-		$this->putFloat($this->pitch * 0.71111);
-		$this->putInt($this->modifiers);
-		$meta = Binary::writeepilogos($this->epilogos);
+		$this->putEntityId($this->eid); //EntityUniqueID - TODO: verify this
+		$this->putEntityId($this->eid);
+		$this->putUnsignedVarInt($this->type);
+		$this->putVector3f($this->x, $this->y, $this->z);
+		$this->putVector3f($this->speedX, $this->speedY, $this->speedZ);
+		$this->putLFloat($this->pitch * 0.71111);
+		$this->putLFloat($this->yaw * 0.71111);
+		$this->putUnsignedVarInt($this->modifiers); //attributes?
+		$meta = Binary::writeMetadata($this->metadata);
 		$this->put($meta);
-		$this->putShort(count($this->links));
+		$this->putUnsignedVarInt(count($this->links));
 		foreach($this->links as $link){
-			$this->putLong($link[0]);
-			$this->putLong($link[1]);
+			$this->putEntityId($link[0]);
+			$this->putEntityId($link[1]);
 			$this->putByte($link[2]);
 		}
 	}

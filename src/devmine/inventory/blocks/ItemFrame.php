@@ -1,18 +1,35 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\FloatTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\ByteTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\inventory\solidentity\solidentity;
-use devmine\inventory\solidentity\ItemFrame as ItemFramesolidentity;
-use devmine\Player;
+use pocketmine\item\Item;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\tile\Tile;
+use pocketmine\tile\ItemFrame as ItemFrameTile;
+use pocketmine\Player;
 
 class ItemFrame extends Transparent{
 	protected $id = self::ITEM_FRAME_BLOCK;
@@ -30,21 +47,23 @@ class ItemFrame extends Transparent{
 	}
 
 	public function onActivate(Item $item, Player $player = null){
-		$solidentity = $this->getLevel()->getsolidentity($this);
-		if(!$solidentity instanceof ItemFramesolidentity){
+		$tile = $this->getLevel()->getTile($this);
+		if(!($tile instanceof ItemFrameTile)){
 			$nbt = new CompoundTag("", [
-				new StringTag("id", solidentity::ITEM_FRAME),
+				new StringTag("id", Tile::ITEM_FRAME),
 				new IntTag("x", $this->x),
 				new IntTag("y", $this->y),
 				new IntTag("z", $this->z),
 				new ByteTag("ItemRotation", 0),
 				new FloatTag("ItemDropChance", 1.0)
 			]);
-			solidentity::createsolidentity(solidentity::ITEM_FRAME, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+			$tile = Tile::createTile(Tile::ITEM_FRAME, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 		}
 
-		if($solidentity->getItem()->getId() === 0){
-			$solidentity->setItem(Item::get($item->getId(), $item->getDamage(), 1));
+		if($tile->getItem()->getId() === 0){
+			$item = clone $item;
+			$item->setCount(1);
+			$tile->setItem($item);
 			if($player instanceof Player){
 				if($player->isSurvival()) {
 					$count = $item->getCount();
@@ -58,10 +77,10 @@ class ItemFrame extends Transparent{
 				}
 			}
 		}else{
-			$itemRot = $solidentity->getItemRotation();
+			$itemRot = $tile->getItemRotation();
 			if($itemRot === 7) $itemRot = 0;
 			else $itemRot++;
-			$solidentity->setItemRotation($itemRot);
+			$tile->setItemRotation($itemRot);
 		}
 
 		return true;
@@ -75,17 +94,17 @@ class ItemFrame extends Transparent{
 		if($this->getLevel()==null){
 			return [];
 		}
-		$solidentity = $this->getLevel()->getsolidentity($this);
-		if(!$solidentity instanceof ItemFramesolidentity){
+		$tile = $this->getLevel()->getTile($this);
+		if(!$tile instanceof ItemFrameTile){
 			return [
 				[Item::ITEM_FRAME, 0, 1]
 			];
 		}
 		$chance = mt_rand(0, 100);
-		if($chance <= ($solidentity->getItemDropChance() * 100)){
+		if($chance <= ($tile->getItemDropChance() * 100)){
 			return [
 				[Item::ITEM_FRAME, 0 ,1],
-				[$solidentity->getItem()->getId(), $solidentity->getItem()->getDamage(), 1]
+				[$tile->getItem()->getId(), $tile->getItem()->getDamage(), 1]
 			];
 		}
 		return [
@@ -104,7 +123,7 @@ class ItemFrame extends Transparent{
 			$this->meta = $faces[$face];
 			$this->getLevel()->setBlock($block, $this, true, true);
 			$nbt = new CompoundTag("", [
-				new StringTag("id", solidentity::ITEM_FRAME),
+				new StringTag("id", Tile::ITEM_FRAME),
 				new IntTag("x", $block->x),
 				new IntTag("y", $block->y),
 				new IntTag("z", $block->z),
@@ -118,7 +137,7 @@ class ItemFrame extends Transparent{
 			    }
 		    }
 		    
-			solidentity::createsolidentity(solidentity::ITEM_FRAME, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+			Tile::createTile(Tile::ITEM_FRAME, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 			return true;
 		}
 		return false;

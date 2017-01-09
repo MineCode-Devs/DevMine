@@ -13,40 +13,40 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\creatures\entities\Entity;
-use devmine\creatures\entities\Living;
-use devmine\creatures\entities\Projecsolidentity;
-use devmine\server\events\Cancellable;
-use devmine\inventory\items\Item;
+use pocketmine\entity\Entity;
+use pocketmine\entity\Living;
+use pocketmine\entity\Projectile;
+use pocketmine\event\Cancellable;
+use pocketmine\item\Item;
 
 class EntityShootBowEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;
 
 	/** @var Item */
 	private $bow;
-	/** @var Projecsolidentity */
-	private $projecsolidentity;
+	/** @var Projectile */
+	private $projectile;
 	/** @var float */
 	private $force;
 
 	/**
 	 * @param Living     $shooter
 	 * @param Item       $bow
-	 * @param Projecsolidentity $projecsolidentity
+	 * @param Projectile $projectile
 	 * @param float      $force
 	 */
-	public function __construct(Living $shooter, Item $bow, Projecsolidentity $projecsolidentity, $force){
+	public function __construct(Living $shooter, Item $bow, Projectile $projectile, $force){
 		$this->entity = $shooter;
 		$this->bow = $bow;
-		$this->projecsolidentity = $projecsolidentity;
+		$this->projectile = $projectile;
 		$this->force = $force;
 	}
 
@@ -65,22 +65,22 @@ class EntityShootBowEvent extends EntityEvent implements Cancellable{
 	}
 
 	/**
-	 * @return Entity|Projecsolidentity
+	 * @return Entity|Projectile
 	 */
-	public function getProjecsolidentity(){
-		return $this->projecsolidentity;
+	public function getProjectile(){
+		return $this->projectile;
 	}
 
 	/**
-	 * @param Entity $projecsolidentity
+	 * @param Entity $projectile
 	 */
-	public function setProjecsolidentity(Entity $projecsolidentity){
-		if($projecsolidentity !== $this->projecsolidentity){
-			if(count($this->projecsolidentity->getViewers()) === 0){
-				$this->projecsolidentity->kill();
-				$this->projecsolidentity->close();
+	public function setProjectile(Entity $projectile){
+		if($projectile !== $this->projectile){
+			if(count($this->projectile->getViewers()) === 0){
+				$this->projectile->kill();
+				$this->projectile->close();
 			}
-			$this->projecsolidentity = $projecsolidentity;
+			$this->projectile = $projectile;
 		}
 	}
 

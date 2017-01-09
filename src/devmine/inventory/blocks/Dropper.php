@@ -1,19 +1,36 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\creatures\player\NBT;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\Player;
-use devmine\inventory\solidentity\Dropper as solidentityDropper;
-use devmine\inventory\solidentity\solidentity;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\Player;
+use pocketmine\tile\Dropper as TileDropper;
+use pocketmine\tile\Tile;
 
 class Dropper extends Solid implements ElectricalAppliance{
 
@@ -61,7 +78,7 @@ class Dropper extends Solid implements ElectricalAppliance{
 		$this->getLevel()->setBlock($block, $this, true, true);
 		$nbt = new CompoundTag("", [
 			new ListTag("Items", []),
-			new StringTag("id", solidentity::DROPPER),
+			new StringTag("id", Tile::DROPPER),
 			new IntTag("x", $this->x),
 			new IntTag("y", $this->y),
 			new IntTag("z", $this->z)
@@ -78,34 +95,34 @@ class Dropper extends Solid implements ElectricalAppliance{
 			}
 		}
 
-		solidentity::createsolidentity(solidentity::DROPPER, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+		Tile::createTile(Tile::DROPPER, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 
 		return true;
 	}
 
 	public function activate(){
-		$solidentity = $this->getLevel()->getsolidentity($this);
-		if($solidentity instanceof solidentityDropper){
-			$solidentity->activate();
+		$tile = $this->getLevel()->getTile($this);
+		if($tile instanceof TileDropper){
+			$tile->activate();
 		}
 	}
 
 	public function onActivate(Item $item, Player $player = null){
 		if($player instanceof Player){
-			$t = $this->getLevel()->getsolidentity($this);
+			$t = $this->getLevel()->getTile($this);
 			$dropper = null;
-			if($t instanceof solidentityDropper){
+			if($t instanceof TileDropper){
 				$dropper = $t;
 			}else{
 				$nbt = new CompoundTag("", [
 					new ListTag("Items", []),
-					new StringTag("id", solidentity::DROPPER),
+					new StringTag("id", Tile::DROPPER),
 					new IntTag("x", $this->x),
 					new IntTag("y", $this->y),
 					new IntTag("z", $this->z)
 				]);
 				$nbt->Items->setTagType(NBT::TAG_Compound);
-				$dropper = solidentity::createsolidentity(solidentity::DROPPER, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+				$dropper = Tile::createTile(Tile::DROPPER, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 			}
 
 			if($player->isCreative() and $player->getServer()->limitedCreative){

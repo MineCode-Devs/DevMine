@@ -1,32 +1,49 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\tile;
 
-namespace devmine\inventory\solidentity;
+use pocketmine\block\Block;
+use pocketmine\event\inventory\FurnaceBurnEvent;
+use pocketmine\event\inventory\FurnaceSmeltEvent;
+use pocketmine\inventory\FurnaceInventory;
+use pocketmine\inventory\FurnaceRecipe;
+use pocketmine\inventory\InventoryHolder;
+use pocketmine\item\Item;
+use pocketmine\level\format\Chunk;
+use pocketmine\nbt\NBT;
 
-use devmine\inventory\blocks\Block;
-use devmine\server\events\inventory\FurnaceBurnEvent;
-use devmine\server\events\inventory\FurnaceSmeltEvent;
-use devmine\inventory\layout\FurnaceInventory;
-use devmine\inventory\layout\FurnaceRecipe;
-use devmine\inventory\layout\InventoryHolder;
-use devmine\inventory\items\Item;
-use devmine\levels\format\FullChunk;
-use devmine\creatures\player\NBT;
-
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\server\network\Network;
-use devmine\server\network\protocol\ContainerSetDataPacket;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\network\Network;
+use pocketmine\network\protocol\ContainerSetDataPacket;
 
 class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 	/** @var FurnaceInventory */
 	protected $inventory;
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		parent::__construct($chunk, $nbt);
 		$this->inventory = new FurnaceInventory($this);
 
@@ -122,7 +139,7 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 		if($i < 0){
 			return Item::get(Item::AIR, 0, 0);
 		}else{
-			return NBT::getItemHelper($this->namedtag->Items[$i]);
+			return Item::nbtDeserialize($this->namedtag->Items[$i]);
 		}
 	}
 
@@ -137,8 +154,6 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function setItem($index, Item $item){
 		$i = $this->getSlotIndex($index);
 
-		$d = NBT::putItemHelper($item, $index);
-
 		if($item->getId() === Item::AIR or $item->getCount() <= 0){
 			if($i >= 0){
 				unset($this->namedtag->Items[$i]);
@@ -149,9 +164,9 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 					break;
 				}
 			}
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}else{
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}
 
 		return true;
@@ -237,7 +252,6 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 			}
 			$ret = true;
 		}else{
-			;
 			if($this->getBlock()->getId() === Item::BURNING_FURNACE){
 				$this->getLevel()->setBlock($this, Block::get(Item::FURNACE, $this->getBlock()->getDamage()), true);
 			}
@@ -273,7 +287,7 @@ class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 	
 	public function getSpawnCompound(){
 		$nbt = new CompoundTag("", [
-			new StringTag("id", solidentity::FURNACE),
+			new StringTag("id", Tile::FURNACE),
 			new IntTag("x", (int) $this->x),
 			new IntTag("y", (int) $this->y),
 			new IntTag("z", (int) $this->z),

@@ -1,15 +1,33 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\levels\Explosion;
-use devmine\levels\Level;
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\Player;
-use devmine\utilities\main\TextFormat;
+use pocketmine\event\TranslationContainter;
+use pocketmine\item\Item;
+use pocketmine\level\Explosion;
+use pocketmine\level\Level;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\Player;
+use pocketmine\utils\TextFormat;
 
 class Bed extends Transparent{
 
@@ -54,7 +72,7 @@ class Bed extends Transparent{
 		$isNight = ($time >= Level::TIME_NIGHT and $time < Level::TIME_SUNRISE);
 
 		if($player instanceof Player and !$isNight){
-			$player->sendMessage(TextFormat::GRAY . "You can only sleep at night");
+			$player->sendMessage(new TranslationContainter(TextFormat::GRAY . "%tile.bed.noSleep"));
 			return true;
 		}
 
@@ -83,7 +101,7 @@ class Bed extends Transparent{
 		}
 
 		if($player instanceof Player and $player->sleepOn($b) === false){
-			$player->sendMessage(TextFormat::GRAY . "This bed is occupied");
+			$player->sendMessage(new TranslationContainter(TextFormat::GRAY . "%tile.bed.occupied"));
 		}
 
 		return true;

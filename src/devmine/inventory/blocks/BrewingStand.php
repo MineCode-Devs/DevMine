@@ -1,20 +1,37 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\creatures\player\NBT;
-use devmine\creatures\player\tag\ListTag;
-use devmine\Player;
-use devmine\inventory\solidentity\solidentity;
-use devmine\inventory\solidentity\BrewingStand as solidentityBrewingStand;
-use devmine\server\calculations\Vector3;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\Player;
+use pocketmine\tile\Tile;
+use pocketmine\tile\BrewingStand as TileBrewingStand;
+use pocketmine\math\Vector3;
 
 class BrewingStand extends Transparent{
 
@@ -29,7 +46,7 @@ class BrewingStand extends Transparent{
 			$this->getLevel()->setBlock($block, $this, true, true);
 			$nbt = new CompoundTag("", [
 				new ListTag("Items", []),
-				new StringTag("id", solidentity::BREWING_STAND),
+				new StringTag("id", Tile::BREWING_STAND),
 				new IntTag("x", $this->x),
 				new IntTag("y", $this->y),
 				new IntTag("z", $this->z)
@@ -45,7 +62,7 @@ class BrewingStand extends Transparent{
 				}
 			}
 
-			solidentity::createsolidentity(solidentity::BREWING_STAND, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+			Tile::createTile(Tile::BREWING_STAND, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 
 			return true;
 		}
@@ -78,20 +95,20 @@ class BrewingStand extends Transparent{
 			if($player->isCreative() and $player->getServer()->limitedCreative){
 				return true;
 			}
-			$t = $this->getLevel()->getsolidentity($this);
+			$t = $this->getLevel()->getTile($this);
 			//$brewingStand = false;
-			if($t instanceof solidentityBrewingStand){
+			if($t instanceof TileBrewingStand){
 				$brewingStand = $t;
 			}else{
 				$nbt = new CompoundTag("", [
 					new ListTag("Items", []),
-					new StringTag("id", solidentity::BREWING_STAND),
+					new StringTag("id", Tile::BREWING_STAND),
 					new IntTag("x", $this->x),
 					new IntTag("y", $this->y),
 					new IntTag("z", $this->z)
 				]);
 				$nbt->Items->setTagType(NBT::TAG_Compound);
-				$brewingStand = solidentity::createsolidentity(solidentity::BREWING_STAND, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+				$brewingStand = Tile::createTile(Tile::BREWING_STAND, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 			}
 			$player->addWindow($brewingStand->getInventory());
 		}

@@ -1,17 +1,34 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
+
+namespace pocketmine\event;
 
 
-namespace devmine\server\events;
-
-
-use devmine\creatures\entities\Entity;
-use devmine\server\network\protocol\DataPacket;
-use devmine\Player;
-use devmine\pluginfeatures\PluginManager;
-use devmine\server\tasks\PluginTask;
-use devmine\server\tasks\TaskHandler;
-use devmine\inventory\solidentity\solidentity;
+use pocketmine\entity\Entity;
+use pocketmine\network\protocol\DataPacket;
+use pocketmine\Player;
+use pocketmine\plugin\PluginManager;
+use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\TaskHandler;
+use pocketmine\tile\Tile;
 
 abstract class Timings{
 
@@ -65,7 +82,7 @@ abstract class Timings{
 	/** @var TimingsHandler */
 	public static $activatedEntityTimer;
 	/** @var TimingsHandler */
-	public static $ticksolidentityEntityTimer;
+	public static $tickTileEntityTimer;
 
 	/** @var TimingsHandler */
 	public static $timerEntityBaseTick;
@@ -91,7 +108,7 @@ abstract class Timings{
 	/** @var TimingsHandler[] */
 	public static $entityTypeTimingMap = [];
 	/** @var TimingsHandler[] */
-	public static $solidentityEntityTypeTimingMap = [];
+	public static $tileEntityTypeTimingMap = [];
 	/** @var TimingsHandler[] */
 	public static $packetReceiveTimingMap = [];
 	/** @var TimingsHandler[] */
@@ -129,7 +146,7 @@ abstract class Timings{
 		self::$entityMoveTimer = new TimingsHandler("** entityMove");
 		self::$tickEntityTimer = new TimingsHandler("** tickEntity");
 		self::$activatedEntityTimer = new TimingsHandler("** activatedTickEntity");
-		self::$ticksolidentityEntityTimer = new TimingsHandler("** ticksolidentityEntity");
+		self::$tickTileEntityTimer = new TimingsHandler("** tickTileEntity");
 
 		self::$timerEntityBaseTick = new TimingsHandler("** entityBaseTick");
 		self::$timerLivingEntityBaseTick = new TimingsHandler("** livingEntityBaseTick");
@@ -197,17 +214,17 @@ abstract class Timings{
 	}
 
 	/**
-	 * @param solidentity $solidentity
+	 * @param Tile $tile
 	 *
 	 * @return TimingsHandler
 	 */
-	public static function getsolidentityEntityTimings(solidentity $solidentity){
-		$solidentityType = (new \ReflectionClass($solidentity))->getShortName();
-		if(!isset(self::$solidentityEntityTypeTimingMap[$solidentityType])){
-			self::$solidentityEntityTypeTimingMap[$solidentityType] = new TimingsHandler("** ticksolidentityEntity - " . $solidentityType, self::$ticksolidentityEntityTimer);
+	public static function getTileEntityTimings(Tile $tile){
+		$tileType = (new \ReflectionClass($tile))->getShortName();
+		if(!isset(self::$tileEntityTypeTimingMap[$tileType])){
+			self::$tileEntityTypeTimingMap[$tileType] = new TimingsHandler("** tickTileEntity - " . $tileType, self::$tickTileEntityTimer);
 		}
 
-		return self::$solidentityEntityTypeTimingMap[$solidentityType];
+		return self::$tileEntityTypeTimingMap[$tileType];
 	}
 
 	/**

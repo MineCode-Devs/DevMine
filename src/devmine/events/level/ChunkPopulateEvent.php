@@ -13,13 +13,13 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\level;
+namespace pocketmine\event\level;
 
 /**
  * Called when a Chunk is populated (after receiving it on the main thread)

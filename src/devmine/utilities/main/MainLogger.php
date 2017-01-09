@@ -1,12 +1,29 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
-
-namespace devmine\utilities\main;
+namespace pocketmine\utils;
 
 use LogLevel;
-use devmine\Thread;
-use devmine\Worker;
+use pocketmine\Thread;
+use pocketmine\Worker;
 
 class MainLogger extends \AttachableThreadedLogger{
 	protected $logFile;
@@ -20,7 +37,7 @@ class MainLogger extends \AttachableThreadedLogger{
 	private $consoleCallback;
 
 	/** Extra Settings */
-	protected $write = true;
+	protected $write = false;
 
 	public $shouldSendMsg = "";
 	public $shouldRecordMsg = false;
@@ -84,7 +101,7 @@ class MainLogger extends \AttachableThreadedLogger{
 	}
 
 	public function notice($message, $name = "NOTICE"){
-		$this->send($message, \LogLevel::NOTICE, $name, TextFormat::AQUA);
+		$this->send(TextFormat::BOLD . $message, \LogLevel::NOTICE, $name, TextFormat::GOLD);
 	}
 
 	public function info($message, $name = "INFO"){
@@ -141,6 +158,11 @@ class MainLogger extends \AttachableThreadedLogger{
 		if(($pos = strpos($errstr, "\n")) !== false){
 			$errstr = substr($errstr, 0, $pos);
 		}
+		$errfile = \pocketmine\cleanPath($errfile);
+		$this->log($type, get_class($e) . ": \"$errstr\" ($errno) in \"$errfile\" at line $errline");
+		foreach(@\pocketmine\getTrace(1, $trace) as $i => $line){
+			$this->debug($line);
+		}
 	}
 
 	public function log($level, $message){
@@ -196,7 +218,7 @@ class MainLogger extends \AttachableThreadedLogger{
 			}
 		}
 
-		$message = TextFormat::toANSI(TextFormat::AQUA . "[" . date("H:i:s", $now) . "] " . TextFormat::RESET . $color . "[" . $threadName . "/" . $prefix . "]:" . " " . $message . TextFormat::RESET);
+		$message = TextFormat::toANSI(TextFormat::BOLD . TextFormat::GREEN . "[Tesseract] " . TextFormat::RESET . TextFormat::AQUA . "[" . date("H:i:s", $now) . "] " . $color . $prefix . "> " . $message . TextFormat::RESET);
 		//$message = TextFormat::toANSI(TextFormat::AQUA . "[" . date("H:i:s") . "] ". TextFormat::RESET . $color ."<".$prefix . ">" . " " . $message . TextFormat::RESET);
 		$cleanMessage = TextFormat::clean($message);
 
@@ -258,24 +280,23 @@ class MainLogger extends \AttachableThreadedLogger{
 
 	public function run(){
 		$this->shutdown = false;
-		if($this->write){
-			//$this->logResource = file_put_contents($this->logFile, "a+b", FILE_APPEND);
-
-			while($this->shutdown === false){
-				if(!$this->write) break;
-				$this->synchronized(function(){
-					while($this->logStream->count() > 0){
-						$chunk = $this->logStream->shift();
-						$this->logResource = file_put_contents($this->logFile, $chunk, FILE_APPEND);
-					}
-
-					$this->wait(200000);
-				});
-			}
-
-			if($this->logStream->count() > 0){
+		while($this->shutdown === false){
+			$this->synchronized(function(){
 				while($this->logStream->count() > 0){
 					$chunk = $this->logStream->shift();
+					if($this->write){
+						$this->logResource = file_put_contents($this->logFile, $chunk, FILE_APPEND);
+					}
+				}
+
+				$this->wait(200000);
+			});
+		}
+
+		if($this->logStream->count() > 0){
+			while($this->logStream->count() > 0){
+				$chunk = $this->logStream->shift();
+				if($this->write){
 					$this->logResource = file_put_contents($this->logFile, $chunk, FILE_APPEND);
 				}
 			}

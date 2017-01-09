@@ -13,21 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\creatures\entities\Effect;
-use devmine\creatures\entities\Entity;
-use devmine\server\events\Cancellable;
-use devmine\inventory\layout\PlayerInventory;
-use devmine\Player;
-use devmine\inventory\items\Item;
-use devmine\inventory\items\enchantment\enchantment;
+use pocketmine\entity\Effect;
+use pocketmine\entity\Entity;
+use pocketmine\event\Cancellable;
+use pocketmine\inventory\PlayerInventory;
+use pocketmine\item\Armor;
+use pocketmine\Player;
+use pocketmine\item\Item;
+use pocketmine\item\enchantment\enchantment;
 
 class EntityDamageEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;
@@ -39,10 +40,9 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	const MODIFIER_STRENGTH = 4;
 	const MODIFIER_WEAKNESS = 5;
 
-
 	const CAUSE_CONTACT = 0;
 	const CAUSE_ENTITY_ATTACK = 1;
-	const CAUSE_PROJECsolidentity = 2;
+	const CAUSE_PROJECTILE = 2;
 	const CAUSE_SUFFOCATION = 3;
 	const CAUSE_FALL = 4;
 	const CAUSE_FIRE = 5;
@@ -65,10 +65,12 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	private $fireProtectL = 0;
 	/** @var array */
 	private $modifiers;
-	private $ratemodifiers = [];
+	private $rateModifiers = [];
 	private $originals;
-	private $use_armors = [];
-
+	private $usedArmors = [];
+	private $thornsLevel = [];
+	private $thornsArmor;
+	private $thornsDamage = 0;
 
 
 	/**
@@ -111,25 +113,25 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 			switch($cause){
 				case self::CAUSE_CONTACT:
 				case self::CAUSE_ENTITY_ATTACK:
-				case self::CAUSE_PROJECsolidentity:
+				case self::CAUSE_PROJECTILE:
 				case self::CAUSE_FIRE:
 				case self::CAUSE_LAVA:
 				case self::CAUSE_BLOCK_EXPLOSION:
 				case self::CAUSE_ENTITY_EXPLOSION:
 				case self::CAUSE_LIGHTNING:
 					$points = 0;
-					foreach($entity->getInventory()->getArmorContents() as  $i){
+					foreach($entity->getInventory()->getArmorContents() as $index => $i){
 						if($i->isArmor()){
 							$points += $i->getArmorValue();
+							$this->usedArmors[$index] = 1;
 						}
 					}
 					if($points !== 0){
 						$this->setRateDamage(1 - 0.04 * $points, self::MODIFIER_ARMOR);
-						$this->use_armors = $entity->getInventory()->getArmorContents();
 					}
 					//For Protection
 					$spe_Prote = null;
-					switch ($cause){
+					switch($cause){
 						case self::CAUSE_ENTITY_EXPLOSION:
 						case self::CAUSE_BLOCK_EXPLOSION:
 							$spe_Prote = Enchantment::TYPE_ARMOR_EXPLOSION_PROTECTION;
@@ -138,16 +140,20 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 						case self::CAUSE_LAVA:
 							$spe_Prote = Enchantment::TYPE_ARMOR_FIRE_PROTECTION;
 							break;
-						case self::CAUSE_PROJECsolidentity:
-							$spe_Prote = Enchantment::TYPE_ARMOR_PROJECsolidentity_PROTECTION;
+						case self::CAUSE_PROJECTILE:
+							$spe_Prote = Enchantment::TYPE_ARMOR_PROJECTILE_PROTECTION;
 							break;
 						default;
 							break;
 					}
-					foreach($this->use_armors as  $i){
+					foreach($this->usedArmors as $index => $cost){
+						$i = $entity->getInventory()->getArmorItem($index);
 						if($i->isArmor()){
 							$this->EPF += $i->getEnchantmentLevel(Enchantment::TYPE_ARMOR_PROTECTION);
 							$this->fireProtectL = max($this->fireProtectL, $i->getEnchantmentLevel(Enchantment::TYPE_ARMOR_FIRE_PROTECTION));
+							if($i->getEnchantmentLevel(Enchantment::TYPE_ARMOR_THORNS) > 0){
+								$this->thornsLevel[$index] = $i->getEnchantmentLevel(Enchantment::TYPE_ARMOR_THORNS);
+							}
 							if($spe_Prote !== null){
 								$this->EPF += 2 * $i->getEnchantmentLevel($spe_Prote);
 							}
@@ -229,8 +235,8 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	 * @return float 1 - the percentage
 	 */
 	public function getRateDamage($type = self::MODIFIER_BASE){
-		if(isset($this->ratemodifiers[$type])){
-			return $this->ratemodifiers[$type];
+		if(isset($this->rateModifiers[$type])){
+			return $this->rateModifiers[$type];
 		}
 		return 1;
 	}
@@ -244,7 +250,7 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	 * Notice:If you want to add/reduce the damage by multiplying. Plz use this function.
 	 */
 	public function setRateDamage($damage, $type = self::MODIFIER_BASE){
-		$this->ratemodifiers[$type] = $damage;
+		$this->rateModifiers[$type] = $damage;
 	}
 
 	/**
@@ -261,7 +267,7 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	 */
 	public function getFinalDamage(){
 		$damage = $this->modifiers[self::MODIFIER_BASE];
-		foreach($this->ratemodifiers as $type => $d){
+		foreach($this->rateModifiers as $type => $d){
 			$damage *= $d;
 		}
 		foreach($this->modifiers as $type => $d){
@@ -273,10 +279,13 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	}
 
 	/**
-	 * @return Item $use_armors
+	 * @return Item $usedArmors
+	 * notice: $usedArmors $index->$cost
+	 * $index: the $index of ArmorInventory
+	 * $cost:  the num of durability cost
 	 */
 	public function getUsedArmors(){
-		return $this->use_armors;
+		return $this->usedArmors;
 	}
 
 	/**
@@ -292,15 +301,41 @@ class EntityDamageEvent extends EntityEvent implements Cancellable{
 	public function useArmors(){
 		if($this->entity instanceof Player){
 			if($this->entity->isSurvival() and $this->entity->isAlive()){
-				foreach ($this->use_armors as $index=>$i){
+				foreach($this->usedArmors as $index => $cost){
+					$i = $this->entity->getInventory()->getArmorItem($index);
 					if($i->isArmor()){
-						$i->useOn($i);
-						$this->entity->getInventory()->setArmorItem($index, $i);
+						$this->entity->getInventory()->damageArmor($index, $cost);
 					}
 				}
 			}
 			return true;
 		}
 		return false;
+	}
+
+	public function createThornsDamage(){
+		if($this->thornsLevel !== []){
+			$this->thornsArmor = array_rand($this->thornsLevel);
+			$thornsL = $this->thornsLevel[$this->thornsArmor];
+			if(mt_rand(1, 100) < $thornsL * 15){
+				$this->thornsDamage = mt_rand(1, 4);
+			}
+		}
+	}
+
+	public function getThornsDamage(){
+		return $this->thornsDamage;
+	}
+
+	/**
+	 * @return bool should be used after getThornsDamage()
+	 */
+	public function setThornsArmorUse(){
+		if($this->thornsArmor === null){
+			return false;
+		}else{
+			$this->usedArmors[$this->thornsArmor] = 3;
+			return true;
+		}
 	}
 }

@@ -1,8 +1,25 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
-
-namespace devmine\utilities\installer;
+namespace pocketmine\wizard;
 
 
 class InstallerLang{
@@ -11,19 +28,22 @@ class InstallerLang{
 		"chs" => "简体中文",
 		"zho" => "繁體中文",
 		"jpn" => "日本語",
-		"rus" => "Русский"
+		"rus" => "Русский",
+		"ita" => "Italiano",
+		"kor" => "한국어",
+		"deu" => "Deutsch"
 	];
 	private $texts = [];
 	private $lang;
 	private $langfile;
 
 	public function __construct($lang = ""){
-		if(file_exists(\devmine\PATH . "src/devmine/languages/installer/" . $lang . ".ini")){
+		if(file_exists(\pocketmine\PATH . "src/pocketmine/lang/Installer/" . $lang . ".ini")){
 			$this->lang = $lang;
-			$this->langfile = \devmine\PATH . "src/devmine/languages/installer/" . $lang . ".ini";
+			$this->langfile = \pocketmine\PATH . "src/pocketmine/lang/Installer/" . $lang . ".ini";
 		}else{
 			$files = [];
-			foreach(new \DirectoryIterator(\devmine\PATH . "src/devmine/languages/installer/") as $file){
+			foreach(new \DirectoryIterator(\pocketmine\PATH . "src/pocketmine/lang/Installer/") as $file){
 				if($file->getExtension() === "ini" and substr($file->getFilename(), 0, 2) === $lang){
 					$files[$file->getFilename()] = $file->getSize();
 				}
@@ -35,14 +55,14 @@ class InstallerLang{
 				$l = key($files);
 				$l = substr($l, 0, -4);
 				$this->lang = isset(self::$languages[$l]) ? $l : $lang;
-				$this->langfile = \devmine\PATH . "src/devmine/languages/installer/" . $l . ".ini";
+				$this->langfile = \pocketmine\PATH . "src/pocketmine/lang/Installer/" . $l . ".ini";
 			}else{
 				$this->lang = "en";
-				$this->langfile = \devmine\PATH . "src/devmine/languages/installer/eng.ini";
+				$this->langfile = \pocketmine\PATH . "src/pocketmine/lang/Installer/eng.ini";
 			}
 		}
 
-		$this->loadLang(\devmine\PATH . "src/devmine/languages/installer/eng.ini", "eng");
+		$this->loadLang(\pocketmine\PATH . "src/pocketmine/lang/Installer/eng.ini", "eng");
 		if($this->lang !== "en"){
 			$this->loadLang($this->langfile, $this->lang);
 		}

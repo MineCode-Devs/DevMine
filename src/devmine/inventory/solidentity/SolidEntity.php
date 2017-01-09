@@ -1,40 +1,59 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
 /**
- * All the solidentity classes and related classes
+ * All the Tile classes and related classes
  */
-namespace devmine\inventory\solidentity;
+namespace pocketmine\tile;
 
-use devmine\server\events\Timings;
-use devmine\levels\format\Chunk;
-use devmine\levels\format\FullChunk;
-use devmine\levels\Level;
-use devmine\levels\Position;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\utilities\main\ChunkException;
+use pocketmine\event\Timings;
+use pocketmine\level\format\Chunk;
+use pocketmine\level\Level;
+use pocketmine\level\Position;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\utils\ChunkException;
 
-abstract class solidentity extends Position{
-	const SIGN = "Sign";
-	const CHEST = "Chest";
-	const FURNACE = "Furnace";
-	const FLOWER_POT = "FlowerPot";
-	const MOB_SPAWNER = "MobSpawner";
-	const SKULL = "Skull";
+abstract class Tile extends Position{
+	
 	const BREWING_STAND = "BrewingStand";
+	const CHEST = "Chest";
 	const ENCHANT_TABLE = "EnchantTable";
+	const FLOWER_POT = "FlowerPot";
+	const FURNACE = "Furnace";
+	const MOB_SPAWNER = "MobSpawner";
+	const SIGN = "Sign";
+	const SKULL = "Skull";
 	const ITEM_FRAME = "ItemFrame";
 	const DISPENSER = "Dispenser";
 	const DROPPER = "Dropper";
 	const DAY_LIGHT_DETECTOR = "DLDetector";
 	const CAULDRON = "Cauldron";
+	const HOPPER = "Hopper";
+	const BEACON = "Beacon";
 
-	public static $solidentityCount = 1;
+	public static $tileCount = 1;
 
-	private static $knownsolidentities = [];
+	private static $knownTiles = [];
 	private static $shortNames = [];
 
 	/** @var Chunk */
@@ -45,27 +64,27 @@ abstract class solidentity extends Position{
 	public $y;
 	public $z;
 	public $attach;
-	public $epilogos;
+	public $metadata;
 	public $closed = false;
 	public $namedtag;
 	protected $lastUpdate;
 	protected $server;
 	protected $timings;
 
-	/** @var \devmine\server\events\TimingsHandler */
+	/** @var \pocketmine\event\TimingsHandler */
 	public $tickTimer;
 
 	/**
 	 * @param string    $type
-	 * @param FullChunk $chunk
+	 * @param Chunk $chunk
 	 * @param CompoundTag  $nbt
 	 * @param           $args
 	 *
-	 * @return solidentity
+	 * @return Tile
 	 */
-	public static function createsolidentity($type, FullChunk $chunk, CompoundTag $nbt, ...$args){
-		if(isset(self::$knownsolidentities[$type])){
-			$class = self::$knownsolidentities[$type];
+	public static function createTile($type, Chunk $chunk, CompoundTag $nbt, ...$args){
+		if(isset(self::$knownTiles[$type])){
+			$class = self::$knownTiles[$type];
 			return new $class($chunk, $nbt, ...$args);
 		}
 
@@ -77,10 +96,10 @@ abstract class solidentity extends Position{
 	 *
 	 * @return bool
 	 */
-	public static function registersolidentity($className){
+	public static function registerTile($className){
 		$class = new \ReflectionClass($className);
-		if(is_a($className, solidentity::class, true) and !$class->isAbstract()){
-			self::$knownsolidentities[$class->getShortName()] = $className;
+		if(is_a($className, Tile::class, true) and !$class->isAbstract()){
+			self::$knownTiles[$class->getShortName()] = $className;
 			self::$shortNames[$className] = $class->getShortName();
 			return true;
 		}
@@ -97,12 +116,12 @@ abstract class solidentity extends Position{
 		return self::$shortNames[static::class];
 	}
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		if($chunk === null or $chunk->getProvider() === null){
-			throw new ChunkException("Invalid garbage Chunk given to solidentity");
+			throw new ChunkException("Invalid garbage Chunk given to Tile");
 		}
 
-		$this->timings = Timings::getsolidentityEntityTimings($this);
+		$this->timings = Timings::getTileEntityTimings($this);
 
 		$this->server = $chunk->getProvider()->getLevel()->getServer();
 		$this->chunk = $chunk;
@@ -110,14 +129,14 @@ abstract class solidentity extends Position{
 		$this->namedtag = $nbt;
 		$this->name = "";
 		$this->lastUpdate = microtime(true);
-		$this->id = solidentity::$solidentityCount++;
+		$this->id = Tile::$tileCount++;
 		$this->x = (int) $this->namedtag["x"];
 		$this->y = (int) $this->namedtag["y"];
 		$this->z = (int) $this->namedtag["z"];
 
-		$this->chunk->addsolidentity($this);
-		$this->getLevel()->addsolidentity($this);
-		$this->tickTimer = Timings::getsolidentityEntityTimings($this);
+		$this->chunk->addTile($this);
+		$this->getLevel()->addTile($this);
+		$this->tickTimer = Timings::getTileEntityTimings($this);
 	}
 
 	public function getId(){
@@ -132,7 +151,7 @@ abstract class solidentity extends Position{
 	}
 
 	/**
-	 * @return \devmine\inventory\blocks\Block
+	 * @return \pocketmine\block\Block
 	 */
 	public function getBlock(){
 		return $this->level->getBlock($this);
@@ -143,7 +162,7 @@ abstract class solidentity extends Position{
 	}
 
 	public final function scheduleUpdate(){
-		$this->level->updatesolidentities[$this->id] = $this;
+		$this->level->updateTiles[$this->id] = $this;
 	}
 
 	public function __destruct(){
@@ -153,12 +172,12 @@ abstract class solidentity extends Position{
 	public function close(){
 		if(!$this->closed){
 			$this->closed = true;
-			unset($this->level->updatesolidentities[$this->id]);
-			if($this->chunk instanceof FullChunk){
-				$this->chunk->removesolidentity($this);
+			unset($this->level->updateTiles[$this->id]);
+			if($this->chunk instanceof Chunk){
+				$this->chunk->removeTile($this);
 			}
 			if(($level = $this->getLevel()) instanceof Level){
-				$level->removesolidentity($this);
+				$level->removeTile($this);
 			}
 			$this->level = null;
 		}

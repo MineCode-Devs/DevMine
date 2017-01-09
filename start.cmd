@@ -18,7 +18,7 @@ if exist src\devmine\server\DevMine.php (
 	)
 )
 if exist bin\mintty.exe (
-	start "" bin\mintty.exe -o Columns=88 -o Rows=32 -o AllowBlinking=0 -o FontQuality=3 -o Font="DejaVu Sans Mono" -o FontHeight=10 -o CursorType=0 -o CursorBlinks=1 -h error -t "DevMine" -i bin/DevMine.ico -w max %PHP_BINARY% %DevMine_FILE% --enable-ansi %*
+	start "" bin\mintty.exe -o Columns=88 -o Rows=32 -o AllowBlinking=0 -o FontQuality=3 -o Font="DejaVu Sans Mono" -o FontHeight=10 -o CursorType=0 -o CursorBlinks=1 -h error -t "DevMine" -w max %PHP_BINARY% %DevMine_FILE% --enable-ansi %*
 ) else (
 	%PHP_BINARY% -c bin\php %DevMine_FILE% %*
 )

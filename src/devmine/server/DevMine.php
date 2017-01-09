@@ -1,6 +1,23 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
 namespace {
 	function safe_var_dump(){
@@ -47,26 +64,33 @@ namespace {
 	}
 }
 
-namespace devmine\server {
-	use devmine\utilities\main\Binary;
-	use devmine\utilities\main\MainLogger;
-	use devmine\utilities\main\ServerKiller;
-	use devmine\utilities\main\Terminal;
-	use devmine\utilities\main\Utils;
-	use devmine\utilities\installer\Installer;
+namespace pocketmine {
+	use pocketmine\utils\Binary;
+	use pocketmine\utils\MainLogger;
+	use pocketmine\utils\ServerKiller;
+	use pocketmine\utils\Terminal;
+	use pocketmine\utils\Utils;
+	use pocketmine\wizard\Installer;
 
-	const VERSION = "git";
-	const API_VERSION = "2.0.0"; //So the only plugin change is the "use" statements
-	const CODENAME = "Beta";
-	const MINECRAFT_VERSION = "v0.15.0 alpha";
-	const MINECRAFT_VERSION_NETWORK = "0.15.0";
-	const devmine_API_VERSION = '2.0.0'; //So the only plugin change is the "use" statements
+	const VERSION = ""; //will be set by CI to a git hash
+	const API_VERSION = "3.0.0";
+	const CODENAME = "Crystal";
+	
+	//This method should no longer be used, removing soon
+	/*const MINECRAFT_VERSION = "v1.0.0";
+	const MINECRAFT_VERSION_NETWORK = "1.0.0";*/
 
+	/*
+	 * Startup code. Do not look at it, it may harm you.
+	 * Most of them are hacks to fix date-related bugs, or basic functions used after this
+	 * This is the only non-class based file on this project.
+	 * Enjoy it as much as I did writing it. I don't want to do it again.
+	 */
 
 	if(\Phar::running(true) !== ""){
-		@define('devmine\PATH', \Phar::running(true) . "/");
+		@define('pocketmine\PATH', \Phar::running(true) . "/");
 	}else{
-		@define('devmine\PATH', \getcwd() . DIRECTORY_SEPARATOR);
+		@define('pocketmine\PATH', \getcwd() . DIRECTORY_SEPARATOR);
 	}
 
 	if(version_compare("7.0", PHP_VERSION) > 0){
@@ -82,14 +106,14 @@ namespace devmine\server {
 	}
 
 	if(!class_exists("ClassLoader", false)){
-		require_once(\devmine\PATH . "src/spl/ClassLoader.php");
-		require_once(\devmine\PATH . "src/spl/BaseClassLoader.php");
-		require_once(\devmine\PATH . "src/devmine/server/CompatibleClassLoader.php");
+		require_once(\pocketmine\PATH . "src/spl/ClassLoader.php");
+		require_once(\pocketmine\PATH . "src/spl/BaseClassLoader.php");
+		require_once(\pocketmine\PATH . "src/pocketmine/CompatibleClassLoader.php");
 	}
 
 	$autoloader = new CompatibleClassLoader();
-	$autoloader->addPath(\devmine\PATH . "src");
-	$autoloader->addPath(\devmine\PATH . "src" . DIRECTORY_SEPARATOR . "spl");
+	$autoloader->addPath(\pocketmine\PATH . "src");
+	$autoloader->addPath(\pocketmine\PATH . "src" . DIRECTORY_SEPARATOR . "spl");
 	$autoloader->register(true);
 
 
@@ -103,25 +127,25 @@ namespace devmine\server {
 	ini_set("default_charset", "utf-8");
 
 	ini_set("memory_limit", -1);
-	define('devmine\START_TIME', microtime(true));
+	define('pocketmine\START_TIME', microtime(true));
 
 	$opts = getopt("", ["data:", "plugins:", "no-wizard", "enable-profiler"]);
 
-	define('devmine\DATA', isset($opts["data"]) ? $opts["data"] . DIRECTORY_SEPARATOR : \getcwd() . DIRECTORY_SEPARATOR);
-	define('devmine\pluginfeatures_PATH', isset($opts["plugins"]) ? $opts["plugins"] . DIRECTORY_SEPARATOR : \getcwd() . DIRECTORY_SEPARATOR . "plugins" . DIRECTORY_SEPARATOR);
+	define('pocketmine\DATA', isset($opts["data"]) ? $opts["data"] . DIRECTORY_SEPARATOR : \getcwd() . DIRECTORY_SEPARATOR);
+	define('pocketmine\PLUGIN_PATH', isset($opts["plugins"]) ? $opts["plugins"] . DIRECTORY_SEPARATOR : \getcwd() . DIRECTORY_SEPARATOR . "plugins" . DIRECTORY_SEPARATOR);
 
 	Terminal::init();
 
-	define('devmine\ANSI', Terminal::hasFormattingCodes());
+	define('pocketmine\ANSI', Terminal::hasFormattingCodes());
 
-	if(!file_exists(\devmine\DATA)){
-		mkdir(\devmine\DATA, 0777, true);
+	if(!file_exists(\pocketmine\DATA)){
+		mkdir(\pocketmine\DATA, 0777, true);
 	}
 
 	//Logger has a dependency on timezone, so we'll set it to UTC until we can get the actual timezone.
 	date_default_timezone_set("UTC");
 
-	$logger = new MainLogger(\devmine\DATA . "server.log", \devmine\ANSI);
+	$logger = new MainLogger(\pocketmine\DATA . "server.log", \pocketmine\ANSI);
 
 	if(!ini_get("date.timezone")){
 		if(($timezone = detect_system_timezone()) and date_default_timezone_set($timezone)){
@@ -132,7 +156,7 @@ namespace devmine\server {
 			//If system timezone detection fails or timezone is an invalid value.
 			if($response = Utils::getURL("http://ip-api.com/json")
 				and $ip_geolocation_data = json_decode($response, true)
-				and $ip_geolocation_data['status'] != 'fail'
+				and $ip_geolocation_data['status'] !== 'fail'
 				and date_default_timezone_set($ip_geolocation_data['timezone'])
 			){
 				//Again, for redundancy.
@@ -355,13 +379,13 @@ namespace devmine\server {
 	}
 
 	function cleanPath($path){
-		return rtrim(str_replace(["\\", ".php", "phar://", rtrim(str_replace(["\\", "phar://"], ["/", ""], \devmine\PATH), "/"), rtrim(str_replace(["\\", "phar://"], ["/", ""], \devmine\pluginfeatures_PATH), "/")], ["/", "", "", "", ""], $path), "/");
+		return rtrim(str_replace(["\\", ".php", "phar://", rtrim(str_replace(["\\", "phar://"], ["/", ""], \pocketmine\PATH), "/"), rtrim(str_replace(["\\", "phar://"], ["/", ""], \pocketmine\PLUGIN_PATH), "/")], ["/", "", "", "", ""], $path), "/");
 	}
 
 	$errors = 0;
 
 	if(php_sapi_name() !== "cli"){
-		$logger->critical("You must run devmine-MP using the CLI.");
+		$logger->critical("You must run PocketMine-MP using the CLI.");
 		++$errors;
 	}
 
@@ -383,14 +407,23 @@ namespace devmine\server {
 		//$logger->notice("Couldn't find the uopz extension. Some functions may be limited");
 	}
 
-	if(extension_loaded("devmine")){
-		if(version_compare(phpversion("devmine"), "0.0.1") < 0){
-			$logger->critical("You have the native devmine extension, but your version is lower than 0.0.1.");
+	if(extension_loaded("pocketmine")){
+		if(version_compare(phpversion("pocketmine"), "0.0.1") < 0){
+			$logger->critical("You have the native PocketMine extension, but your version is lower than 0.0.1.");
 			++$errors;
-		}elseif(version_compare(phpversion("devmine"), "0.0.4") > 0){
-			$logger->critical("You have the native devmine extension, but your version is higher than 0.0.4.");
+		}elseif(version_compare(phpversion("pocketmine"), "0.0.4") > 0){
+			$logger->critical("You have the native PocketMine extension, but your version is higher than 0.0.4.");
 			++$errors;
 		}
+	}
+	
+	if(extension_loaded("xdebug")){
+		$logger->warning("
+
+
+	You are running PocketMine with xdebug enabled. This has a major impact on performance.
+
+		");
 	}
 
 	if(!extension_loaded("curl")){
@@ -414,34 +447,30 @@ namespace devmine\server {
 	}
 
 	if($errors > 0){
-		$logger->critical("Please use the installer provided on the homepage, or recompile PHP again.");
+		$logger->critical("Please update your PHP from itxtech.org/genisys/get/, or recompile PHP again.");
 		$logger->shutdown();
 		$logger->join();
 		exit(1); //Exit with error
 	}
 
-	if(file_exists(\devmine\PATH . ".git/refs/heads/master")){ //Found Git information!
-		define('devmine\GIT_COMMIT', strtolower(trim(file_get_contents(\devmine\PATH . ".git/refs/heads/master"))));
+	if(file_exists(\pocketmine\PATH . ".git/refs/heads/master")){ //Found Git information!
+		define('pocketmine\GIT_COMMIT', strtolower(trim(file_get_contents(\pocketmine\PATH . ".git/refs/heads/master"))));
 	}else{
-		define('devmine\GIT_COMMIT', "0000000000000000000000000000000000000000");
+		define('pocketmine\GIT_COMMIT', "0000000000000000000000000000000000000000");
 	}
 
 	@define("ENDIANNESS", (pack("d", 1) === "\77\360\0\0\0\0\0\0" ? Binary::BIG_ENDIAN : Binary::LITTLE_ENDIAN));
 	@define("INT32_MASK", is_int(0xffffffff) ? 0xffffffff : -1);
-	@ini_set("opcache.mmap_base", bin2hex(Utils::getRandomBytes(8, false))); //Fix OPCache address errors
+	@ini_set("opcache.mmap_base", bin2hex(random_bytes(8))); //Fix OPCache address errors
 
 	$lang = "unknown";
-	if(!file_exists(\devmine\DATA . "server.properties") and !isset($opts["no-wizard"])){
+	if(!file_exists(\pocketmine\DATA . "server.properties") and !isset($opts["no-wizard"])){
 		$inst = new Installer();
 		$lang = $inst->getDefaultLang();
 	}
 
-	/*if(\Phar::running(true) === ""){
-		$logger->warning("Non-packaged devmine-MP installation detected, do not use on production.");
-	}*/
-
 	ThreadManager::init();
-	$server = new Server($autoloader, $logger, \devmine\PATH, \devmine\DATA, \devmine\pluginfeatures_PATH, $lang);
+	$server = new Server($autoloader, $logger, \pocketmine\PATH, \pocketmine\DATA, \pocketmine\PLUGIN_PATH, $lang);
 
 	$logger->info("Stopping other threads");
 
@@ -450,13 +479,14 @@ namespace devmine\server {
 		$thread->quit();
 	}
 
-	$killer = new ServerKiller(8);
-	$killer->start();
-
 	$logger->shutdown();
 	$logger->join();
 
-	echo "Server has stopped" . Terminal::$FORMAT_RESET . "\n";
+	//echo "Server has stopped" . Terminal::$FORMAT_RESET . "\n";
+
+	$logger->info(Utils::getThreadCount() . " threads has stopped");//add threads count
+
+	$logger->info("Server has stopped");
 
 	exit(0);
 

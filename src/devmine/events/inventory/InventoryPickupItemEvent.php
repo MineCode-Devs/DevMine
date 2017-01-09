@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\inventory;
+namespace pocketmine\event\inventory;
 
-use devmine\creatures\entities\Item;
-use devmine\server\events\Cancellable;
-use devmine\inventory\layout\Inventory;
+use pocketmine\entity\Item;
+use pocketmine\event\Cancellable;
+use pocketmine\inventory\Inventory;
 
 class InventoryPickupItemEvent extends InventoryEvent implements Cancellable{
 	public static $handlerList = null;

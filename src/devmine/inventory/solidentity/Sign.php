@@ -1,17 +1,34 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\tile;
 
-namespace devmine\inventory\solidentity;
-
-use devmine\levels\format\FullChunk;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
+use pocketmine\level\format\Chunk;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
 
 class Sign extends Spawnable{
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		if(!isset($nbt->Text1)){
 			$nbt->Text1 = new StringTag("Text1", "");
 		}
@@ -38,12 +55,7 @@ class Sign extends Spawnable{
 		$this->namedtag->Text2 = new StringTag("Text2", $line2);
 		$this->namedtag->Text3 = new StringTag("Text3", $line3);
 		$this->namedtag->Text4 = new StringTag("Text4", $line4);
-		$this->spawnToAll();
-
-		if($this->chunk){
-			$this->chunk->setChanged();
-			$this->level->clearChunkCache($this->chunk->getX(), $this->chunk->getZ());
-		}
+        	$this->onChanged();
 
 		return true;
 	}
@@ -59,7 +71,7 @@ class Sign extends Spawnable{
 
 	public function getSpawnCompound(){
 		return new CompoundTag("", [
-			new StringTag("id", solidentity::SIGN),
+			new StringTag("id", Tile::SIGN),
 			$this->namedtag->Text1,
 			$this->namedtag->Text2,
 			$this->namedtag->Text3,

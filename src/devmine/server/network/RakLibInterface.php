@@ -1,17 +1,35 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\network;
 
-namespace devmine\server\network;
-
-use devmine\server\events\player\PlayerCreationEvent;
-use devmine\server\network\protocol\DataPacket;
-use devmine\server\network\protocol\Info as ProtocolInfo;
-use devmine\server\network\protocol\Info;
-use devmine\Player;
-use devmine\Server;
-use devmine\utilities\main\MainLogger;
+use pocketmine\event\player\PlayerCreationEvent;
+use pocketmine\network\protocol\DataPacket;
+use pocketmine\network\protocol\Info as ProtocolInfo;
+use pocketmine\network\protocol\Info;
+use pocketmine\Player;
+use pocketmine\Server;
+use pocketmine\utils\MainLogger;
 use raklib\protocol\EncapsulatedPacket;
+use raklib\protocol\PacketReliability;
 use raklib\RakLib;
 use raklib\server\RakLibServer;
 use raklib\server\ServerHandler;
@@ -119,12 +137,13 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 					$pk = $this->getPacket($packet->buffer);
 					if($pk !== null){
 						$pk->decode();
+						assert($pk->feof(), "Still " . strlen(substr($pk->buffer, $pk->offset)) . " bytes unread!");
 						$this->players[$identifier]->handleDataPacket($pk);
 					}
 				}
 			}catch(\Throwable $e){
 				$logger = $this->server->getLogger();
-				if(\devmine\DEBUG > 1 and isset($pk)){
+				if(\pocketmine\DEBUG > 1 and isset($pk)){
 					$logger->debug("Exception in packet " . get_class($pk) . " 0x" . bin2hex($packet->buffer));
 				}
 				$logger->logException($e);
@@ -170,7 +189,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 		$this->interface->sendOption("name",
 			"MCPE;" . addcslashes($name, ";") . ";" .
 			ProtocolInfo::CURRENT_PROTOCOL . ";" .
-			\devmine\MINECRAFT_VERSION_NETWORK . ";" .
+			ProtocolInfo::MINECRAFT_VERSION_NETWORK . ";" .
 			$poc . ";" .
 			$pc
 		);
@@ -198,7 +217,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 					$packet->__encapsulatedPacket = new CachedEncapsulatedPacket;
 					$packet->__encapsulatedPacket->identifierACK = null;
 					$packet->__encapsulatedPacket->buffer = chr(0xfe) . $packet->buffer;
-					$packet->__encapsulatedPacket->reliability = 3;
+					$packet->__encapsulatedPacket->reliability = PacketReliability::RELIABLE_ORDERED;
 					$packet->__encapsulatedPacket->orderChannel = 0;
 				}
 				$pk = $packet->__encapsulatedPacket;
@@ -214,7 +233,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 			if($pk === null){
 				$pk = new EncapsulatedPacket();
 				$pk->buffer = chr(0xfe) . $packet->buffer;
-				$packet->reliability = 3;
+				$packet->reliability = PacketReliability::RELIABLE_ORDERED;
 				$packet->orderChannel = 0;
 
 				if($needACK === true){

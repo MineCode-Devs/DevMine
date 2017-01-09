@@ -1,72 +1,80 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\command;
 
-namespace devmine\server\commands;
+use pocketmine\command\defaults\BanCidByNameCommand;
+use pocketmine\command\defaults\BanCidCommand;
+use pocketmine\command\defaults\BanCommand;
+use pocketmine\command\defaults\BanIpByNameCommand;
+use pocketmine\command\defaults\BanIpCommand;
+use pocketmine\command\defaults\BanListCommand;
+use pocketmine\command\defaults\DefaultGamemodeCommand;
+use pocketmine\command\defaults\DeopCommand;
+use pocketmine\command\defaults\DifficultyCommand;
+use pocketmine\command\defaults\DumpMemoryCommand;
+use pocketmine\command\defaults\EffectCommand;
+use pocketmine\command\defaults\EnchantCommand;
+use pocketmine\command\defaults\GamemodeCommand;
+use pocketmine\command\defaults\GarbageCollectorCommand;
+use pocketmine\command\defaults\GiveCommand;
+use pocketmine\command\defaults\HelpCommand;
+use pocketmine\command\defaults\KickCommand;
+use pocketmine\command\defaults\KillCommand;
+use pocketmine\command\defaults\ListCommand;
+use pocketmine\command\defaults\MeCommand;
+use pocketmine\command\defaults\OpCommand;
+use pocketmine\command\defaults\PardonCommand;
+use pocketmine\command\defaults\PardonCidCommand;
+use pocketmine\command\defaults\PardonIpCommand;
+use pocketmine\command\defaults\ParticleCommand;
+use pocketmine\command\defaults\PluginsCommand;
+use pocketmine\command\defaults\ReloadCommand;
+use pocketmine\command\defaults\SaveCommand;
+use pocketmine\command\defaults\SaveOffCommand;
+use pocketmine\command\defaults\SaveOnCommand;
+use pocketmine\command\defaults\SayCommand;
+use pocketmine\command\defaults\SeedCommand;
+use pocketmine\command\defaults\SetBlockCommand;
+use pocketmine\command\defaults\SetWorldSpawnCommand;
+use pocketmine\command\defaults\SpawnpointCommand;
+use pocketmine\command\defaults\StatusCommand;
+use pocketmine\command\defaults\StopCommand;
+use pocketmine\command\defaults\SummonCommand;
+use pocketmine\command\defaults\TeleportCommand;
+use pocketmine\command\defaults\TellCommand;
+use pocketmine\command\defaults\TimeCommand;
+use pocketmine\command\defaults\TimingsCommand;
+use pocketmine\command\defaults\VanillaCommand;
+use pocketmine\command\defaults\VersionCommand;
+use pocketmine\command\defaults\WeatherCommand;
+use pocketmine\command\defaults\WhitelistCommand;
+use pocketmine\command\defaults\XpCommand;
+use pocketmine\command\defaults\MakePharCommand;
 
-use devmine\server\commands\defaults\BanCommand;
-use devmine\server\commands\defaults\BanIpCommand;
-use devmine\server\commands\defaults\BanListCommand;
-use devmine\server\commands\defaults\BiomeCommand;
-use devmine\server\commands\defaults\CaveCommand;
-use devmine\server\commands\defaults\ChunkInfoCommand;
-use devmine\server\commands\defaults\DefaultGamemodeCommand;
-use devmine\server\commands\defaults\DeopCommand;
-use devmine\server\commands\defaults\DifficultyCommand;
-use devmine\server\commands\defaults\DumpMemoryCommand;
-use devmine\server\commands\defaults\EffectCommand;
-use devmine\server\commands\defaults\EnchantCommand;
-use devmine\server\commands\defaults\GamemodeCommand;
-use devmine\server\commands\defaults\GarbageCollectorCommand;
-use devmine\server\commands\defaults\GiveCommand;
-use devmine\server\commands\defaults\HelpCommand;
-use devmine\server\commands\defaults\KickCommand;
-use devmine\server\commands\defaults\KillCommand;
-use devmine\server\commands\defaults\ListCommand;
-use devmine\server\commands\defaults\LoadPluginCommand;
-use devmine\server\commands\defaults\LvdatCommand;
-use devmine\server\commands\defaults\MeCommand;
-use devmine\server\commands\defaults\OpCommand;
-use devmine\server\commands\defaults\PardonCommand;
-use devmine\server\commands\defaults\PardonIpCommand;
-use devmine\server\commands\defaults\ParticleCommand;
-use devmine\server\commands\defaults\PluginsCommand;
-use devmine\server\commands\defaults\ReloadCommand;
-use devmine\server\commands\defaults\SaveCommand;
-use devmine\server\commands\defaults\SaveOffCommand;
-use devmine\server\commands\defaults\SaveOnCommand;
-use devmine\server\commands\defaults\SayCommand;
-use devmine\server\commands\defaults\SeedCommand;
-use devmine\server\commands\defaults\SetBlockCommand;
-use devmine\server\commands\defaults\SetWorldSpawnCommand;
-use devmine\server\commands\defaults\SpawnpointCommand;
-use devmine\server\commands\defaults\StatusCommand;
-use devmine\server\commands\defaults\StopCommand;
-use devmine\server\commands\defaults\SummonCommand;
-use devmine\server\commands\defaults\TeleportCommand;
-use devmine\server\commands\defaults\TellCommand;
-use devmine\server\commands\defaults\TimeCommand;
-use devmine\server\commands\defaults\TimingsCommand;
-use devmine\server\commands\defaults\VanillaCommand;
-use devmine\server\commands\defaults\VersionCommand;
-use devmine\server\commands\defaults\WhitelistCommand;
-use devmine\server\commands\defaults\XpCommand;
-use devmine\server\commands\defaults\FillCommand;
-use devmine\server\events\TranslationContainer;
-use devmine\Player;
-use devmine\Server;
-use devmine\utilities\main\MainLogger;
-use devmine\utilities\main\TextFormat;
-
-use devmine\server\commands\defaults\MakeServerCommand;
-use devmine\server\commands\defaults\ExtractPluginCommand;
-use devmine\server\commands\defaults\ExtractPharCommand;
-use devmine\server\commands\defaults\MakePluginCommand;
-use devmine\server\commands\defaults\BancidbynameCommand;
-use devmine\server\commands\defaults\BanipbynameCommand;
-use devmine\server\commands\defaults\BanCidCommand;
-use devmine\server\commands\defaults\PardonCidCommand;
-use devmine\server\commands\defaults\WeatherCommand;
+use pocketmine\event\TranslationContainer;
+use pocketmine\Player;
+use pocketmine\Server;
+use pocketmine\utils\MainLogger;
+use pocketmine\utils\TextFormat;
 
 class SimpleCommandMap implements CommandMap{
 
@@ -74,82 +82,73 @@ class SimpleCommandMap implements CommandMap{
 	 * @var Command[]
 	 */
 	protected $knownCommands = [];
+	
+	/**
+	 * @var bool[]
+	 */
+	protected $commandConfig = [];
 
 	/** @var Server */
 	private $server;
 
 	public function __construct(Server $server){
 		$this->server = $server;
+		/** @var bool[] */
+		$this->commandConfig = $this->server->getProperty("commands");
 		$this->setDefaultCommands();
 	}
 
 	private function setDefaultCommands(){
-		$this->register("devmine", new WeatherCommand("weather"));
+		$this->register("pocketmine", new WeatherCommand("weather"));
 
-		$this->register("devmine", new BanCidCommand("bancid"));
-		$this->register("devmine", new PardonCidCommand("pardoncid"));
-		$this->register("devmine", new BancidbynameCommand("bancidbyname"));
-		$this->register("devmine", new BanipbynameCommand("banipbyname"));
+		$this->register("pocketmine", new BanCidCommand("bancid"));
+		$this->register("pocketmine", new PardonCidCommand("pardoncid"));
+		$this->register("pocketmine", new BanCidByNameCommand("bancidbyname"));
+		$this->register("pocketmine", new BanIpByNameCommand("banipbyname"));
 
-		$this->register("devmine", new ExtractPharCommand("extractphar"));
-		$this->register("devmine", new ExtractPluginCommand("extractplugin"));
-		$this->register("devmine", new MakePluginCommand("makeplugin"));
-		$this->register("devmine", new MakeServerCommand("ms"));
-		//$this->register("devmine", new MakeServerCommand("makeserver"));
-		$this->register("devmine", new ExtractPluginCommand("ep"));
-		$this->register("devmine", new MakePluginCommand("mp"));
-
-		$this->register("devmine", new LoadPluginCommand("loadplugin"));
-
-		$this->register("devmine", new LvdatCommand("lvdat"));
-		$this->register("devmine", new BiomeCommand("biome"));
-		$this->register("devmine", new CaveCommand("cave"));
-		$this->register("devmine", new ChunkInfoCommand("chunkinfo"));
-
-		$this->register("devmine", new VersionCommand("version"));
-		$this->register("devmine", new FillCommand("fill"));
-		$this->register("devmine", new PluginsCommand("plugins"));
-		$this->register("devmine", new SeedCommand("seed"));
-		$this->register("devmine", new HelpCommand("help"));
-		$this->register("devmine", new StopCommand("stop"));
-		$this->register("devmine", new TellCommand("tell"));
-		$this->register("devmine", new DefaultGamemodeCommand("defaultgamemode"));
-		$this->register("devmine", new BanCommand("ban"));
-		$this->register("devmine", new BanIpCommand("ban-ip"));
-		$this->register("devmine", new BanListCommand("banlist"));
-		$this->register("devmine", new PardonCommand("pardon"));
-		$this->register("devmine", new PardonIpCommand("pardon-ip"));
-		$this->register("devmine", new SayCommand("say"));
-		$this->register("devmine", new MeCommand("me"));
-		$this->register("devmine", new ListCommand("list"));
-		$this->register("devmine", new DifficultyCommand("difficulty"));
-		$this->register("devmine", new KickCommand("kick"));
-		$this->register("devmine", new OpCommand("op"));
-		$this->register("devmine", new DeopCommand("deop"));
-		$this->register("devmine", new WhitelistCommand("whitelist"));
-		$this->register("devmine", new SaveOnCommand("save-on"));
-		$this->register("devmine", new SaveOffCommand("save-off"));
-		$this->register("devmine", new SaveCommand("save-all"));
-		$this->register("devmine", new GiveCommand("give"));
-		$this->register("devmine", new EffectCommand("effect"));
-		$this->register("devmine", new EnchantCommand("enchant"));
-		$this->register("devmine", new ParticleCommand("particle"));
-		$this->register("devmine", new GamemodeCommand("gamemode"));
-		$this->register("devmine", new KillCommand("kill"));
-		$this->register("devmine", new SpawnpointCommand("spawnpoint"));
-		$this->register("devmine", new SetWorldSpawnCommand("setworldspawn"));
-		$this->register("devmine", new SummonCommand("summon"));
-		$this->register("devmine", new TeleportCommand("tp"));
-		$this->register("devmine", new TimeCommand("time"));
-		$this->register("devmine", new TimingsCommand("timings"));
-		$this->register("devmine", new ReloadCommand("reload"));
-		$this->register("devmine", new XpCommand("xp"));
-		$this->register("devmine", new SetBlockCommand("setblock"));
+		$this->register("pocketmine", new VersionCommand("version"));
+		$this->register("pocketmine", new PluginsCommand("plugins"));
+		$this->register("pocketmine", new SeedCommand("seed"));
+		$this->register("pocketmine", new HelpCommand("help"), null, true);
+		$this->register("pocketmine", new StopCommand("stop"), null, true);
+		$this->register("pocketmine", new TellCommand("tell"));
+		$this->register("pocketmine", new DefaultGamemodeCommand("defaultgamemode"));
+		$this->register("pocketmine", new BanCommand("ban"));
+		$this->register("pocketmine", new BanIpCommand("ban-ip"));
+		$this->register("pocketmine", new BanListCommand("banlist"));
+		$this->register("pocketmine", new PardonCommand("pardon"));
+		$this->register("pocketmine", new PardonIpCommand("pardon-ip"));
+		$this->register("pocketmine", new SayCommand("say"));
+		$this->register("pocketmine", new MeCommand("me"));
+		$this->register("pocketmine", new ListCommand("list"));
+		$this->register("pocketmine", new DifficultyCommand("difficulty"));
+		$this->register("pocketmine", new KickCommand("kick"));
+		$this->register("pocketmine", new OpCommand("op"));
+		$this->register("pocketmine", new DeopCommand("deop"));
+		$this->register("pocketmine", new WhitelistCommand("whitelist"));
+		$this->register("pocketmine", new SaveOnCommand("save-on"));
+		$this->register("pocketmine", new SaveOffCommand("save-off"));
+		$this->register("pocketmine", new SaveCommand("save-all"), null, true);
+		$this->register("pocketmine", new GiveCommand("give"));
+		$this->register("pocketmine", new EffectCommand("effect"));
+		$this->register("pocketmine", new EnchantCommand("enchant"));
+		$this->register("pocketmine", new ParticleCommand("particle"));
+		$this->register("pocketmine", new GamemodeCommand("gamemode"));
+		$this->register("pocketmine", new KillCommand("kill"));
+		$this->register("pocketmine", new SpawnpointCommand("spawnpoint"));
+		$this->register("pocketmine", new SetWorldSpawnCommand("setworldspawn"));
+		$this->register("pocketmine", new SummonCommand("summon"));
+		$this->register("pocketmine", new TeleportCommand("tp"));
+		$this->register("pocketmine", new TimeCommand("time"));
+		$this->register("pocketmine", new TimingsCommand("timings"));
+		$this->register("pocketmine", new ReloadCommand("reload"), null, true);
+		$this->register("pocketmine", new XpCommand("xp"));
+		$this->register("pocketmine", new SetBlockCommand("setblock"));
 
 		if($this->server->getProperty("debug.commands", false)){
-			$this->register("devmine", new StatusCommand("status"));
-			$this->register("devmine", new GarbageCollectorCommand("gc"));
-			$this->register("devmine", new DumpMemoryCommand("dumpmemory"));
+			$this->register("pocketmine", new StatusCommand("status"), null, true);
+			$this->register("pocketmine", new GarbageCollectorCommand("gc"), null, true);
+			$this->register("pocketmine", new DumpMemoryCommand("dumpmemory"), null, true);
 		}
 	}
 
@@ -160,11 +159,16 @@ class SimpleCommandMap implements CommandMap{
 		}
 	}
 
-	public function register($fallbackPrefix, Command $command, $label = null){
+	public function register($fallbackPrefix, Command $command, $label = null, $overrideConfig = false){
 		if($label === null){
 			$label = $command->getName();
 		}
 		$label = strtolower(trim($label));
+		
+		//Check if command was disabled in config and for override
+		if(!(($this->commandConfig[$label] ?? $this->commandConfig["default"] ?? true) or $overrideConfig)){
+			return false;
+		}
 		$fallbackPrefix = strtolower(trim($fallbackPrefix));
 
 		$registered = $this->registerAlias($command, false, $fallbackPrefix, $label);
@@ -264,7 +268,7 @@ class SimpleCommandMap implements CommandMap{
 			}
 		}catch(\Throwable $e){
 			$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.exception"));
-			$this->server->getLogger()->critical($this->server->getLanguage()->translateString("devmine.command.exception", [$commandLine, (string) $target, $e->getMessage()]));
+			$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.command.exception", [$commandLine, (string) $target, $e->getMessage()]));
 			$logger = $sender->getServer()->getLogger();
 			if($logger instanceof MainLogger){
 				$logger->logException($e);
@@ -307,7 +311,7 @@ class SimpleCommandMap implements CommandMap{
 
 		foreach($values as $alias => $commandStrings){
 			if(strpos($alias, ":") !== false or strpos($alias, " ") !== false){
-				$this->server->getLogger()->warning($this->server->getLanguage()->translateString("devmine.command.alias.illegal", [$alias]));
+				$this->server->getLogger()->warning($this->server->getLanguage()->translateString("pocketmine.command.alias.illegal", [$alias]));
 				continue;
 			}
 
@@ -329,7 +333,7 @@ class SimpleCommandMap implements CommandMap{
 			}
 
 			if(strlen($bad) > 0){
-				$this->server->getLogger()->warning($this->server->getLanguage()->translateString("devmine.command.alias.notFound", [$alias, $bad]));
+				$this->server->getLogger()->warning($this->server->getLanguage()->translateString("pocketmine.command.alias.notFound", [$alias, $bad]));
 				continue;
 			}
 

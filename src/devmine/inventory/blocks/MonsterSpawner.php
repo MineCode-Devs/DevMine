@@ -13,22 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link http://www.devmine.net/
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace devmine\inventory\blocks;
+namespace pocketmine\block;
 
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\inventory\solidentity\solidentity;
-use devmine\inventory\solidentity\MobSpawner;
-use devmine\Player;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\tile\Tile;
+use pocketmine\tile\MobSpawner;
+use pocketmine\Player;
 
 class MonsterSpawner extends Solid{
 
@@ -57,11 +57,11 @@ class MonsterSpawner extends Solid{
 	public function onActivate(Item $item, Player $player = null){
 		if($this->getDamage() == 0){
 			if($item->getId() == Item::SPAWN_EGG){
-				$solidentity = $this->getLevel()->getsolidentity($this);
-				if($solidentity instanceof MobSpawner){
+				$tile = $this->getLevel()->getTile($this);
+				if($tile instanceof MobSpawner){
 					$this->meta = $item->getDamage();
 					//$this->getLevel()->setBlock($this, $this, true, false);
-					$solidentity->setEntityId($this->meta);
+					$tile->setEntityId($this->meta);
 				}
 				return true;
 			}
@@ -73,7 +73,7 @@ class MonsterSpawner extends Solid{
 
 		$this->getLevel()->setBlock($block, $this, true, true);
 		$nbt = new CompoundTag("", [
-			new StringTag("id", solidentity::MOB_SPAWNER),
+			new StringTag("id", Tile::MOB_SPAWNER),
 			new IntTag("x", $block->x),
 			new IntTag("y", $block->y),
 			new IntTag("z", $block->z),
@@ -86,7 +86,7 @@ class MonsterSpawner extends Solid{
 			}
 		}
 		
-		solidentity::createsolidentity(solidentity::MOB_SPAWNER, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+		Tile::createTile(Tile::MOB_SPAWNER, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 		return true;
 	}
 

@@ -13,8 +13,8 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
@@ -22,12 +22,12 @@
 /**
  * Entity related Events, like spawn, inventory, attack...
  */
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\server\events\Event;
+use pocketmine\event\Event;
 
 abstract class EntityEvent extends Event{
-	/** @var \devmine\creatures\entities\Entity */
+	/** @var \pocketmine\entity\Entity */
 	protected $entity;
 
 	public function getEntity(){

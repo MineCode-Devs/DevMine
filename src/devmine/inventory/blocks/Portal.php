@@ -1,15 +1,30 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\levels\sound\EndermanTeleportSound;
-use devmine\levels\particle\PortalParticle;
-use devmine\Player;
-use devmine\server\calculations\Vector3;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\Player;
+use pocketmine\math\Vector3;
 
 class Portal extends Transparent{
 
@@ -44,37 +59,12 @@ class Portal extends Transparent{
 		return true;
 	}
 
-	public function canBeActivated() : bool {
-		return true;
-	}
-
 	public function hasEntityCollision(){
 		return true;
 	}
 
-	public function onActivate(Item $item, Player $player = null){
-		if($player instanceof Player){
-			for($n = 0;$n <= 2;$n++){
-				$sound = new EndermanTeleportSound($this);
-				$this->getLevel()->addSound($sound);
-			}
-			
-			for($num = 0;$num <= 10;$num++){
-				$particle = new PortalParticle($this);
-				$this->getLevel()->addParticle($particle);
-			}
-		}
-
-		return true;
-	}
-
-	public function onBreak(Item $item) {
-		$sound = new EndermanTeleportSound($this);
-		$this->getLevel()->addSound($sound);
-		$particle = new PortalParticle($this);
-		$this->getLevel()->addParticle($particle);
+	public function onBreak(Item $item){
 		$block = $this;
-		//$this->getLevel()->setBlock($block, new Block(Block::PORTAL, 0));//在破坏处放置一个方块防止计算出错
 		if($this->getLevel()->getBlock($this->temporalVector->setComponents($block->x - 1, $block->y, $block->z))->getId() == Block::PORTAL or
 			$this->getLevel()->getBlock($this->temporalVector->setComponents($block->x + 1, $block->y, $block->z))->getId() == Block::PORTAL){//x方向
 			for($x = $block->x;$this->getLevel()->getBlock($this->temporalVector->setComponents($x, $block->y, $block->z))->getId() == Block::PORTAL;$x++){
@@ -116,7 +106,7 @@ class Portal extends Transparent{
 	
 	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){
 		if($player instanceof Player){
-			$this->meta = ((int) $player->getDirection() + 5) % 2;
+			$this->meta = $player->getDirection() & 0x01;
 		}
 		$this->getLevel()->setBlock($block, $this, true, true);
 
@@ -124,12 +114,6 @@ class Portal extends Transparent{
 	}
 	
 	public function getDrops(Item $item) : array {
-		if($item->isPickaxe() >= 1){
-			return [
-				[Item::PORTAL, 0, 1],
-			];
-		}else{
-			return [];
-		}
+		return [];
 	}
 }

@@ -1,41 +1,58 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
+
+namespace pocketmine\tile;
+
+use pocketmine\block\Block;
+use pocketmine\entity\Entity;
+use pocketmine\inventory\DispenserInventory;
+use pocketmine\inventory\InventoryHolder;
+use pocketmine\item\Item;
+use pocketmine\level\format\Chunk;
+use pocketmine\level\particle\SmokeParticle;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\entity\Item as ItemEntity;
+use pocketmine\entity\Egg;
+use pocketmine\entity\ThrownExpBottle;
+use pocketmine\entity\ThrownPotion;
+use pocketmine\entity\Arrow;
+use pocketmine\entity\Snowball;
 
 
-namespace devmine\inventory\solidentity;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\IntTag;
 
-use devmine\inventory\blocks\Block;
-use devmine\creatures\entities\Entity;
-use devmine\inventory\layout\DispenserInventory;
-use devmine\inventory\layout\InventoryHolder;
-use devmine\inventory\items\Item;
-use devmine\levels\format\FullChunk;
-use devmine\levels\particle\SmokeParticle;
-use devmine\server\calculations\Vector3;
-use devmine\creatures\player\NBT;
-use devmine\creatures\player\tag\DoubleTag;
-use devmine\creatures\player\tag\FloatTag;
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\entities\Item as ItemEntity;
-use devmine\creatures\entities\Egg;
-use devmine\creatures\entities\ThrownExpBottle;
-use devmine\creatures\entities\ThrownPotion;
-use devmine\creatures\entities\Arrow;
-use devmine\creatures\entities\Snowball;
-
-
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\IntTag;
-
-use devmine\creatures\player\tag\StringTag;
+use pocketmine\nbt\tag\StringTag;
 
 class Dispenser extends Spawnable implements InventoryHolder, Container, Nameable{
 
 	/** @var DispenserInventory */
 	protected $inventory;
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		parent::__construct($chunk, $nbt);
 		$this->inventory = new DispenserInventory($this);
 
@@ -106,7 +123,7 @@ class Dispenser extends Spawnable implements InventoryHolder, Container, Nameabl
 		if($i < 0){
 			return Item::get(Item::AIR, 0, 0);
 		}else{
-			return NBT::getItemHelper($this->namedtag->Items[$i]);
+			return Item::nbtDeserialize($this->namedtag->Items[$i]);
 		}
 	}
 
@@ -121,8 +138,6 @@ class Dispenser extends Spawnable implements InventoryHolder, Container, Nameabl
 	public function setItem($index, Item $item){
 		$i = $this->getSlotIndex($index);
 
-		$d = NBT::putItemHelper($item, $index);
-
 		if($item->getId() === Item::AIR or $item->getCount() <= 0){
 			if($i >= 0){
 				unset($this->namedtag->Items[$i]);
@@ -133,9 +148,9 @@ class Dispenser extends Spawnable implements InventoryHolder, Container, Nameabl
 					break;
 				}
 			}
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}else{
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}
 
 		return true;
@@ -330,9 +345,7 @@ class Dispenser extends Spawnable implements InventoryHolder, Container, Nameabl
 
 					break;
 				default:
-					$itemTag = NBT::putItemHelper($needItem);
-					$itemTag->setName("Item");
-
+					
 					$nbt = new CompoundTag("", [
 						"Pos" => new ListTag("Pos", [
 							new DoubleTag("", $this->x + $motion[0] * 2 + 0.5),
@@ -349,7 +362,7 @@ class Dispenser extends Spawnable implements InventoryHolder, Container, Nameabl
 							new FloatTag("", 0)
 						]),
 						"Health" => new ShortTag("Health", 5),
-						"Item" => $itemTag,
+						"Item" => $needItem->nbtSerialize(-1, "Item"),
 						"PickupDelay" => new ShortTag("PickupDelay", 10)
 					]);
 
@@ -368,7 +381,7 @@ class Dispenser extends Spawnable implements InventoryHolder, Container, Nameabl
 
 	public function getSpawnCompound(){
 		$c = new CompoundTag("", [
-			new StringTag("id", solidentity::DISPENSER),
+			new StringTag("id", Tile::DISPENSER),
 			new IntTag("x", (int) $this->x),
 			new IntTag("y", (int) $this->y),
 			new IntTag("z", (int) $this->z)

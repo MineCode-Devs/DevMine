@@ -1,56 +1,74 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
 /**
  * All the entity classes
  */
-namespace devmine\creatures\entities;
+namespace pocketmine\entity;
 
-use devmine\inventory\blocks\Block;
-use devmine\inventory\blocks\Fire;
-use devmine\inventory\blocks\Portal;
-use devmine\inventory\blocks\PressurePlate;
-use devmine\inventory\blocks\Water;
-use devmine\inventory\blocks\SlimeBlock;
-use devmine\server\events\entity\EntityDamageEvent;
-use devmine\server\events\entity\EntityDespawnEvent;
-use devmine\server\events\entity\EntityLevelChangeEvent;
-use devmine\server\events\entity\EntityMotionEvent;
-use devmine\server\events\entity\EntityRegainHealthEvent;
-use devmine\server\events\entity\EntitySpawnEvent;
-use devmine\server\events\entity\EntityTeleportEvent;
-use devmine\server\events\Timings;
-use devmine\levels\format\Chunk;
-use devmine\levels\format\FullChunk;
-use devmine\levels\Level;
-use devmine\levels\Location;
-use devmine\levels\particle\DestroyBlockParticle;
-use devmine\levels\Position;
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\server\calculations\Math;
-use devmine\server\calculations\Vector2;
-use devmine\server\calculations\Vector3;
-use devmine\server\epilogos\epilogosble;
-use devmine\server\epilogos\epilogosValue;
-use devmine\creatures\player\tag\ByteTag;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\DoubleTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\FloatTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\server\network\protocol\MobEffectPacket;
-use devmine\server\network\protocol\RemoveEntityPacket;
-use devmine\server\network\protocol\SetEntityDataPacket;
-use devmine\server\network\protocol\SetEntityLinkPacket;
-use devmine\Player;
-use devmine\pluginfeatures\Plugin;
-use devmine\Server;
-use devmine\utilities\main\ChunkException;
+use pocketmine\block\Block;
+use pocketmine\block\Fire;
+use pocketmine\block\Portal;
+use pocketmine\block\PressurePlate;
+use pocketmine\block\Water;
+use pocketmine\block\SlimeBlock;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\entity\EntityDespawnEvent;
+use pocketmine\event\entity\EntityEffectAddEvent;
+use pocketmine\event\entity\EntityEffectRemoveEvent;
+use pocketmine\event\entity\EntityLevelChangeEvent;
+use pocketmine\event\entity\EntityMotionEvent;
+use pocketmine\event\entity\EntityRegainHealthEvent;
+use pocketmine\event\entity\EntitySpawnEvent;
+use pocketmine\event\entity\EntityTeleportEvent;
+use pocketmine\event\Timings;
+use pocketmine\level\format\Chunk;
+use pocketmine\level\Level;
+use pocketmine\level\Location;
+use pocketmine\level\particle\DestroyBlockParticle;
+use pocketmine\level\Position;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\math\Math;
+use pocketmine\math\Vector2;
+use pocketmine\math\Vector3;
+use pocketmine\metadata\Metadatable;
+use pocketmine\metadata\MetadataValue;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\network\protocol\MobEffectPacket;
+use pocketmine\network\protocol\RemoveEntityPacket;
+use pocketmine\network\protocol\SetEntityDataPacket;
+use pocketmine\network\protocol\SetEntityLinkPacket;
+use pocketmine\Player;
+use pocketmine\plugin\Plugin;
+use pocketmine\Server;
+use pocketmine\utils\ChunkException;
 
-abstract class Entity extends Location implements epilogosble{
+abstract class Entity extends Location implements Metadatable{
 
 
 	const NETWORK_ID = -1;
@@ -63,22 +81,46 @@ abstract class Entity extends Location implements epilogosble{
 	const DATA_TYPE_STRING = 4;
 	const DATA_TYPE_SLOT = 5;
 	const DATA_TYPE_POS = 6;
-	//const DATA_TYPE_ROTATION = 8;
-	//const DATA_TYPE_LONG = 8;
 	const DATA_TYPE_LONG = 7;
-	
+	const DATA_TYPE_VECTOR3F = 8;
+
 	const DATA_FLAGS = 0;
-	const DATA_AIR = 1;
-	const DATA_NAMETAG = 2;
-	const DATA_SHOW_NAMETAG = 3;
-	const DATA_SILENT = 4;
-	const DATA_POTION_COLOR = 7;
-	const DATA_POTION_AMBIENT = 8;
-	const DATA_NO_AI = 15;
+	//1 (int)
+	const DATA_VARIANT = 2; //int
+	const DATA_COLOUR = 3; //byte
+	const DATA_NAMETAG = 4; //string
+	const DATA_OWNER_EID = 5; //long
 
-	const DATA_LEAD_HOLDER = 23;
+	const DATA_AIR = 7; //short
+	const DATA_POTION_COLOR = 8; //int (ARGB!)
+	const DATA_POTION_AMBIENT = 9; //byte
+
+	/* 27 (byte) player-specific flags
+	 * 28 (int) player "index"? 
+	 * 29 (block coords) bed position */
+	const DATA_SCALE = 39; //float
+	const DATA_INTERACTIVE_TAG = 40; //string (button text)
+	/* 41 (long) */
+	const DATA_URL_TAG = 43; //string
+	const DATA_MAX_AIR = 44; //short
+	const DATA_MARK_VARIANT = 45; //int
+	/* 46 (byte)
+	 * 47 (int)
+	 * 48 (int)
+	 * 49 (long)
+	 * 50 (long)
+	 * 51 (long)
+	 * 52 (short) */
+	const DATA_BOUNDING_BOX_WIDTH = 53; //float
+	const DATA_BOUNDING_BOX_HEIGHT = 54; //float
+	const DATA_FUSE_LENGTH = 55; //int
+	/* 56 (vector3f)
+	 * 57 (byte)
+	 * 58 (float)
+	 * 59 (float) */
+	
+	const DATA_LEAD_HOLDER_EID = 38; const DATA_LEAD_HOLDER = 38;
 	const DATA_LEAD = 24;
-
 
 	const DATA_FLAG_ONFIRE = 0;
 	const DATA_FLAG_SNEAKING = 1;
@@ -86,7 +128,39 @@ abstract class Entity extends Location implements epilogosble{
 	const DATA_FLAG_SPRINTING = 3;
 	const DATA_FLAG_ACTION = 4;
 	const DATA_FLAG_INVISIBLE = 5;
-
+	const DATA_FLAG_TEMPTED = 6; //???
+	const DATA_FLAG_INLOVE = 7;
+	const DATA_FLAG_SADDLED = 8;
+	const DATA_FLAG_POWERED = 9;
+	const DATA_FLAG_IGNITED = 10; //for creepers?
+	const DATA_FLAG_BABY = 11;
+	const DATA_FLAG_CONVERTING = 12; //???
+	const DATA_FLAG_CRITICAL = 13;
+	const DATA_FLAG_CAN_SHOW_NAMETAG = 14;
+	const DATA_FLAG_ALWAYS_SHOW_NAMETAG = 15;
+	const DATA_FLAG_IMMOBILE = 16, DATA_FLAG_NO_AI = 16;
+	const DATA_FLAG_SILENT = 17;
+	const DATA_FLAG_WALLCLIMBING = 18;
+	const DATA_FLAG_RESTING = 19; //for bats?
+	const DATA_FLAG_SITTING = 20;
+	const DATA_FLAG_ANGRY = 21;
+	const DATA_FLAG_INTERESTED = 22; //for mobs following players with food?
+	const DATA_FLAG_CHARGED = 23;
+	const DATA_FLAG_TAMED = 24;
+	const DATA_FLAG_LEASHED = 25;
+	const DATA_FLAG_SHEARED = 26; //for sheep
+	const DATA_FLAG_GLIDING = 27; const DATA_FLAG_FALL_FLYING = 27;
+	const DATA_FLAG_ELDER = 28; //elder guardian
+	const DATA_FLAG_MOVING = 29;
+	const DATA_FLAG_BREATHING = 30; //hides bubbles if true
+	const DATA_FLAG_CHESTED = 31; //for mules?
+	const DATA_FLAG_STACKABLE = 32;
+ 	const DATA_FLAG_IDLING = 36; //Thanks pmmp.
+	
+	const SOUTH = 0;
+	const WEST = 1;
+	const NORTH = 2;
+	const EAST = 3;
 
 	public static $entityCount = 1;
 	/** @var Entity[] */
@@ -105,12 +179,11 @@ abstract class Entity extends Location implements epilogosble{
 
 	protected $dataFlags = 0;
 	protected $dataProperties = [
-		self::DATA_FLAGS => [self::DATA_TYPE_BYTE, 0],
-		self::DATA_AIR => [self::DATA_TYPE_SHORT, 300],
+		self::DATA_FLAGS => [self::DATA_TYPE_LONG, 0],
+		self::DATA_AIR => [self::DATA_TYPE_SHORT, 400],
+		self::DATA_MAX_AIR => [self::DATA_TYPE_SHORT, 400],
 		self::DATA_NAMETAG => [self::DATA_TYPE_STRING, ""],
-		self::DATA_SHOW_NAMETAG => [self::DATA_TYPE_BYTE, 1],
-		self::DATA_SILENT => [self::DATA_TYPE_BYTE, 0],
-		self::DATA_NO_AI => [self::DATA_TYPE_BYTE, 0],
+		//self::DATA_SILENT => [self::DATA_TYPE_BYTE, 0],
 		self::DATA_LEAD_HOLDER => [self::DATA_TYPE_LONG, -1],
 		self::DATA_LEAD => [self::DATA_TYPE_BYTE, 0],
 	];
@@ -196,7 +269,7 @@ abstract class Entity extends Location implements epilogosble{
 
 	public $closed = false;
 
-	/** @var \devmine\server\events\TimingsHandler */
+	/** @var \pocketmine\event\TimingsHandler */
 	protected $timings;
 	protected $isPlayer = false;
 
@@ -213,8 +286,10 @@ abstract class Entity extends Location implements epilogosble{
 	public $dropExp = [0, 0];
 
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
-		assert($chunk !== null and $chunk->getProvider() !== null);
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
+		if($chunk === null or $chunk->getProvider() === null){
+ 			throw new ChunkException("Invalid garbage Chunk given to Entity");
+		}
 
 		$this->timings = Timings::getEntityTimings($this);
 
@@ -246,7 +321,9 @@ abstract class Entity extends Location implements epilogosble{
 		);
 		$this->setMotion($this->temporalVector->setComponents($this->namedtag["Motion"][0], $this->namedtag["Motion"][1], $this->namedtag["Motion"][2]));
 
-		assert(!is_nan($this->x) and !is_infinite($this->x) and !is_nan($this->y) and !is_infinite($this->y) and !is_nan($this->z) and !is_infinite($this->z));
+		if(is_nan($this->x) or is_infinite($this->x) or is_nan($this->y) or is_infinite($this->y) or is_nan($this->z) or is_infinite($this->z)){
+			throw new \InvalidStateException("Invalid entity coordinates");
+		}
 
 		if(!isset($this->namedtag->FallDistance)){
 			$this->namedtag->FallDistance = new FloatTag("FallDistance", 0);
@@ -310,7 +387,15 @@ abstract class Entity extends Location implements epilogosble{
 	 * @return bool
 	 */
 	public function isNameTagVisible(){
-		return $this->getDataProperty(self::DATA_SHOW_NAMETAG) > 0;
+		return $this->getDataFlag(self::DATA_FLAGS, self::DATA_FLAG_CAN_SHOW_NAMETAG);
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function isNameTagAlwaysVisible(){
+		return $this->getDataFlag(self::DATA_FLAGS, self::DATA_FLAG_ALWAYS_SHOW_NAMETAG);
 	}
 
 	/**
@@ -324,7 +409,13 @@ abstract class Entity extends Location implements epilogosble{
 	 * @param bool $value
 	 */
 	public function setNameTagVisible($value = true){
-		$this->setDataProperty(self::DATA_SHOW_NAMETAG, self::DATA_TYPE_BYTE, $value ? 1 : 0);
+		$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_CAN_SHOW_NAMETAG, $value);
+	}
+	/**
+	 * @param bool $value
+	 */
+	public function setNameTagAlwaysVisible($value = true){
+		$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_ALWAYS_SHOW_NAMETAG, $value);
 	}
 
 	public function isSneaking(){
@@ -332,7 +423,7 @@ abstract class Entity extends Location implements epilogosble{
 	}
 
 	public function setSneaking($value = true){
-		$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_SNEAKING, (bool)$value);
+		$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_SNEAKING, (bool) $value);
 	}
 
 	public function isSprinting(){
@@ -345,6 +436,21 @@ abstract class Entity extends Location implements epilogosble{
 			$attr = $this->attributeMap->getAttribute(Attribute::MOVEMENT_SPEED);
 			$attr->setValue($value ? ($attr->getValue() * 1.3) : ($attr->getValue() / 1.3));
 		}
+	}
+
+	public function isImmobile() : bool{
+		return $this->getDataFlag(self::DATA_FLAGS, self::DATA_FLAG_IMMOBILE);
+	}
+	public function isGliding(){
+ 		return $this->getDataFlag(self::DATA_FLAGS, self::DATA_FLAG_IDLING);
+ 	}
+ 
+ 	public function setGliding($value = true){
+		$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_FALL_FLYING, (bool) $value);
+		$this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_IDLING, (bool) $value);
+	}
+	public function setImmobile($value = true) : bool{
+		return $this->setDataFlag(self::DATA_FLAGS, self::DATA_FLAG_IMMOBILE, $value);
 	}
 
 	/**
@@ -361,6 +467,10 @@ abstract class Entity extends Location implements epilogosble{
 	}
 
 	public function removeEffect($effectId){
+		Server::getInstance()->getPluginManager()->callEvent($ev = new EntityEffectRemoveEvent($this, $effectId));
+		if($ev->isCancelled()){
+			return false;
+		}
 		if(isset($this->effects[$effectId])){
 			$effect = $this->effects[$effectId];
 			unset($this->effects[$effectId]);
@@ -370,6 +480,7 @@ abstract class Entity extends Location implements epilogosble{
 			}
 
 			$this->recalculateEffectColor();
+			return true;
 		}
 	}
 
@@ -382,6 +493,10 @@ abstract class Entity extends Location implements epilogosble{
 	}
 
 	public function addEffect(Effect $effect){
+		Server::getInstance()->getPluginManager()->callEvent($ev = new EntityEffectAddEvent($this, $effect));
+		if($ev->isCancelled()){
+			return false;
+		}
 		if($effect->getId() === Effect::HEALTH_BOOST){
 			$this->setHealth($this->getHealth() + 4 * ($effect->getAmplifier() + 1));
 		}
@@ -394,7 +509,7 @@ abstract class Entity extends Location implements epilogosble{
 			if(($effect->getAmplifier() <= ($oldEffect->getAmplifier())) and $effect->getDuration() < $oldEffect->getDuration()){
 				return;
 			}
-			$effect->add($this, true);
+			$effect->add($this, true, $oldEffect);
 		}else{
 			$effect->add($this, false);
 		}
@@ -402,6 +517,7 @@ abstract class Entity extends Location implements epilogosble{
 		$this->effects[$effect->getId()] = $effect;
 
 		$this->recalculateEffectColor();
+		return true;
 	}
 
 	protected function recalculateEffectColor(){
@@ -435,14 +551,14 @@ abstract class Entity extends Location implements epilogosble{
 	}
 
 	/**
-	 * @param int|string $type
-	 * @param FullChunk  $chunk
-	 * @param CompoundTag   $nbt
-	 * @param            $args
+	 * @param int|string  $type
+	 * @param Chunk   $chunk
+	 * @param CompoundTag $nbt
+	 * @param             $args
 	 *
-	 * @return Entity|Projecsolidentity
+	 * @return Entity|Projectile
 	 */
-	public static function createEntity($type, FullChunk $chunk, CompoundTag $nbt, ...$args){
+	public static function createEntity($type, Chunk $chunk, CompoundTag $nbt, ...$args){
 		if(isset(self::$knownEntities[$type])){
 			$class = self::$knownEntities[$type];
 			return new $class($chunk, $nbt, ...$args);
@@ -531,7 +647,9 @@ abstract class Entity extends Location implements epilogosble{
 	}
 
 	protected function initEntity(){
-		assert($this->namedtag instanceof CompoundTag);
+		if(!($this->namedtag instanceof CompoundTag)){
+			throw new \InvalidArgumentException("Expecting CompoundTag, received " . get_class($this->namedtag));
+		}
 
 		if(isset($this->namedtag->CustomName)){
 			$this->setNameTag($this->namedtag["CustomName"]);
@@ -593,25 +711,27 @@ abstract class Entity extends Location implements epilogosble{
 	}
 
 	/**
-	 * @deprecated
-	 */
-	public function sendepilogos($player){
-		$this->sendData($player);
-	}
-
-	/**
 	 * @param Player[]|Player $player
 	 * @param array           $data Properly formatted entity data, defaults to everything
 	 */
 	public function sendData($player, array $data = null){
+		if(!is_array($player)){
+			$player = [$player];
+		}
+
 		$pk = new SetEntityDataPacket();
 		$pk->eid = ($player === $this ? 0 : $this->getId());
-		$pk->epilogos = $data === null ? $this->dataProperties : $data;
+		$pk->metadata = $data === null ? $this->dataProperties : $data;
 
-		if(!is_array($player)){
-			$player->dataPacket($pk);
-		}else{
-			Server::broadcastPacket($player, $pk);
+		foreach($player as $p){
+			if($p === $this){
+				continue;
+			}
+			$p->dataPacket(clone $pk);
+		}
+		if($this instanceof Player){
+			$pk->eid = 0;
+			$this->dataPacket($pk);
 		}
 	}
 
@@ -694,7 +814,7 @@ abstract class Entity extends Location implements epilogosble{
 	 * @param int $amount
 	 */
 	public function setHealth($amount){
-		$amount = (int)$amount;
+		$amount = (int) $amount;
 		if($amount === $this->health){
 			return;
 		}
@@ -704,7 +824,7 @@ abstract class Entity extends Location implements epilogosble{
 				$this->kill();
 			}
 		}elseif($amount <= $this->getMaxHealth() or $amount < $this->health){
-			$this->health = (int)$amount;
+			$this->health = (int) $amount;
 		}else{
 			$this->health = $this->getMaxHealth();
 		}
@@ -739,7 +859,7 @@ abstract class Entity extends Location implements epilogosble{
 	 * @param int $amount
 	 */
 	public function setMaxHealth($amount){
-		$this->maxHealth = (int)$amount;
+		$this->maxHealth = (int) $amount;
 	}
 
 	public function canCollideWith(Entity $entity){
@@ -870,7 +990,7 @@ abstract class Entity extends Location implements epilogosble{
 
 		$hasUpdate = false;
 
-		$this->checkBlockCollision();
+		//$this->checkBlockCollision();
 
 		if($this->y <= -16 and $this->isAlive()){
 			$ev = new EntityDamageEvent($this, EntityDamageEvent::CAUSE_VOID, 10);
@@ -929,7 +1049,7 @@ abstract class Entity extends Location implements epilogosble{
 			$this->lastYaw = $this->yaw;
 			$this->lastPitch = $this->pitch;
 
-			$this->level->addEntityMovement($this->chunk->getX(), $this->chunk->getZ(), $this->id, $this->x, $this->y + $this->getEyeHeight(), $this->z, $this->yaw, $this->pitch, $this->yaw);
+			$this->addMovement($this->x, $this->y + $this->getEyeHeight(), $this->z, $this->yaw, $this->pitch, $this->yaw);
 		}
 
 		if($diffMotion > 0.0025 or ($diffMotion > 0.0001 and $this->getMotion()->lengthSquared() <= 0.0001)){ //0.05 ** 2
@@ -939,6 +1059,10 @@ abstract class Entity extends Location implements epilogosble{
 
 			$this->level->addEntityMotion($this->chunk->getX(), $this->chunk->getZ(), $this->id, $this->motionX, $this->motionY, $this->motionZ);
 		}
+	}
+
+	public function addMovement($x, $y, $z, $yaw, $pitch, $headYaw = null){
+		$this->level->addEntityMovement($this->chunk->getX(), $this->chunk->getZ(), $this->id, $x, $y, $z, $yaw, $pitch, $headYaw === null ? $yaw : $headYaw);
 	}
 
 	/**
@@ -1067,7 +1191,7 @@ abstract class Entity extends Location implements epilogosble{
 			return;
 		}
 		$damage = floor($fallDistance - 3 - ($this->hasEffect(Effect::JUMP) ? $this->getEffect(Effect::JUMP)->getAmplifier() + 1 : 0));
-		
+
 		//Get the block directly beneath the player's feet, check if it is a slime block
 		if($this->getLevel()->getBlock($this->floor()->subtract(0, 1, 0)) instanceof SlimeBlock){
 			$damage = 0;
@@ -1401,7 +1525,7 @@ abstract class Entity extends Location implements epilogosble{
 		return $this->blocksAround;
 	}
 
-	protected function checkBlockCollision(){
+	/*protected function checkBlockCollision(){
 		$vector = new Vector3(0, 0, 0);
 
 		foreach($blocksaround = $this->getBlocksAround() as $block){
@@ -1415,7 +1539,7 @@ abstract class Entity extends Location implements epilogosble{
 		}
 
 		if($this->getLevel()->getServer()->redstoneEnabled and !$this->isPlayer){
-			/** @var \devmine\inventory\blocks\PressurePlate $block **/
+			@var \pocketmine\block\PressurePlate $block
 			foreach($this->activatedPressurePlates as $key => $block){
 				if(!isset($blocksaround[$key])) $block->checkActivation();
 			}
@@ -1428,7 +1552,7 @@ abstract class Entity extends Location implements epilogosble{
 			$this->motionY += $vector->y * $d;
 			$this->motionZ += $vector->z * $d;
 		}
-	}
+	}*/
 
 	public function setPositionAndRotation(Vector3 $pos, $yaw, $pitch){
 		if($this->setPosition($pos) === true){
@@ -1540,7 +1664,7 @@ abstract class Entity extends Location implements epilogosble{
 		$this->removeAllEffects();
 		$this->scheduleUpdate();
 
-		if($this->getLevel()->getServer()->expEnabled) {
+		if($this->getLevel()->getServer()->expEnabled){
 			$exp = mt_rand($this->getDropExpMin(), $this->getDropExpMax());
 			if($exp > 0) $this->getLevel()->spawnXPOrb($this, $exp);
 		}
@@ -1632,16 +1756,16 @@ abstract class Entity extends Location implements epilogosble{
 			}
 		}
 
-		if($this->getLevel()->getServer()->redstoneEnabled){
-			/** @var \devmine\inventory\blocks\PressurePlate $block **/
+		/*if($this->getLevel()->getServer()->redstoneEnabled){
+			@var \pocketmine\block\PressurePlate $block
 			foreach($this->activatedPressurePlates as $key => $block){
 				$block->checkActivation();
 			}
-		}
+		}*/
 
 		$this->activatedPressurePlates = [];
 
-		if($this->attributeMap != null) {
+		if($this->attributeMap != null){
 			$this->attributeMap = null;
 		}
 	}
@@ -1773,9 +1897,9 @@ abstract class Entity extends Location implements epilogosble{
 	 * @param bool $value
 	 * @param int  $type
 	 */
-	public function setDataFlag($propertyId, $id, $value = true, $type = self::DATA_TYPE_BYTE){
+	public function setDataFlag($propertyId, $id, $value = true, $type = self::DATA_TYPE_LONG){
 		if($this->getDataFlag($propertyId, $id) !== $value){
-			$flags = (int)$this->getDataProperty($propertyId);
+			$flags = (int) $this->getDataProperty($propertyId);
 			$flags ^= 1 << $id;
 			$this->setDataProperty($propertyId, $type, $flags);
 		}
@@ -1788,27 +1912,27 @@ abstract class Entity extends Location implements epilogosble{
 	 * @return bool
 	 */
 	public function getDataFlag($propertyId, $id){
-		return (((int)$this->getDataProperty($propertyId)) & (1 << $id)) > 0;
+		return (((int) $this->getDataProperty($propertyId)) & (1 << $id)) > 0;
 	}
 
 	public function __destruct(){
 		$this->close();
 	}
 
-	public function setepilogos($epilogosKey, epilogosValue $epilogosValue){
-		$this->server->getEntityepilogos()->setepilogos($this, $epilogosKey, $epilogosValue);
+	public function setMetadata($metadataKey, MetadataValue $metadataValue){
+		$this->server->getEntityMetadata()->setMetadata($this, $metadataKey, $metadataValue);
 	}
 
-	public function getepilogos($epilogosKey){
-		return $this->server->getEntityepilogos()->getepilogos($this, $epilogosKey);
+	public function getMetadata($metadataKey){
+		return $this->server->getEntityMetadata()->getMetadata($this, $metadataKey);
 	}
 
-	public function hasepilogos($epilogosKey){
-		return $this->server->getEntityepilogos()->hasepilogos($this, $epilogosKey);
+	public function hasMetadata($metadataKey){
+		return $this->server->getEntityMetadata()->hasMetadata($this, $metadataKey);
 	}
 
-	public function removeepilogos($epilogosKey, Plugin $plugin){
-		$this->server->getEntityepilogos()->removeepilogos($this, $epilogosKey, $plugin);
+	public function removeMetadata($metadataKey, Plugin $plugin){
+		$this->server->getEntityMetadata()->removeMetadata($this, $metadataKey, $plugin);
 	}
 
 	public function __toString(){

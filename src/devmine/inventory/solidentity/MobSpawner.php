@@ -1,25 +1,42 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\tile;
 
-namespace devmine\inventory\solidentity;
-
-use devmine\creatures\entities\Entity;
-use devmine\server\events\entity\EntityGenerateEvent;
-use devmine\inventory\items\Item;
-use devmine\server\calculations\Vector3;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\DoubleTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\FloatTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\levels\format\FullChunk;
-use devmine\Player;
+use pocketmine\entity\Entity;
+use pocketmine\event\entity\EntityGenerateEvent;
+use pocketmine\item\Item;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\level\format\Chunk;
+use pocketmine\Player;
 
 class MobSpawner extends Spawnable{
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		parent::__construct($chunk, $nbt);
 		if(!isset($nbt->EntityId)){
 			$nbt->EntityId = new IntTag("EntityId", 0);
@@ -52,7 +69,7 @@ class MobSpawner extends Spawnable{
 	public function setEntityId(int $id){
 		$this->namedtag->EntityId->setValue($id);
 		$this->spawnToAll();
-		if($this->chunk instanceof FullChunk){
+		if($this->chunk instanceof Chunk){
 			$this->chunk->setChanged();
 			$this->level->clearChunkCache($this->chunk->getX(), $this->chunk->getZ());
 		}
@@ -128,7 +145,7 @@ class MobSpawner extends Spawnable{
 
 		$this->timings->startTiming();
 
-		if(!($this->chunk instanceof FullChunk)){
+		if(!($this->chunk instanceof Chunk)){
 			return false;
 		}
 		if($this->canUpdate()){
@@ -178,7 +195,7 @@ class MobSpawner extends Spawnable{
 
 	public function getSpawnCompound(){
 		$c = new CompoundTag("", [
-			new StringTag("id", solidentity::MOB_SPAWNER),
+			new StringTag("id", Tile::MOB_SPAWNER),
 			new IntTag("x", (int) $this->x),
 			new IntTag("y", (int) $this->y),
 			new IntTag("z", (int) $this->z),

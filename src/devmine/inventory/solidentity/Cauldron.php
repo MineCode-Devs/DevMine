@@ -1,25 +1,42 @@
 <?php
 
-
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
 /*
  * Copied from @beito123's FlowerPot plugin
  */
 
-namespace devmine\inventory\solidentity;
+namespace pocketmine\tile;
 
-use devmine\levels\format\FullChunk;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\ByteTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\utilities\main\Color;
+use pocketmine\level\format\Chunk;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\utils\Color;
 
 class Cauldron extends Spawnable{
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		if(!isset($nbt->PotionId)){
 			$nbt->PotionId = new ShortTag("PotionId", 0xffff);
 		}
@@ -120,7 +137,7 @@ class Cauldron extends Spawnable{
 
 	public function getSpawnCompound(){
 		$nbt = new CompoundTag("", [
-			new StringTag("id", solidentity::CAULDRON),
+			new StringTag("id", Tile::CAULDRON),
 			new IntTag("x", (Int) $this->x),
 			new IntTag("y", (Int) $this->y),
 			new IntTag("z", (Int) $this->z),

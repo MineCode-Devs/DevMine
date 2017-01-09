@@ -13,8 +13,8 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
@@ -22,10 +22,10 @@
 /**
  * Inventory related events
  */
-namespace devmine\server\events\inventory;
+namespace pocketmine\event\inventory;
 
-use devmine\server\events\Event;
-use devmine\inventory\layout\Inventory;
+use pocketmine\event\Event;
+use pocketmine\inventory\Inventory;
 
 abstract class InventoryEvent extends Event{
 
@@ -44,7 +44,7 @@ abstract class InventoryEvent extends Event{
 	}
 
 	/**
-	 * @return \devmine\creatures\entities\Human[]
+	 * @return \pocketmine\entity\Human[]
 	 */
 	public function getViewers(){
 		return $this->inventory->getViewers();

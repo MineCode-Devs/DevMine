@@ -13,8 +13,8 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
@@ -22,24 +22,24 @@
 /**
  * Level related events
  */
-namespace devmine\server\events\level;
+namespace pocketmine\event\level;
 
-use devmine\levels\format\FullChunk;
+use pocketmine\level\format\Chunk;
 
 abstract class ChunkEvent extends LevelEvent{
-	/** @var FullChunk */
+	/** @var Chunk */
 	private $chunk;
 
 	/**
-	 * @param FullChunk $chunk
+	 * @param Chunk $chunk
 	 */
-	public function __construct(FullChunk $chunk){
+	public function __construct(Chunk $chunk){
 		parent::__construct($chunk->getProvider()->getLevel());
 		$this->chunk = $chunk;
 	}
 
 	/**
-	 * @return FullChunk
+	 * @return Chunk
 	 */
 	public function getChunk(){
 		return $this->chunk;

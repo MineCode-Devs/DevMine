@@ -1,10 +1,27 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\event;
 
-namespace devmine\server\events;
-
-use devmine\levels\Level;
+use pocketmine\level\Level;
 
 class LevelTimings{
 
@@ -17,7 +34,7 @@ class LevelTimings{
 	/** @var TimingsHandler */
 	public $doTickPending;
 	/** @var TimingsHandler */
-	public $doTicksolidentities;
+	public $doTickTiles;
 	/** @var TimingsHandler */
 	public $doVillages;
 	/** @var TimingsHandler */
@@ -29,9 +46,9 @@ class LevelTimings{
 	/** @var TimingsHandler */
 	public $entityTick;
 	/** @var TimingsHandler */
-	public $solidentityEntityTick;
+	public $tileEntityTick;
 	/** @var TimingsHandler */
-	public $solidentityEntityPending;
+	public $tileEntityPending;
 	/** @var TimingsHandler */
 	public $tracker;
 	/** @var TimingsHandler */
@@ -53,9 +70,9 @@ class LevelTimings{
 	/** @var TimingsHandler */
 	public $syncChunkLoadEntitiesTimer;
 	/** @var TimingsHandler */
-	public $syncChunkLoadsolidentityEntitiesTimer;
+	public $syncChunkLoadTileEntitiesTimer;
 	/** @var TimingsHandler */
-	public $syncChunkLoadsolidentityTicksTimer;
+	public $syncChunkLoadTileTicksTimer;
 	/** @var TimingsHandler */
 	public $syncChunkLoadPostTimer;
 
@@ -65,15 +82,15 @@ class LevelTimings{
 		$this->mobSpawn = new TimingsHandler("** " . $name . "mobSpawn");
 		$this->doChunkUnload = new TimingsHandler("** " . $name . "doChunkUnload");
 		$this->doTickPending = new TimingsHandler("** " . $name . "doTickPending");
-		$this->doTicksolidentities = new TimingsHandler("** " . $name . "doTicksolidentities");
+		$this->doTickTiles = new TimingsHandler("** " . $name . "doTickTiles");
 		$this->doVillages = new TimingsHandler("** " . $name . "doVillages");
 		$this->doChunkMap = new TimingsHandler("** " . $name . "doChunkMap");
 		$this->doSounds = new TimingsHandler("** " . $name . "doSounds");
 		$this->doChunkGC = new TimingsHandler("** " . $name . "doChunkGC");
 		$this->doPortalForcer = new TimingsHandler("** " . $name . "doPortalForcer");
 		$this->entityTick = new TimingsHandler("** " . $name . "entityTick");
-		$this->solidentityEntityTick = new TimingsHandler("** " . $name . "solidentityEntityTick");
-		$this->solidentityEntityPending = new TimingsHandler("** " . $name . "solidentityEntityPending");
+		$this->tileEntityTick = new TimingsHandler("** " . $name . "tileEntityTick");
+		$this->tileEntityPending = new TimingsHandler("** " . $name . "tileEntityPending");
 
 		$this->syncChunkSendTimer = new TimingsHandler("** " . $name . "syncChunkSend");
 		$this->syncChunkSendPrepareTimer = new TimingsHandler("** " . $name . "syncChunkSendPrepare");
@@ -82,8 +99,8 @@ class LevelTimings{
 		$this->syncChunkLoadDataTimer = new TimingsHandler("** " . $name . "syncChunkLoad - Data");
 		$this->syncChunkLoadStructuresTimer = new TimingsHandler("** " . $name . "syncChunkLoad - Structures");
 		$this->syncChunkLoadEntitiesTimer = new TimingsHandler("** " . $name . "syncChunkLoad - Entities");
-		$this->syncChunkLoadsolidentityEntitiesTimer = new TimingsHandler("** " . $name . "syncChunkLoad - solidentityEntities");
-		$this->syncChunkLoadsolidentityTicksTimer = new TimingsHandler("** " . $name . "syncChunkLoad - solidentityTicks");
+		$this->syncChunkLoadTileEntitiesTimer = new TimingsHandler("** " . $name . "syncChunkLoad - TileEntities");
+		$this->syncChunkLoadTileTicksTimer = new TimingsHandler("** " . $name . "syncChunkLoad - TileTicks");
 		$this->syncChunkLoadPostTimer = new TimingsHandler("** " . $name . "syncChunkLoad - Post");
 
 		$this->tracker = new TimingsHandler($name . "tracker");

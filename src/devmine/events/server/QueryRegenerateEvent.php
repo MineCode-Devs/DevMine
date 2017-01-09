@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\server;
+namespace pocketmine\event\server;
 
-use devmine\server\events;
-use devmine\Server;
-use devmine\utilities\main\Binary;
+use pocketmine\event;
+use pocketmine\Server;
+use pocketmine\utils\Binary;
 
 class QueryRegenerateEvent extends ServerEvent{
 	public static $handlerList = null;
@@ -33,9 +33,9 @@ class QueryRegenerateEvent extends ServerEvent{
 	private $timeout;
 	private $serverName;
 	private $listPlugins;
-	/** @var \devmine\pluginfeatures\Plugin[] */
+	/** @var \pocketmine\plugin\Plugin[] */
 	private $plugins;
-	/** @var \devmine\Player[] */
+	/** @var \pocketmine\Player[] */
 	private $players;
 
 	private $gametype;
@@ -72,7 +72,7 @@ class QueryRegenerateEvent extends ServerEvent{
 
 		$this->gametype = ($server->getGamemode() & 0x01) === 0 ? "SMP" : "CMP";
 		$this->version = $server->getVersion();
-		$this->server_engine = $server->getName() . " " . $server->getdevmineVersion();
+		$this->server_engine = $server->getName() . " " . $server->getPocketMineVersion();
 		$this->map = $server->getDefaultLevel() === null ? "unknown" : $server->getDefaultLevel()->getName();
 		$this->numPlayers = $poc;
 		$this->maxPlayers = $pc;
@@ -112,28 +112,28 @@ class QueryRegenerateEvent extends ServerEvent{
 	}
 
 	/**
-	 * @return \devmine\pluginfeatures\Plugin[]
+	 * @return \pocketmine\plugin\Plugin[]
 	 */
 	public function getPlugins(){
 		return $this->plugins;
 	}
 
 	/**
-	 * @param \devmine\pluginfeatures\Plugin[] $plugins
+	 * @param \pocketmine\plugin\Plugin[] $plugins
 	 */
 	public function setPlugins(array $plugins){
 		$this->plugins = $plugins;
 	}
 
 	/**
-	 * @return \devmine\Player[]
+	 * @return \pocketmine\Player[]
 	 */
 	public function getPlayerList(){
 		return $this->players;
 	}
 
 	/**
-	 * @param \devmine\Player[] $players
+	 * @param \pocketmine\Player[] $players
 	 */
 	public function setPlayerList(array $players){
 		$this->players = $players;

@@ -1,46 +1,56 @@
 <?php
 
 /*
- * devmine-iTX devmine
- * @author devmine-iTX Team & iTX Technologies LLC.
- * @link http://itxtech.org 
- *       http://mcpe.asia 
- *       http://pl.zxda.net
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
 */
 
 /**
  * All the Item classes
  */
-namespace devmine\inventory\items;
+namespace pocketmine\item;
 
-use devmine\inventory\blocks\Block;
-use devmine\inventory\blocks\Flower;
-use devmine\creatures\entities\CaveSpider;
-use devmine\creatures\entities\Entity;
-use devmine\creatures\entities\PigZombie;
-use devmine\creatures\entities\Silverfish;
-use devmine\creatures\entities\Skeleton;
-use devmine\creatures\entities\Spider;
-use devmine\creatures\entities\Witch;
-use devmine\creatures\entities\Zombie;
-use devmine\inventory\layout\Fuel;
-use devmine\inventory\items\enchantment\Enchantment;
-use devmine\levels\Level;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\ShortTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\Player;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\NBT;
-use devmine\utilities\main\Config;
-use devmine\Server;
+use pocketmine\Player;
+use pocketmine\Server;
+use pocketmine\block\Block;
+use pocketmine\block\Fence;
+use pocketmine\block\Flower;
+use pocketmine\entity\CaveSpider;
+use pocketmine\entity\Entity;
+use pocketmine\entity\PigZombie;
+use pocketmine\entity\Silverfish;
+use pocketmine\entity\Skeleton;
+use pocketmine\entity\Spider;
+use pocketmine\entity\Witch;
+use pocketmine\entity\Zombie;
+use pocketmine\inventory\Fuel;
+use pocketmine\item\enchantment\Enchantment;
+use pocketmine\level\Level;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\ShortTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\utils\Config;
 
-use devmine\inventory\blocks\Fence;
+class Item implements ItemIds, \JsonSerializable{
 
-use devmine\inventory\layout\CreativeItems;
-
-class Item implements ItemIds{
 	/** @var NBT */
 	private static $cachedParser = null;
 
@@ -80,6 +90,7 @@ class Item implements ItemIds{
 
 	public static function init($readFromJson = false){
 		if(self::$list === null){
+			//TODO: Sort this mess into some kind of order
 			self::$list = new \SplFixedArray(65536);
 			self::$list[self::SUGARCANE] = Sugarcane::class;
 			self::$list[self::WHEAT_SEEDS] = WheatSeeds::class;
@@ -128,6 +139,7 @@ class Item implements ItemIds{
 			self::$list[self::GOLD_CHESTPLATE] = GoldChestplate::class;
 			self::$list[self::GOLD_LEGGINGS] = GoldLeggings::class;
 			self::$list[self::GOLD_BOOTS] = GoldBoots::class;
+			self::$list[self::ELYTRA] = Elytra::class;
 			self::$list[self::DIAMOND_HELMET] = DiamondHelmet::class;
 			self::$list[self::DIAMOND_CHESTPLATE] = DiamondChestplate::class;
 			self::$list[self::DIAMOND_LEGGINGS] = DiamondLeggings::class;
@@ -232,6 +244,11 @@ class Item implements ItemIds{
 			self::$list[self::ENCHANTED_GOLDEN_APPLE] = EnchantedGoldenApple::class;
 			self::$list[self::RAW_MUTTON] = RawMutton::class;
 			self::$list[self::COOKED_MUTTON] = CookedMutton::class;
+			self::$list[self::HOPPER] = Hopper::class;
+			self::$list[self::PRISMARINE_SHARD] = PrismarineShard::class;
+			self::$list[self::PRISMARINE_CRYSTALS] = PrismarineCrystals::class;
+			self::$list[self::NETHER_STAR] = NetherStar::class;
+			self::$list[self::CHORUS_FRUIT] = ChorusFruit::class;
 
 			for($i = 0; $i < 256; ++$i){
 				if(Block::$list[$i] !== null){
@@ -245,31 +262,18 @@ class Item implements ItemIds{
 
 	private static $creative = [];
 
-	private static function initCreativeItems($readFromJson = false){
+	private static function initCreativeItems(){
 		self::clearCreativeItems();
-		if(!$readFromJson){
-			foreach(CreativeItems::ITEMS as $category){
-				foreach($category as $itemData){
-					if(!isset($itemData["meta"])){
-						$itemData["meta"] = 0;
-					}
-					$item = Item::get($itemData["id"], @$itemData["meta"]);
-					if(isset($itemData["ench"])){
-						//Support multiple enchantments. Unnecessary really but nice to have.
-						foreach($itemData["ench"] as $ench){
-							$item->addEnchantment(Enchantment::getEnchantment($ench["id"])->setLevel($ench["lvl"]));
-						}
-					}
-					self::addCreativeItem($item);
-				}
+
+		$creativeItems = new Config(Server::getInstance()->getFilePath() . "src/pocketmine/resources/creativeitems.json", Config::JSON, []);
+
+		foreach($creativeItems->getAll() as $data){
+			$item = Item::get($data["id"], $data["damage"], $data["count"], $data["nbt"]);
+			if($item->getName() === "Unknown"){
+				continue;
 			}
-		}else{
-			$creativeItems = new Config(Server::getInstance()->getFilePath() . "src/devmine/resources/creativeitems.json", Config::JSON, []);
-			foreach($creativeItems->getAll() as $item){
-				self::addCreativeItem(Item::get($item["ID"], $item["Damage"]));
-			}
+			self::addCreativeItem($item);
 		}
-		
 	}
 
 	public static function clearCreativeItems(){
@@ -281,8 +285,7 @@ class Item implements ItemIds{
 	}
 	
 	public static function addCreativeItem(Item $item){
-		//Doing it this way allows adding enchanted items to inventory, like enchanted books
-		Item::$creative[] = $item;
+		Item::$creative[] = clone $item;
 	}
 
 	public static function removeCreativeItem(Item $item){
@@ -810,6 +813,17 @@ class Item implements ItemIds{
 		return $this->canBePlaced();
 	}
 
+	public function canBeConsumed() : bool{
+		return false;
+	}
+
+	public function canBeConsumedBy(Entity $entity) : bool{
+		return $this->canBeConsumed();
+	}
+
+	public function onConsume(Entity $entity){
+	}
+
 	public function getBlock() : Block{
 		if($this->block instanceof Block){
 			return clone $this->block;
@@ -908,7 +922,7 @@ class Item implements ItemIds{
 		return false;
 	}
 
-	public function isLegging(){
+	public function isLeggings(){
 		return false;
 	}
 
@@ -941,10 +955,6 @@ class Item implements ItemIds{
 		return $rec;
 	}
 
-	final public function __toString(){ //Get error here..
-		return "Item " . $this->name . " (" . $this->id . ":" . ($this->meta === null ? "?" : $this->meta) . ")x" . $this->count . ($this->hasCompoundTag() ? " tags:0x" . bin2hex($this->getCompoundTag()) : "");
-	}
-
 	public function getDestroySpeed(Block $block, Player $player){
 		return 1;
 	}
@@ -966,4 +976,72 @@ class Item implements ItemIds{
 
 		return false;
 	}
+
+	final public function __toString() : string{
+		return "Item " . $this->name . " (" . $this->id . ":" . ($this->meta === null ? "?" : $this->meta) . ")x" . $this->count . ($this->hasCompoundTag() ? " tags:0x" . bin2hex($this->getCompoundTag()) : "");
+	}
+
+	final public function jsonSerialize(){
+		return [
+			"id" => $this->id,
+			"damage" => $this->meta,
+			"count" => $this->count, //TODO: separate items and stacks
+			"nbt" => $this->tags
+		];
+	}
+	
+	/**
+ 	 * Serializes the item to an NBT CompoundTag
+ 	 *
+ 	 * @param int $slot optional, the inventory slot of the item
+ 	 *
+ 	 * @return CompoundTag
+ 	 */
+ 	public function nbtSerialize(int $slot = -1, string $tagName = "") : CompoundTag{
+ 		$tag = new CompoundTag($tagName, [
+ 			"id" => new ShortTag("id", $this->id),
+ 			"Count" => new ByteTag("Count", $this->count ?? -1),
+ 			"Damage" => new ShortTag("Damage", $this->meta),
+ 		]);
+ 
+ 		if($this->hasCompoundTag()){
+ 			$tag->tag = clone $this->getNamedTag();
+ 			$tag->tag->setName("tag");
+ 		}
+ 		
+ 		if($slot !== -1){
+ 			$tag->Slot = new ByteTag("Slot", $slot);
+ 		}
+ 
+ 		return $tag;
+ 	}
+ 
+ 	/**
+ 	 * Deserializes an Item from an NBT CompoundTag
+ 	 *
+ 	 * @param CompoundTag $tag
+ 	 *
+ 	 * @return Item
+ 	 */
+ 	public static function nbtDeserialize(CompoundTag $tag) : Item{
+ 		if(!isset($tag->id) or !isset($tag->Count)){
+ 			return Item::get(0);
+ 		}
+ 
+ 		if($tag->id instanceof ShortTag){
+ 			$item = Item::get($tag->id->getValue(), !isset($tag->Damage) ? 0 : $tag->Damage->getValue(), $tag->Count->getValue());
+ 		}elseif($tag->id instanceof StringTag){ //PC item save format
+ 			$item = Item::fromString($tag->id->getValue());
+ 			$item->setDamage(!isset($tag->Damage) ? 0 : $tag->Damage->getValue());
+ 			$item->setCount($tag->Count->getValue());
+ 		}else{
+ 			throw new \InvalidArgumentException("Item CompoundTag ID must be an instance of StringTag or ShortTag, " . get_class($tag->id) . " given");
+ 		}
+ 
+ 		if(isset($tag->tag) and $tag->tag instanceof CompoundTag){
+ 			$item->setNamedTag($tag->tag);
+ 		}
+ 
+ 		return $item;
+ 	}
 }

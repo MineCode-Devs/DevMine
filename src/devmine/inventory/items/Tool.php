@@ -1,14 +1,31 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
 
+namespace pocketmine\item;
 
-namespace devmine\inventory\items;
-
-use devmine\inventory\blocks\Block;
-use devmine\creatures\entities\Entity;
-use devmine\creatures\player\tag\ByteTag;
-use devmine\inventory\items\enchantment\enchantment;
+use pocketmine\block\Block;
+use pocketmine\entity\Entity;
+use pocketmine\nbt\tag\ByteTag;
+use pocketmine\item\enchantment\enchantment;
 
 abstract class Tool extends Item{
 	const TIER_WOODEN = 1;
@@ -40,8 +57,7 @@ abstract class Tool extends Item{
 	 *
 	 * @return bool
 	 */
-	public function useOn($object, $type = 1)
-	{
+	public function useOn($object, $type = 1){
 		if($this->isUnbreakable()){
 			return true;
 		}

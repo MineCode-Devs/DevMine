@@ -5,18 +5,18 @@
  * @link https://github.com/Nukkit/Nukkit
 */
 
-namespace devmine\inventory\items;
+namespace pocketmine\item;
 
-use devmine\inventory\blocks\Block;
-use devmine\levels\Level;
-use devmine\server\calculations\Vector3;
-use devmine\Player;
-use devmine\creatures\entities\Painting as PaintingEntity;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\creatures\player\tag\DoubleTag;
-use devmine\creatures\player\tag\FloatTag;
+use pocketmine\block\Block;
+use pocketmine\level\Level;
+use pocketmine\math\Vector3;
+use pocketmine\Player;
+use pocketmine\entity\Painting as PaintingEntity;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\FloatTag;
 
 class Painting extends Item{
 	public function __construct($meta = 0, $count = 1){

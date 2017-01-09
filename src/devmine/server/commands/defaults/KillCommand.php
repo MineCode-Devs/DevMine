@@ -1,26 +1,43 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\command\defaults;
 
-namespace devmine\server\commands\defaults;
-
-use devmine\server\commands\Command;
-use devmine\server\commands\CommandSender;
-use devmine\server\events\entity\EntityDamageEvent;
-use devmine\server\events\TranslationContainer;
-use devmine\Player;
-use devmine\utilities\main\TextFormat;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\TranslationContainer;
+use pocketmine\Player;
+use pocketmine\utils\TextFormat;
 
 class KillCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%devmine.command.kill.description",
-			"%devmine.command.kill.usage",
+			"%pocketmine.command.kill.description",
+			"%pocketmine.command.kill.usage",
 			["suicide"]
 		);
-		$this->setPermission("devmine.command.kill.self;devmine.command.kill.other");
+		$this->setPermission("pocketmine.command.kill.self;pocketmine.command.kill.other");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -35,7 +52,7 @@ class KillCommand extends VanillaCommand{
 		}
 
 		if(count($args) === 1){
-			if(!$sender->hasPermission("devmine.command.kill.other")){
+			if(!$sender->hasPermission("pocketmine.command.kill.other")){
 				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.permission"));
 
 				return true;
@@ -62,7 +79,7 @@ class KillCommand extends VanillaCommand{
 		}
 
 		if($sender instanceof Player){
-			if(!$sender->hasPermission("devmine.command.kill.self")){
+			if(!$sender->hasPermission("pocketmine.command.kill.self")){
 				$sender->sendMessage(new TranslationContainer(TextFormat::RED . "%commands.generic.permission"));
 
 				return true;

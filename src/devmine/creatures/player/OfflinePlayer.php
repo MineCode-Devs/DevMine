@@ -1,15 +1,33 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
+
+namespace pocketmine;
 
 
-namespace devmine\creatures\player;
+use pocketmine\metadata\MetadataValue;
+use pocketmine\metadata\Metadatable;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\plugin\Plugin;
 
-
-use devmine\server\epilogos\epilogosValue;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\pluginfeatures\Plugin;
-
-class OfflinePlayer implements IPlayer{
+class OfflinePlayer implements IPlayer, Metadatable{
 
 	private $name;
 	private $server;
@@ -97,20 +115,20 @@ class OfflinePlayer implements IPlayer{
 		return $this->namedtag instanceof CompoundTag;
 	}
 
-	public function setepilogos($epilogosKey, epilogosValue $epilogosValue){
-		$this->server->getPlayerepilogos()->setepilogos($this, $epilogosKey, $epilogosValue);
+	public function setMetadata($metadataKey, MetadataValue $metadataValue){
+		$this->server->getPlayerMetadata()->setMetadata($this, $metadataKey, $metadataValue);
 	}
 
-	public function getepilogos($epilogosKey){
-		return $this->server->getPlayerepilogos()->getepilogos($this, $epilogosKey);
+	public function getMetadata($metadataKey){
+		return $this->server->getPlayerMetadata()->getMetadata($this, $metadataKey);
 	}
 
-	public function hasepilogos($epilogosKey){
-		return $this->server->getPlayerepilogos()->hasepilogos($this, $epilogosKey);
+	public function hasMetadata($metadataKey){
+		return $this->server->getPlayerMetadata()->hasMetadata($this, $metadataKey);
 	}
 
-	public function removeepilogos($epilogosKey, Plugin $plugin){
-		$this->server->getPlayerepilogos()->removeepilogos($this, $epilogosKey, $plugin);
+	public function removeMetadata($metadataKey, Plugin $plugin){
+		$this->server->getPlayerMetadata()->removeMetadata($this, $metadataKey, $plugin);
 	}
 
 

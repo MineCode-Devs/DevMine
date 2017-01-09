@@ -1,12 +1,29 @@
 <?php
 
-
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
 /*
 * Copied from @beito123's FlowerPot plugin
  */
 
-namespace devmine\utilities\main;
+namespace pocketmine\utils;
 
 class Color {
 
@@ -36,7 +53,7 @@ class Color {
 
 	public static function init(){
 		if(self::$dyeColors === null){
-			self::$dyeColors = new \SplFixedArray(256);
+			self::$dyeColors = new \SplFixedArray(16); //What's the point of making a 256-long array for 16 objects?
 			self::$dyeColors[self::COLOR_DYE_BLACK] = Color::getRGB(30, 27, 27);
 			self::$dyeColors[self::COLOR_DYE_RED] = Color::getRGB(179, 49, 44);
 			self::$dyeColors[self::COLOR_DYE_GREEN] = Color::getRGB(61, 81, 26);

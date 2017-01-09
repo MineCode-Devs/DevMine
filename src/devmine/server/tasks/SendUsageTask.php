@@ -1,13 +1,31 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\scheduler;
 
-namespace devmine\server\tasks;
-
-use devmine\server\network\protocol\Info;
-use devmine\Server;
-use devmine\utilities\main\Utils;
-use devmine\utilities\main\VersionString;
+use pocketmine\network\protocol\Info;
+use pocketmine\Server;
+use pocketmine\utils\Utils;
+use pocketmine\utils\UUID;
+use pocketmine\utils\VersionString;
 
 class SendUsageTask extends AsyncTask{
 
@@ -19,12 +37,12 @@ class SendUsageTask extends AsyncTask{
 	public $data;
 
 	public function __construct(Server $server, $type, $playerList = []){
-		$endpoint = "http://" . $server->getProperty("anonymous-statistics.host", "stats.devmine.net") . "/";
+		$endpoint = "http://" . $server->getProperty("anonymous-statistics.host", "stats.pocketmine.net") . "/";
 
 		$data = [];
 		$data["uniqueServerId"] = $server->getServerUniqueId();
 		$data["uniqueMachineId"] = Utils::getMachineUniqueId();
-		$data["uniqueRequestId"] = Utils::dataToUUID($server->getServerUniqueId(), microtime(true));
+		$data["uniqueRequestId"] = UUID::fromData($server->getServerUniqueId(), microtime(true));
 
 		switch($type){
 			case self::TYPE_OPEN:

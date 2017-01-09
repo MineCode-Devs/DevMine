@@ -1,14 +1,31 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Tool;
-use devmine\inventory\items\Item;
-use devmine\levels\sound\NoteblockSound;
-use devmine\server\calculations\Vector3;
-use devmine\Player;
+use pocketmine\item\Tool;
+use pocketmine\item\Item;
+use pocketmine\level\sound\NoteblockSound;
+use pocketmine\math\Vector3;
+use pocketmine\Player;
 
 class Noteblock extends Solid implements ElectricalAppliance{
 	protected $id = self::NOTEBLOCK;

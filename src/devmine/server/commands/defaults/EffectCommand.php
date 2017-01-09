@@ -1,25 +1,42 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
+
+namespace pocketmine\command\defaults;
 
 
-namespace devmine\server\commands\defaults;
-
-
-use devmine\server\commands\CommandSender;
-use devmine\creatures\entities\Effect;
-use devmine\creatures\entities\InstantEffect;
-use devmine\server\events\TranslationContainer;
-use devmine\utilities\main\TextFormat;
+use pocketmine\command\CommandSender;
+use pocketmine\entity\Effect;
+use pocketmine\entity\InstantEffect;
+use pocketmine\event\TranslationContainer;
+use pocketmine\utils\TextFormat;
 
 class EffectCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%devmine.command.effect.description",
+			"%pocketmine.command.effect.description",
 			"%commands.effect.usage"
 		);
-		$this->setPermission("devmine.command.effect;devmine.command.effect.other");
+		$this->setPermission("pocketmine.command.effect;pocketmine.command.effect.other");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -39,7 +56,7 @@ class EffectCommand extends VanillaCommand{
 			return true;
 		}
 		
-		if($player->getName()!=$sender->getName() && !$sender->hasPermission("devmine.command.effect.other")){
+		if($player->getName()!=$sender->getName() && !$sender->hasPermission("pocketmine.command.effect.other")){
 			$sender->sendMessage("You don't have permission to give effect to other player .");
 			return true;
 		}
@@ -97,13 +114,15 @@ class EffectCommand extends VanillaCommand{
 				return true;
 			}
 
-			$player->removeEffect($effect->getId());
-			$sender->sendMessage(new TranslationContainer("commands.effect.success.removed", [$effect->getName(), $player->getDisplayName()]));
+			if ($player->removeEffect($effect->getId())) {
+				$sender->sendMessage(new TranslationContainer("commands.effect.success.removed", [$effect->getName(), $player->getDisplayName()]));
+			}
 		}else{
 			$effect->setDuration($duration)->setAmplifier($amplification);
 
-			$player->addEffect($effect);
-			self::broadcastCommandMessage($sender, new TranslationContainer("%commands.effect.success", [$effect->getName(), $effect->getId(), $effect->getAmplifier(), $player->getDisplayName(), $effect->getDuration() / 20]));
+			if ($player->addEffect($effect)) {
+				self::broadcastCommandMessage($sender, new TranslationContainer("%commands.effect.success", [$effect->getName(), $effect->getId(), $effect->getAmplifier(), $player->getDisplayName(), $effect->getDuration() / 20]));
+			}
 		}
 
 

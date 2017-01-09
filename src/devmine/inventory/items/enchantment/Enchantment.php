@@ -1,55 +1,72 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\item\enchantment;
 
-namespace devmine\inventory\items\enchantment;
-
-use devmine\inventory\items\ChainBoots;
-use devmine\inventory\items\ChainChestplate;
-use devmine\inventory\items\ChainHelmet;
-use devmine\inventory\items\ChainLeggings;
-use devmine\inventory\items\DiamondAxe;
-use devmine\inventory\items\DiamondBoots;
-use devmine\inventory\items\DiamondChestplate;
-use devmine\inventory\items\DiamondHelmet;
-use devmine\inventory\items\DiamondHoe;
-use devmine\inventory\items\DiamondLeggings;
-use devmine\inventory\items\DiamondPickaxe;
-use devmine\inventory\items\DiamondShovel;
-use devmine\inventory\items\DiamondSword;
-use devmine\inventory\items\GoldAxe;
-use devmine\inventory\items\GoldBoots;
-use devmine\inventory\items\GoldChestplate;
-use devmine\inventory\items\GoldHelmet;
-use devmine\inventory\items\GoldHoe;
-use devmine\inventory\items\GoldLeggings;
-use devmine\inventory\items\GoldPickaxe;
-use devmine\inventory\items\GoldShovel;
-use devmine\inventory\items\GoldSword;
-use devmine\inventory\items\IronAxe;
-use devmine\inventory\items\IronBoots;
-use devmine\inventory\items\IronChestplate;
-use devmine\inventory\items\IronHelmet;
-use devmine\inventory\items\IronHoe;
-use devmine\inventory\items\IronLeggings;
-use devmine\inventory\items\IronPickaxe;
-use devmine\inventory\items\IronShovel;
-use devmine\inventory\items\IronSword;
-use devmine\inventory\items\Item;
-use devmine\inventory\items\LeatherBoots;
-use devmine\inventory\items\LeatherCap;
-use devmine\inventory\items\LeatherPants;
-use devmine\inventory\items\LeatherTunic;
-use devmine\inventory\items\StoneAxe;
-use devmine\inventory\items\StoneHoe;
-use devmine\inventory\items\StonePickaxe;
-use devmine\inventory\items\StoneShovel;
-use devmine\inventory\items\StoneSword;
-use devmine\inventory\items\WoodenAxe;
-use devmine\inventory\items\WoodenHoe;
-use devmine\inventory\items\WoodenPickaxe;
-use devmine\inventory\items\WoodenShovel;
-use devmine\inventory\items\WoodenSword;
+use pocketmine\item\ChainBoots;
+use pocketmine\item\ChainChestplate;
+use pocketmine\item\ChainHelmet;
+use pocketmine\item\ChainLeggings;
+use pocketmine\item\DiamondAxe;
+use pocketmine\item\DiamondBoots;
+use pocketmine\item\DiamondChestplate;
+use pocketmine\item\DiamondHelmet;
+use pocketmine\item\DiamondHoe;
+use pocketmine\item\DiamondLeggings;
+use pocketmine\item\DiamondPickaxe;
+use pocketmine\item\DiamondShovel;
+use pocketmine\item\DiamondSword;
+use pocketmine\item\GoldAxe;
+use pocketmine\item\GoldBoots;
+use pocketmine\item\GoldChestplate;
+use pocketmine\item\GoldHelmet;
+use pocketmine\item\GoldHoe;
+use pocketmine\item\GoldLeggings;
+use pocketmine\item\GoldPickaxe;
+use pocketmine\item\GoldShovel;
+use pocketmine\item\GoldSword;
+use pocketmine\item\IronAxe;
+use pocketmine\item\IronBoots;
+use pocketmine\item\IronChestplate;
+use pocketmine\item\IronHelmet;
+use pocketmine\item\IronHoe;
+use pocketmine\item\IronLeggings;
+use pocketmine\item\IronPickaxe;
+use pocketmine\item\IronShovel;
+use pocketmine\item\IronSword;
+use pocketmine\item\Item;
+use pocketmine\item\LeatherBoots;
+use pocketmine\item\LeatherCap;
+use pocketmine\item\LeatherPants;
+use pocketmine\item\LeatherTunic;
+use pocketmine\item\StoneAxe;
+use pocketmine\item\StoneHoe;
+use pocketmine\item\StonePickaxe;
+use pocketmine\item\StoneShovel;
+use pocketmine\item\StoneSword;
+use pocketmine\item\WoodenAxe;
+use pocketmine\item\WoodenHoe;
+use pocketmine\item\WoodenPickaxe;
+use pocketmine\item\WoodenShovel;
+use pocketmine\item\WoodenSword;
 
 class Enchantment{
 
@@ -59,7 +76,7 @@ class Enchantment{
 	const TYPE_ARMOR_FIRE_PROTECTION = 1;
 	const TYPE_ARMOR_FALL_PROTECTION = 2;
 	const TYPE_ARMOR_EXPLOSION_PROTECTION = 3;
-	const TYPE_ARMOR_PROJECsolidentity_PROTECTION = 4;
+	const TYPE_ARMOR_PROJECTILE_PROTECTION = 4;
 	const TYPE_ARMOR_THORNS = 5;
 	const TYPE_WATER_BREATHING = 6;
 	const TYPE_WATER_SPEED = 7;
@@ -127,7 +144,7 @@ class Enchantment{
 		self::$enchantments[self::TYPE_ARMOR_FALL_PROTECTION] = new Enchantment(self::TYPE_ARMOR_FALL_PROTECTION, "%enchantment.protect.fall", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_FEET);
 
 		self::$enchantments[self::TYPE_ARMOR_EXPLOSION_PROTECTION] = new Enchantment(self::TYPE_ARMOR_EXPLOSION_PROTECTION, "%enchantment.protect.explosion", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_ARMOR);
-		self::$enchantments[self::TYPE_ARMOR_PROJECsolidentity_PROTECTION] = new Enchantment(self::TYPE_ARMOR_PROJECsolidentity_PROTECTION, "%enchantment.protect.projecsolidentity", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_ARMOR);
+		self::$enchantments[self::TYPE_ARMOR_PROJECTILE_PROTECTION] = new Enchantment(self::TYPE_ARMOR_PROJECTILE_PROTECTION, "%enchantment.protect.projectile", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_ARMOR);
 		self::$enchantments[self::TYPE_ARMOR_THORNS] = new Enchantment(self::TYPE_ARMOR_THORNS, "%enchantment.protect.thorns", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_SWORD);
 		self::$enchantments[self::TYPE_WATER_BREATHING] = new Enchantment(self::TYPE_WATER_BREATHING, "%enchantment.protect.waterbrething", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_FEET);
 		self::$enchantments[self::TYPE_WATER_SPEED] = new Enchantment(self::TYPE_WATER_SPEED, "%enchantment.waterspeed", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_FEET);
@@ -163,11 +180,22 @@ class Enchantment{
 		return new Enchantment(self::TYPE_INVALID, "unknown", 0, 0, 0);
 	}
 
-	public static function getEffectByName($name){
+	public static function getEnchantmentByName($name){
 		if(defined(Enchantment::class . "::TYPE_" . strtoupper($name))){
 			return self::getEnchantment(constant(Enchantment::class . "::TYPE_" . strtoupper($name)));
-		}
-		return null;
+		}elseif(defined(Enchantment::class . "::TYPE_WEAPON_" . strtoupper($name))){
+			return self::getEnchantment(constant(Enchantment::class . "::TYPE_WEAPON_" . strtoupper($name))); 
+		}elseif(defined(Enchantment::class . "::TYPE_ARMOR_" . strtoupper($name))){
+			return self::getEnchantment(constant(Enchantment::class . "::TYPE_ARMOR_" . strtoupper($name))); 
+		}elseif(defined(Enchantment::class . "::TYPE_MINING_" . strtoupper($name))){
+			return self::getEnchantment(constant(Enchantment::class . "::TYPE_MINING_" . strtoupper($name))); 
+		}elseif(defined(Enchantment::class . "::TYPE_BOW_" . strtoupper($name))){
+			return self::getEnchantment(constant(Enchantment::class . "::TYPE_BOW_" . strtoupper($name))); 
+		}elseif(defined(Enchantment::class . "::TYPE_FISHING_" . strtoupper($name))){
+			return self::getEnchantment(constant(Enchantment::class . "::TYPE_FISHING_" . strtoupper($name))); 
+		}else{
+			return new Enchantment(self::TYPE_INVALID, "unknown", 0, 0, 0);
+	    }
 	}
 
 	public static function getEnchantAbility(Item $item){
@@ -249,7 +277,7 @@ class Enchantment{
 			case self::TYPE_ARMOR_FIRE_PROTECTION:
 			case self::TYPE_ARMOR_FALL_PROTECTION:
 			case self::TYPE_ARMOR_EXPLOSION_PROTECTION:
-			case self::TYPE_ARMOR_PROJECsolidentity_PROTECTION:
+			case self::TYPE_ARMOR_PROJECTILE_PROTECTION:
 				return 4;
 			case self::TYPE_ARMOR_THORNS:
 				return 3;

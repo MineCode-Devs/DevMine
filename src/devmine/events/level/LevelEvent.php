@@ -13,8 +13,8 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
@@ -22,13 +22,13 @@
 /**
  * Level related events
  */
-namespace devmine\server\events\level;
+namespace pocketmine\event\level;
 
-use devmine\server\events\Event;
-use devmine\levels\Level;
+use pocketmine\event\Event;
+use pocketmine\level\Level;
 
 abstract class LevelEvent extends Event{
-	/** @var \devmine\levels\Level */
+	/** @var \pocketmine\level\Level */
 	private $level;
 
 	/**
@@ -39,7 +39,7 @@ abstract class LevelEvent extends Event{
 	}
 
 	/**
-	 * @return \devmine\levels\Level
+	 * @return \pocketmine\level\Level
 	 */
 	public function getLevel(){
 		return $this->level;

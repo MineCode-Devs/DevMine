@@ -1,22 +1,39 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\tile;
 
-namespace devmine\inventory\solidentity;
+use pocketmine\inventory\ChestInventory;
+use pocketmine\inventory\DoubleChestInventory;
+use pocketmine\inventory\InventoryHolder;
+use pocketmine\item\Item;
+use pocketmine\level\format\Chunk;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\NBT;
 
-use devmine\inventory\layout\ChestInventory;
-use devmine\inventory\layout\DoubleChestInventory;
-use devmine\inventory\layout\InventoryHolder;
-use devmine\inventory\items\Item;
-use devmine\levels\format\FullChunk;
-use devmine\server\calculations\Vector3;
-use devmine\creatures\player\NBT;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\IntTag;
 
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\IntTag;
-
-use devmine\creatures\player\tag\StringTag;
+use pocketmine\nbt\tag\StringTag;
 
 class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 
@@ -25,7 +42,7 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 	/** @var DoubleChestInventory */
 	protected $doubleInventory = null;
 
-	public function __construct(FullChunk $chunk, CompoundTag $nbt){
+	public function __construct(Chunk $chunk, CompoundTag $nbt){
 		parent::__construct($chunk, $nbt);
 		$this->inventory = new ChestInventory($this);
 
@@ -94,7 +111,7 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 		if($i < 0){
 			return Item::get(Item::AIR, 0, 0);
 		}else{
-			return NBT::getItemHelper($this->namedtag->Items[$i]);
+			return Item::nbtDeserialize($this->namedtag->Items[$i]);
 		}
 	}
 
@@ -109,8 +126,6 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function setItem($index, Item $item){
 		$i = $this->getSlotIndex($index);
 
-		$d = NBT::putItemHelper($item, $index);
-
 		if($item->getId() === Item::AIR or $item->getCount() <= 0){
 			if($i >= 0){
 				unset($this->namedtag->Items[$i]);
@@ -121,9 +136,9 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 					break;
 				}
 			}
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}else{
-			$this->namedtag->Items[$i] = $d;
+			$this->namedtag->Items[$i] = $item->nbtSerialize($index);
 		}
 
 		return true;
@@ -146,6 +161,13 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 		return $this->inventory;
 	}
 
+	/**
+	 * @return DoubleChestInventory|null
+	 */
+	public function getDoubleInventory(){
+		return $this->doubleInventory;
+	}
+
 	protected function checkPairing(){
 		if(($pair = $this->getPair()) instanceof Chest){
 			if(!$pair->isPaired()){
@@ -153,10 +175,14 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 				$pair->checkPairing();
 			}
 			if($this->doubleInventory === null){
-				if(($pair->x + ($pair->z << 15)) > ($this->x + ($this->z << 15))){ //Order them correctly
-					$this->doubleInventory = new DoubleChestInventory($pair, $this);
+				if(($p = $pair->getDoubleInventory()) instanceof DoubleChestInventory){
+					$this->doubleInventory = $p;
 				}else{
-					$this->doubleInventory = new DoubleChestInventory($this, $pair);
+					if(($pair->x + ($pair->z << 15)) > ($this->x + ($this->z << 15))){ //Order them correctly
+						$this->doubleInventory = new DoubleChestInventory($pair, $this);
+					}else{
+						$this->doubleInventory = new DoubleChestInventory($this, $pair);
+					}
 				}
 			}
 		}else{
@@ -195,35 +221,35 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 	 */
 	public function getPair(){
 		if($this->isPaired()){
-			$solidentity = $this->getLevel()->getsolidentity(new Vector3((int) $this->namedtag["pairx"], $this->y, (int) $this->namedtag["pairz"]));
-			if($solidentity instanceof Chest){
-				return $solidentity;
+			$tile = $this->getLevel()->getTile(new Vector3((int) $this->namedtag["pairx"], $this->y, (int) $this->namedtag["pairz"]));
+			if($tile instanceof Chest){
+				return $tile;
 			}
 		}
 
 		return null;
 	}
 
-	public function pairWith(Chest $solidentity){
-		if($this->isPaired() or $solidentity->isPaired()){
+	public function pairWith(Chest $tile){
+		if($this->isPaired() or $tile->isPaired()){
 			return false;
 		}
 
-		$this->createPair($solidentity);
+		$this->createPair($tile);
 
 		$this->spawnToAll();
-		$solidentity->spawnToAll();
+		$tile->spawnToAll();
 		$this->checkPairing();
 
 		return true;
 	}
 
-	private function createPair(Chest $solidentity){
-		$this->namedtag->pairx = new IntTag("pairx", $solidentity->x);
-		$this->namedtag->pairz = new IntTag("pairz", $solidentity->z);
+	private function createPair(Chest $tile){
+		$this->namedtag->pairx = new IntTag("pairx", $tile->x);
+		$this->namedtag->pairz = new IntTag("pairz", $tile->z);
 
-		$solidentity->namedtag->pairx = new IntTag("pairx", $this->x);
-		$solidentity->namedtag->pairz = new IntTag("pairz", $this->z);
+		$tile->namedtag->pairx = new IntTag("pairx", $this->x);
+		$tile->namedtag->pairz = new IntTag("pairz", $this->z);
 	}
 
 	public function unpair(){
@@ -231,15 +257,15 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 			return false;
 		}
 
-		$solidentity = $this->getPair();
+		$tile = $this->getPair();
 		unset($this->namedtag->pairx, $this->namedtag->pairz);
 
 		$this->spawnToAll();
 
-		if($solidentity instanceof Chest){
-			unset($solidentity->namedtag->pairx, $solidentity->namedtag->pairz);
-			$solidentity->checkPairing();
-			$solidentity->spawnToAll();
+		if($tile instanceof Chest){
+			unset($tile->namedtag->pairx, $tile->namedtag->pairz);
+			$tile->checkPairing();
+			$tile->spawnToAll();
 		}
 		$this->checkPairing();
 
@@ -249,7 +275,7 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 	public function getSpawnCompound(){
 		if($this->isPaired()){
 			$c = new CompoundTag("", [
-				new StringTag("id", solidentity::CHEST),
+				new StringTag("id", Tile::CHEST),
 				new IntTag("x", (int) $this->x),
 				new IntTag("y", (int) $this->y),
 				new IntTag("z", (int) $this->z),
@@ -258,7 +284,7 @@ class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 			]);
 		}else{
 			$c = new CompoundTag("", [
-				new StringTag("id", solidentity::CHEST),
+				new StringTag("id", Tile::CHEST),
 				new IntTag("x", (int) $this->x),
 				new IntTag("y", (int) $this->y),
 				new IntTag("z", (int) $this->z)

@@ -1,20 +1,37 @@
 <?php
 
+/*
+ *
+ *  _____   _____   __   _   _   _____  __    __  _____
+ * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
+ * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
+ * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
+ * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
+ * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author iTX Technologies
+ * @link https://itxtech.org
+ *
+ */
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\creatures\player\NBT;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\Player;
-use devmine\inventory\solidentity\Chest as solidentityChest;
-use devmine\inventory\solidentity\solidentity;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\Player;
+use pocketmine\tile\Chest as TileChest;
+use pocketmine\tile\Tile;
 
 class TrappedChest extends RedstoneSource{
 	protected $id = self::TRAPPED_CHEST;
@@ -88,9 +105,9 @@ class TrappedChest extends RedstoneSource{
 			}
 			$c = $this->getSide($side);
 			if($c instanceof Chest and $c->getDamage() === $this->meta){
-				$solidentity = $this->getLevel()->getsolidentity($c);
-				if($solidentity instanceof solidentityChest and !$solidentity->isPaired()){
-					$chest = $solidentity;
+				$tile = $this->getLevel()->getTile($c);
+				if($tile instanceof TileChest and !$tile->isPaired()){
+					$chest = $tile;
 					break;
 				}
 			}
@@ -99,7 +116,7 @@ class TrappedChest extends RedstoneSource{
 		$this->getLevel()->setBlock($block, $this, true, true);
 		$nbt = new CompoundTag("", [
 				new ListTag("Items", []),
-				new StringTag("id", solidentity::CHEST),
+				new StringTag("id", Tile::CHEST),
 				new IntTag("x", $this->x),
 				new IntTag("y", $this->y),
 				new IntTag("z", $this->z)
@@ -116,19 +133,19 @@ class TrappedChest extends RedstoneSource{
 			}
 		}
 
-		$solidentity = solidentity::createsolidentity("Chest", $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+		$tile = Tile::createTile("Chest", $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 
-		if($chest instanceof solidentityChest and $solidentity instanceof solidentityChest){
-			$chest->pairWith($solidentity);
-			$solidentity->pairWith($chest);
+		if($chest instanceof TileChest and $tile instanceof TileChest){
+			$chest->pairWith($tile);
+			$tile->pairWith($chest);
 		}
 
 		return true;
 	}
 
 	public function onBreak(Item $item){
-		$t = $this->getLevel()->getsolidentity($this);
-		if($t instanceof solidentityChest){
+		$t = $this->getLevel()->getTile($this);
+		if($t instanceof TileChest){
 			$t->unpair();
 		}
 		$this->getLevel()->setBlock($this, new Air(), true, true);
@@ -143,20 +160,20 @@ class TrappedChest extends RedstoneSource{
 				return true;
 			}
 
-			$t = $this->getLevel()->getsolidentity($this);
+			$t = $this->getLevel()->getTile($this);
 			$chest = null;
-			if($t instanceof solidentityChest){
+			if($t instanceof TileChest){
 				$chest = $t;
 			}else{
 				$nbt = new CompoundTag("", [
 						new ListTag("Items", []),
-						new StringTag("id", solidentity::CHEST),
+						new StringTag("id", Tile::CHEST),
 						new IntTag("x", $this->x),
 						new IntTag("y", $this->y),
 						new IntTag("z", $this->z)
 				]);
 				$nbt->Items->setTagType(NBT::TAG_Compound);
-				$chest = solidentity::createsolidentity("Chest", $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+				$chest = Tile::createTile("Chest", $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 			}
 
 			if(isset($chest->namedtag->Lock) and $chest->namedtag->Lock instanceof StringTag){

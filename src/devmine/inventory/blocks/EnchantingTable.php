@@ -1,20 +1,37 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
+use pocketmine\inventory\EnchantInventory;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
 
-use devmine\inventory\layout\EnchantInventory;
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-
-use devmine\server\calculations\AxisAlignedBB;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\IntTag;
-use devmine\creatures\player\tag\StringTag;
-use devmine\Player;
-use devmine\inventory\solidentity\EnchantTable;
-use devmine\inventory\solidentity\solidentity;
+use pocketmine\math\AxisAlignedBB;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\IntTag;
+use pocketmine\nbt\tag\StringTag;
+use pocketmine\Player;
+use pocketmine\tile\EnchantTable;
+use pocketmine\tile\Tile;
 
 class EnchantingTable extends Transparent{
 
@@ -42,7 +59,7 @@ class EnchantingTable extends Transparent{
 	public function place(Item $item, Block $block, Block $target, $face, $fx, $fy, $fz, Player $player = null){
 		$this->getLevel()->setBlock($block, $this, true, true);
 		$nbt = new CompoundTag("", [
-			new StringTag("id", solidentity::ENCHANT_TABLE),
+			new StringTag("id", Tile::ENCHANT_TABLE),
 			new IntTag("x", $this->x),
 			new IntTag("y", $this->y),
 			new IntTag("z", $this->z)
@@ -58,7 +75,7 @@ class EnchantingTable extends Transparent{
 			}
 		}
 
-		solidentity::createsolidentity(solidentity::ENCHANT_TABLE, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+		Tile::createTile(Tile::ENCHANT_TABLE, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 
 		return true;
 	}
@@ -91,14 +108,14 @@ class EnchantingTable extends Transparent{
 			if($player->isCreative() and $player->getServer()->limitedCreative){
 				return true;
 			}
-			$solidentity = $this->getLevel()->getsolidentity($this);
+			$tile = $this->getLevel()->getTile($this);
 			$enchantTable = null;
-			if($solidentity instanceof EnchantTable){
-				$enchantTable = $solidentity;
+			if($tile instanceof EnchantTable){
+				$enchantTable = $tile;
 			}else{
 				$this->getLevel()->setBlock($this, $this, true, true);
 				$nbt = new CompoundTag("", [
-					new StringTag("id", solidentity::ENCHANT_TABLE),
+					new StringTag("id", Tile::ENCHANT_TABLE),
 					new IntTag("x", $this->x),
 					new IntTag("y", $this->y),
 					new IntTag("z", $this->z)
@@ -115,9 +132,10 @@ class EnchantingTable extends Transparent{
 				}
 
 				/** @var EnchantTable $enchantTable */
-				$enchantTable = solidentity::createsolidentity(solidentity::ENCHANT_TABLE, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
+				$enchantTable = Tile::createTile(Tile::ENCHANT_TABLE, $this->getLevel()->getChunk($this->x >> 4, $this->z >> 4), $nbt);
 			}
-			$player->addWindow($enchantTable->getInventory());
+			$player->addWindow(new EnchantInventory($this));
+			$player->craftingType = Player::CRAFTING_ENCHANT;
 		}
 
 

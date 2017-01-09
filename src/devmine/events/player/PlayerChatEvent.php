@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\player;
+namespace pocketmine\event\player;
 
-use devmine\server\events\Cancellable;
-use devmine\Player;
-use devmine\Server;
+use pocketmine\event\Cancellable;
+use pocketmine\Player;
+use pocketmine\Server;
 
 /**
  * Called when a player chats something
@@ -45,13 +45,6 @@ class PlayerChatEvent extends PlayerEvent implements Cancellable{
 	public function __construct(Player $player, $message, $format = "chat.type.text", array $recipients = null){
 		$this->player = $player;
 		$this->message = $message;
-
-		//TODO: @deprecated (backwards-compativility)
-		$i = 0;
-		while(($pos = strpos($format, "%s")) !== false){
-			$format = substr($format, 0, $pos) . "{%$i}" . substr($format, $pos + 2);
-			++$i;
-		}
 
 		$this->format = $format;
 
@@ -84,13 +77,6 @@ class PlayerChatEvent extends PlayerEvent implements Cancellable{
 	}
 
 	public function setFormat($format){
-		//TODO: @deprecated (backwards-compativility)
-		$i = 0;
-		while(($pos = strpos($format, "%s")) !== false){
-			$format = substr($format, 0, $pos) . "{%$i}" . substr($format, $pos + 2);
-			++$i;
-		}
-
 		$this->format = $format;
 	}
 

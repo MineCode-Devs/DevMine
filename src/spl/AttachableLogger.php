@@ -1,8 +1,8 @@
 <?php
 
 /*
- * devmine Standard PHP Library
- * Copyright (C) 2014 devmine Team <https://github.com/devmine/devmine-SPL>
+ * PocketMine Standard PHP Library
+ * Copyright (C) 2014-2016 PocketMine Team <https://github.com/PocketMine/PocketMine-SPL>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,20 @@
 
 interface AttachableLogger extends \Logger{
 
-    /**
-     * @param LoggerAttachment $attachment
-     */
-    public function addAttachment(\LoggerAttachment $attachment);
+	/**
+	 * @param LoggerAttachment $attachment
+	 */
+	public function addAttachment(\LoggerAttachment $attachment);
 
-    /**
-     * @param LoggerAttachment $attachment
-     */
-    public function removeAttachment(\LoggerAttachment $attachment);
+	/**
+	 * @param LoggerAttachment $attachment
+	 */
+	public function removeAttachment(\LoggerAttachment $attachment);
 
-    public function removeAttachments();
+	public function removeAttachments();
 
-    /**
-     * @return \LoggerAttachment[]
-     */
-    public function getAttachments();
+	/**
+	 * @return \LoggerAttachment[]
+	 */
+	public function getAttachments();
 }

@@ -13,29 +13,29 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author devmine Team
- * @link   http://www.devmine.net/
+ * @author PocketMine Team
+ * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace devmine\server\events\entity;
+namespace pocketmine\event\entity;
 
-use devmine\creatures\entities\Projecsolidentity;
+use pocketmine\entity\Projectile;
 
-class ProjecsolidentityHitEvent extends EntityEvent{
+class ProjectileHitEvent extends EntityEvent{
 	public static $handlerList = null;
 
 	/**
-	 * @param Projecsolidentity $entity
+	 * @param Projectile $entity
 	 */
-	public function __construct(Projecsolidentity $entity){
+	public function __construct(Projectile $entity){
 		$this->entity = $entity;
 
 	}
 
 	/**
-	 * @return Projecsolidentity
+	 * @return Projectile
 	 */
 	public function getEntity(){
 		return $this->entity;

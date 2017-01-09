@@ -1,54 +1,72 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\command\defaults;
 
-namespace devmine\server\commands\defaults;
-
-use devmine\inventory\blocks\Block;
-use devmine\server\commands\CommandSender;
-use devmine\server\events\TranslationContainer;
-use devmine\inventory\items\Item;
-use devmine\levels\particle\AngryVillagerParticle;
-use devmine\levels\particle\BubbleParticle;
-use devmine\levels\particle\CriticalParticle;
-use devmine\levels\particle\DustParticle;
-use devmine\levels\particle\EnchantmentTableParticle;
-use devmine\levels\particle\EnchantParticle;
-use devmine\levels\particle\ExplodeParticle;
-use devmine\levels\particle\FlameParticle;
-use devmine\levels\particle\HappyVillagerParticle;
-use devmine\levels\particle\HeartParticle;
-use devmine\levels\particle\HugeExplodeParticle;
-use devmine\levels\particle\InkParticle;
-use devmine\levels\particle\InstantEnchantParticle;
-use devmine\levels\particle\ItemBreakParticle;
-use devmine\levels\particle\LargeExplodeParticle;
-use devmine\levels\particle\LavaDripParticle;
-use devmine\levels\particle\LavaParticle;
-use devmine\levels\particle\Particle;
-use devmine\levels\particle\PortalParticle;
-use devmine\levels\particle\RainSplashParticle;
-use devmine\levels\particle\RedstoneParticle;
-use devmine\levels\particle\SmokeParticle;
-use devmine\levels\particle\SplashParticle;
-use devmine\levels\particle\SporeParticle;
-use devmine\levels\particle\TerrainParticle;
-use devmine\levels\particle\WaterDripParticle;
-use devmine\levels\particle\WaterParticle;
-use devmine\server\calculations\Vector3;
-use devmine\Player;
-use devmine\utilities\main\Random;
-use devmine\utilities\main\TextFormat;
+use pocketmine\block\Block;
+use pocketmine\command\CommandSender;
+use pocketmine\event\TranslationContainer;
+use pocketmine\item\Item;
+use pocketmine\level\particle\AngryVillagerParticle;
+use pocketmine\level\particle\BubbleParticle;
+use pocketmine\level\particle\BlockForceFieldParticle;
+use pocketmine\level\particle\CriticalParticle;
+use pocketmine\level\particle\DustParticle;
+use pocketmine\level\particle\EnchantmentTableParticle;
+use pocketmine\level\particle\EnchantParticle;
+use pocketmine\level\particle\ExplodeParticle;
+use pocketmine\level\particle\FlameParticle;
+use pocketmine\level\particle\HappyVillagerParticle;
+use pocketmine\level\particle\HeartParticle;
+use pocketmine\level\particle\HugeExplodeParticle;
+use pocketmine\level\particle\HugeExplodeSeedParticle;
+use pocketmine\level\particle\InkParticle;
+use pocketmine\level\particle\InstantEnchantParticle;
+use pocketmine\level\particle\ItemBreakParticle;
+use pocketmine\level\particle\LavaDripParticle;
+use pocketmine\level\particle\LavaParticle;
+use pocketmine\level\particle\Particle;
+use pocketmine\level\particle\PortalParticle;
+use pocketmine\level\particle\RainSplashParticle;
+use pocketmine\level\particle\RedstoneParticle;
+use pocketmine\level\particle\SmokeParticle;
+use pocketmine\level\particle\SplashParticle;
+use pocketmine\level\particle\SporeParticle;
+use pocketmine\level\particle\TerrainParticle;
+use pocketmine\level\particle\WaterDripParticle;
+use pocketmine\level\particle\WaterParticle;
+use pocketmine\math\Vector3;
+use pocketmine\Player;
+use pocketmine\utils\Random;
+use pocketmine\utils\TextFormat;
 
 class ParticleCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%devmine.command.particle.description",
-			"%devmine.command.particle.usage"
+			"%pocketmine.command.particle.description",
+			"%pocketmine.command.particle.usage"
 		);
-		$this->setPermission("devmine.command.particle");
+		$this->setPermission("pocketmine.command.particle");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -118,10 +136,10 @@ class ParticleCommand extends VanillaCommand{
 		switch($name){
 			case "explode":
 				return new ExplodeParticle($pos);
-			case "largeexplode":
-				return new LargeExplodeParticle($pos);
 			case "hugeexplosion":
 				return new HugeExplodeParticle($pos);
+			case "hugeexplosionseed":
+				return new HugeExplodeSeedParticle($pos);
 			case "bubble":
 				return new BubbleParticle($pos);
 			case "splash":
@@ -132,7 +150,7 @@ class ParticleCommand extends VanillaCommand{
 			case "crit":
 				return new CriticalParticle($pos);
 			case "smoke":
-				return new SmokeParticle($pos, $data !== null ? $data : 0);
+				return new SmokeParticle($pos, $data ?? 0);
 			case "spell":
 				return new EnchantParticle($pos);
 			case "instantspell":
@@ -151,7 +169,7 @@ class ParticleCommand extends VanillaCommand{
 			case "lava":
 				return new LavaParticle($pos);
 			case "reddust":
-				return new RedstoneParticle($pos, $data !== null ? $data : 1);
+				return new RedstoneParticle($pos, $data ?? 1);
 			case "snowballpoof":
 				return new ItemBreakParticle($pos, Item::get(Item::SNOWBALL));
 			case "slime":
@@ -167,9 +185,9 @@ class ParticleCommand extends VanillaCommand{
 				}
 				break;
 			case "heart":
-				return new HeartParticle($pos, $data !== null ? $data : 0);
+				return new HeartParticle($pos, $data ?? 0);
 			case "ink":
-				return new InkParticle($pos, $data !== null ? $data : 0);
+				return new InkParticle($pos, $data ?? 0);
 			case "droplet":
 				return new RainSplashParticle($pos);
 			case "enchantmenttable":
@@ -178,6 +196,8 @@ class ParticleCommand extends VanillaCommand{
 				return new HappyVillagerParticle($pos);
 			case "angryvillager":
 				return new AngryVillagerParticle($pos);
+			case "forcefield":
+				return new BlockForceFieldParticle($pos, $data ?? 0);
 
 		}
 

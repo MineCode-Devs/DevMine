@@ -1,16 +1,33 @@
 <?php
 
-
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
 /**
  * Implementation of the UT3 Query Protocol (GameSpot)
  * Source: http://wiki.unrealadmin.org/UT3_query_protocol
  */
-namespace devmine\server\network\query;
+namespace pocketmine\network\query;
 
-use devmine\Server;
-use devmine\utilities\main\Binary;
-use devmine\utilities\main\Utils;
+use pocketmine\Server;
+use pocketmine\utils\Binary;
+use pocketmine\utils\Utils;
 
 class QueryHandler{
 	private $server, $lastToken, $token, $longData, $shortData, $timeout;
@@ -20,10 +37,10 @@ class QueryHandler{
 
 	public function __construct(){
 		$this->server = Server::getInstance();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("devmine.server.query.start"));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.start"));
 		$addr = ($ip = $this->server->getIp()) != "" ? $ip : "0.0.0.0";
 		$port = $this->server->getPort();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("devmine.server.query.info", [$port]));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.info", [$port]));
 		/*
 		The Query protocol is built on top of the existing Minecraft PE UDP network stack.
 		Because the 0xFE packet does not exist in the MCPE protocol,
@@ -36,7 +53,7 @@ class QueryHandler{
 		$this->regenerateToken();
 		$this->lastToken = $this->token;
 		$this->regenerateInfo();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("devmine.server.query.running", [$addr, $port]));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.running", [$addr, $port]));
 	}
 
 	public function regenerateInfo(){
@@ -48,7 +65,7 @@ class QueryHandler{
 
 	public function regenerateToken(){
 		$this->lastToken = $this->token;
-		$this->token = @Utils::getRandomBytes(16, false);
+		$this->token = random_bytes(16);
 	}
 
 	public static function getTokenString($token, $salt){

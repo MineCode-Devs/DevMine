@@ -1,26 +1,37 @@
 <?php
 
 /*
- * devmine-iTX devmine
- * @author devmine-iTX Team & iTX Technologies LLC.
- * @link http://itxtech.org 
- *       http://mcpe.asia 
- *       http://pl.zxda.net
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
 */
 
-namespace devmine\inventory\blocks;
+namespace pocketmine\block;
 
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\Player;
-use devmine\creatures\entities\IronGolem;
-use devmine\creatures\entities\SnowGolem;
-use devmine\creatures\player\tag\CompoundTag;
-use devmine\creatures\player\tag\ListTag;
-use devmine\creatures\player\tag\DoubleTag;
-use devmine\creatures\player\tag\FloatTag;
+use pocketmine\Player;
+use pocketmine\entity\IronGolem;
+use pocketmine\entity\SnowGolem;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\DoubleTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\ListTag;
 
-class LitPumpkin extends Solid{
+class LitPumpkin extends Solid implements SolidLight{
 
 	protected $id = self::LIT_PUMPKIN;
 

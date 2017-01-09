@@ -1,17 +1,34 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\block;
 
-namespace devmine\inventory\blocks;
-
-use devmine\server\events\block\LeavesDecayEvent;
-use devmine\inventory\items\Item;
-use devmine\inventory\items\Tool;
-use devmine\inventory\items\Dye;
-use devmine\inventory\items\enchantment\enchantment;
-use devmine\levels\Level;
-use devmine\Player;
-use devmine\Server;
+use pocketmine\event\block\LeavesDecayEvent;
+use pocketmine\item\Item;
+use pocketmine\item\Tool;
+use pocketmine\item\Dye;
+use pocketmine\item\enchantment\enchantment;
+use pocketmine\level\Level;
+use pocketmine\Player;
+use pocketmine\Server;
 
 class Leaves extends Transparent{
 	const OAK = 0;
@@ -20,6 +37,8 @@ class Leaves extends Transparent{
 	const JUNGLE = 3;
 	const ACACIA = 0;
 	const DARK_OAK = 1;
+	
+	const WOOD_TYPE = self::WOOD;
 
 	protected $id = self::LEAVES;
 
@@ -59,12 +78,12 @@ class Leaves extends Transparent{
 		if(isset($visited[$index])){
 			return false;
 		}
-		if($pos->getId() === self::WOOD){
+		if($pos->getId() === static::WOOD_TYPE){
 			return true;
-		}elseif($pos->getId() === self::LEAVES and $distance < 3){
+		}elseif($pos->getId() === $this->id and $distance < 3){
 			$visited[$index] = true;
 			$down = $pos->getSide(0)->getId();
-			if($down === Item::WOOD){
+			if($down === static::WOOD_TYPE){
 				return true;
 			}
 			if($fromSide === null){
@@ -122,7 +141,7 @@ class Leaves extends Transparent{
 		if($type === Level::BLOCK_UPDATE_NORMAL){
 			if(($this->meta & 0b00001100) === 0){
 				$this->meta |= 0x08;
-				$this->getLevel()->setBlock($this, $this, false, false, true);
+				$this->getLevel()->setBlock($this, $this, true, false);
 			}
 		}elseif($type === Level::BLOCK_UPDATE_RANDOM){
 			if(($this->meta & 0b00001100) === 0x08){
@@ -153,10 +172,10 @@ class Leaves extends Transparent{
 	public function getDrops(Item $item) : array {
 		$drops = [];
 		if($item->isShears() or $item->getEnchantmentLevel(Enchantment::TYPE_MINING_SILK_TOUCH) > 0){
-			$drops[] = [Item::LEAVES, $this->meta & 0x03, 1];
+			$drops[] = [$this->id, $this->meta & 0x03, 1];
 		}else{
 			$fortunel = $item->getEnchantmentLevel(Enchantment::TYPE_MINING_FORTUNE);
-			$fortunel = $fortunel > 3 ? 3 : $fortunel;
+			$fortunel = min(3, $fortunel);
 			$rates = [20,16,12,10];
 			if(mt_rand(1, $rates[$fortunel]) === 1){ //Saplings
 				$drops[] = [Item::SAPLING, $this->meta & 0x03, 1];

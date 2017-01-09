@@ -1,13 +1,30 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\command\defaults;
 
-namespace devmine\server\commands\defaults;
-
-use devmine\server\commands\Command;
-use devmine\server\commands\CommandSender;
-use devmine\server\events\TranslationContainer;
-use devmine\Player;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\event\TranslationContainer;
+use pocketmine\Player;
 
 
 class BanCommand extends VanillaCommand{
@@ -15,10 +32,10 @@ class BanCommand extends VanillaCommand{
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%devmine.command.ban.player.description",
+			"%pocketmine.command.ban.player.description",
 			"%commands.ban.usage"
 		);
-		$this->setPermission("devmine.command.ban.player");
+		$this->setPermission("pocketmine.command.ban.player");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -36,14 +53,15 @@ class BanCommand extends VanillaCommand{
 		if(isset($args[0]) and isset($args[1])){
 			$reason = $args[0];
 			if($args[1] != null and is_numeric($args[1])){
-				$until = $args[1] * 86400 + time();
+				$until = new \DateTime('@' . ($args[1] * 86400 + time()));
 			}else{
 				$until = null;
 			}
 
 			$sender->getServer()->getNameBans()->addBan($name, $reason, $until, $sender->getName());
+		}else{
+			$sender->getServer()->getNameBans()->addBan($name, $reason = implode(" ", $args), null, $sender->getName());
 		}
-		$sender->getServer()->getNameBans()->addBan($name, $reason = implode(" ", $args), null, $sender->getName());
 
 
 		if(($player = $sender->getServer()->getPlayerExact($name)) instanceof Player){

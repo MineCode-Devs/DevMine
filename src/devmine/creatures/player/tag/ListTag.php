@@ -1,11 +1,28 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____  
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \ 
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/ 
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_| 
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ * 
+ *
+*/
 
+namespace pocketmine\nbt\tag;
 
-namespace devmine\creatures\player\tag;
-
-use devmine\creatures\player\NBT;
-use devmine\creatures\player\tag\ListTag as TagEnum;
+use pocketmine\nbt\NBT;
+use pocketmine\nbt\tag\ListTag as TagEnum;
 
 #include <rules/NBT.h>
 
@@ -97,72 +114,72 @@ class ListTag extends NamedTag implements \ArrayAccess, \Countable{
 		return $this->tagType;
 	}
 
-	public function read(NBT $nbt){
+	public function read(NBT $nbt, bool $network = false){
 		$this->value = [];
 		$this->tagType = $nbt->getByte();
-		$size = $nbt->getInt();
+		$size = $nbt->getInt($network);
 		for($i = 0; $i < $size and !$nbt->feof(); ++$i){
 			switch($this->tagType){
 				case NBT::TAG_Byte:
 					$tag = new ByteTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_Short:
 					$tag = new ShortTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_Int:
 					$tag = new IntTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_Long:
 					$tag = new LongTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_Float:
 					$tag = new FloatTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_Double:
 					$tag = new DoubleTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_ByteArray:
 					$tag = new ByteArrayTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_String:
 					$tag = new StringTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_List:
 					$tag = new TagEnum("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_Compound:
 					$tag = new CompoundTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 				case NBT::TAG_IntArray:
 					$tag = new IntArrayTag("");
-					$tag->read($nbt);
+					$tag->read($nbt, $network);
 					$this->{$i} = $tag;
 					break;
 			}
 		}
 	}
 
-	public function write(NBT $nbt){
+	public function write(NBT $nbt, bool $network = false){
 		if(!isset($this->tagType)){
 			$id = null;
 			foreach($this as $tag){
@@ -188,7 +205,7 @@ class ListTag extends NamedTag implements \ArrayAccess, \Countable{
 		}
 		$nbt->putInt(count($tags));
 		foreach($tags as $tag){
-			$tag->write($nbt);
+			$tag->write($nbt, $network);
 		}
 	}
 

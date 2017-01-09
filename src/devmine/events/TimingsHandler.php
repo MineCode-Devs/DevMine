@@ -1,13 +1,30 @@
 <?php
 
+/*
+ *
+ *  ____            _        _   __  __ _                  __  __ ____
+ * |  _ \ ___   ___| | _____| |_|  \/  (_)_ __   ___      |  \/  |  _ \
+ * | |_) / _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \_____| |\/| | |_) |
+ * |  __/ (_) | (__|   <  __/ |_| |  | | | | | |  __/_____| |  | |  __/
+ * |_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|     |_|  |_|_|
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * @author PocketMine Team
+ * @link http://www.pocketmine.net/
+ *
+ *
+*/
 
+namespace pocketmine\event;
 
-namespace devmine\server\events;
-
-use devmine\server\commands\defaults\TimingsCommand;
-use devmine\creatures\entities\Living;
-use devmine\pluginfeatures\PluginManager;
-use devmine\Server;
+use pocketmine\command\defaults\TimingsCommand;
+use pocketmine\entity\Living;
+use pocketmine\plugin\PluginManager;
+use pocketmine\Server;
 
 class TimingsHandler{
 
@@ -55,7 +72,7 @@ class TimingsHandler{
 		}
 
 		fwrite($fp, "# Version " . Server::getInstance()->getVersion() . PHP_EOL);
-		fwrite($fp, "# " . Server::getInstance()->getName() . " " . Server::getInstance()->getdevmineVersion() . PHP_EOL);
+		fwrite($fp, "# " . Server::getInstance()->getName() . " " . Server::getInstance()->getPocketMineVersion() . PHP_EOL);
 
 		$entities = 0;
 		$livingEntities = 0;
