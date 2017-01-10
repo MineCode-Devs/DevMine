@@ -29,7 +29,7 @@ abstract class Worker extends \Worker{
 		if(!interface_exists("ClassLoader", false)){
 			require(\DevMine\PATH . "src/spl/ClassLoader.php");
 			require(\DevMine\PATH . "src/spl/BaseClassLoader.php");
-			require(\DevMine\PATH . "src/DevMine/CompatibleClassLoader.php");
+			require(\DevMine\PATH . "src/devmine/CompatibleClassLoader.php");
 		}
 		if($this->classLoader !== null){
 			$this->classLoader->register(true);
