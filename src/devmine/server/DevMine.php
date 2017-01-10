@@ -91,7 +91,7 @@ namespace DevMine {
 	if(!class_exists("ClassLoader", false)){
 		require_once(\DevMine\PATH . "src/spl/ClassLoader.php");
 		require_once(\DevMine\PATH . "src/spl/BaseClassLoader.php");
-		require_once(\DevMine\PATH . "src/DevMine/CompatibleClassLoader.php");
+		require_once(\DevMine\PATH . "src/devmine/CompatibleClassLoader.php");
 	}
 
 	$autoloader = new CompatibleClassLoader();
