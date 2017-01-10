@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\inventory\EnchantInventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
+use devmine\inventory\layout\EnchantInventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
 
 class EnchantTable extends Spawnable implements Nameable{
 

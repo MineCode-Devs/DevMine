@@ -19,21 +19,21 @@
  *
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\inventory\BrewingInventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\item\Fish;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\network\protocol\ContainerSetDataPacket;
-use pocketmine\Server;
+use devmine\inventory\layout\BrewingInventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Fish;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\server\network\protocol\ContainerSetDataPacket;
+use devmine\server\server;
 
 class BrewingStand extends Spawnable implements InventoryHolder, Container, Nameable{
 	const MAX_BREW_TIME = 400;

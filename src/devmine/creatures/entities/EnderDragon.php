@@ -15,16 +15,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\Player;
-use pocketmine\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\network\protocol\AddEntityPacket;
 
 class EnderDragon extends Monster {
 

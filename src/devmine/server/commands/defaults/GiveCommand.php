@@ -13,32 +13,32 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\item\Item;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\inventory\items\Item;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class GiveCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.give.description",
-			"%pocketmine.command.give.usage"
+			"%DevMine.command.give.description",
+			"%DevMine.command.give.usage"
 		);
-		$this->setPermission("pocketmine.command.give");
+		$this->setPermission("DevMine.command.give");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

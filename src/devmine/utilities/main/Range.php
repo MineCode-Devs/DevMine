@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
 class Range{
 	public $minValue;

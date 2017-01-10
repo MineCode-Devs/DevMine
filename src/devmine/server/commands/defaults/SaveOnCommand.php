@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
 
 
 class SaveOnCommand extends VanillaCommand{
@@ -31,10 +31,10 @@ class SaveOnCommand extends VanillaCommand{
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.saveon.description",
+			"%DevMine.command.saveon.description",
 			"%commands.save-on.usage"
 		);
-		$this->setPermission("pocketmine.command.save.enable");
+		$this->setPermission("DevMine.command.save.enable");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

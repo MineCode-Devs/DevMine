@@ -1,8 +1,8 @@
 <?php
 
-namespace pocketmine\item;
-use pocketmine\item\Item;
-use pocketmine\item\Armor;
+namespace devmine\inventory\items;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Armor;
 class Elytra extends Armor {
 
 public function __construct($meta = 0, $count = 1){

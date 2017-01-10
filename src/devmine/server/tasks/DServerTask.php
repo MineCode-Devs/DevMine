@@ -3,9 +3,9 @@
  * DServerTask 2.0
  * @author MUedsa, PeratX
 */
-namespace pocketmine\scheduler;
+namespace devmine\server\tasks;
 
-use pocketmine\Server;
+use devmine\server\server;
 
 class DServerTask extends AsyncTask{
 

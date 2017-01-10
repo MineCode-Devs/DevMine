@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\particle;
+namespace devmine\worlds\particle;
 
-use pocketmine\entity\Entity;
-use pocketmine\entity\Item as ItemEntity;
-use pocketmine\math\Vector3;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\network\protocol\RemoveEntityPacket;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\Item as ItemEntity;
+use devmine\server\calculations\Vector3;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\server\network\protocol\RemoveEntityPacket;
 
 class FloatingTextParticle extends Particle{
 	//TODO: HACK!

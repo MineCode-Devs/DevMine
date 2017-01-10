@@ -1,13 +1,13 @@
 <?php
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\entity\{Entity, Projectile};
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\creatures\entities\{Entity, Projectile};
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class EnderPearl extends Projectile{
 	const NETWORK_ID = 87;

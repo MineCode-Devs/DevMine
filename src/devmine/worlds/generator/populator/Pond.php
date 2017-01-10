@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level\generator\populator;
+namespace devmine\worlds\generator\populator;
 
-use pocketmine\block\Water;
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\Water;
+use devmine\worlds\ChunkManager;
+use devmine\utilities\main\Random;
 
 class Pond extends Populator{
 	private $waterOdd = 4;
@@ -35,7 +35,7 @@ class Pond extends Populator{
 			$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 16);
 			$y = $random->nextBoundedInt(128);
 			$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 16);
-			$pond = new \pocketmine\level\generator\object\Pond($random, new Water());
+			$pond = new \devmine\worlds\generator\object\Pond($random, new Water());
 			if($pond->canPlaceObject($level, $x, $y, $z)){
 				$pond->placeObject($level, $x, $y, $z);
 			}

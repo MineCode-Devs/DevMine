@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command;
+namespace devmine\server\commands;
 
-use pocketmine\event\TranslationContainer;
-use pocketmine\Server;
-use pocketmine\utils\MainLogger;
-use pocketmine\utils\TextFormat;
+use devmine\events\TranslationContainer;
+use devmine\server\server;
+use devmine\utilities\main\MainLogger;
+use devmine\utilities\main\TextFormat;
 
 class FormattedCommandAlias extends Command{
 	private $formatStrings = [];

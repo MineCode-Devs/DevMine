@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\Block;
-use pocketmine\entity\Entity;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\item\enchantment\enchantment;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\inventory\items\enchantment\enchantment;
 
 abstract class Tool extends Item{
 	const TIER_WOODEN = 1;

@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -22,21 +22,21 @@
 /**
  * All Block classes are in here
  */
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Entity;
-use pocketmine\event\block\BlockBurnEvent;
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\level\Level;
-use pocketmine\level\MovingObjectPosition;
-use pocketmine\level\Position;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Vector3;
-use pocketmine\metadata\Metadatable;
-use pocketmine\metadata\MetadataValue;
-use pocketmine\Player;
-use pocketmine\plugin\Plugin;
+use devmine\creatures\entities\Entity;
+use devmine\events\block\BlockBurnEvent;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\worlds\Level;
+use devmine\worlds\MovingObjectPosition;
+use devmine\worlds\Position;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Vector3;
+use devmine\server\meta\Metadatable;
+use devmine\server\meta\MetadataValue;
+use devmine\creatures\player;
+use devmine\consumer\plugin\Plugin;
 
 class Block extends Position implements BlockIds, Metadatable{	
 

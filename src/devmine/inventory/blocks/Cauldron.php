@@ -19,30 +19,30 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\event\player\PlayerBucketEmptyEvent;
-use pocketmine\event\player\PlayerBucketFillEvent;
-use pocketmine\event\player\PlayerGlassBottleEvent;
-use pocketmine\item\Armor;
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\item\Potion;
-use pocketmine\level\sound\ExplodeSound;
-use pocketmine\level\sound\GraySplashSound;
-use pocketmine\level\sound\SpellSound;
-use pocketmine\level\sound\SplashSound;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\tile\Cauldron as TileCauldron;
-use pocketmine\tile\Tile;
-use pocketmine\utils\Color;
+use devmine\events\player\PlayerBucketEmptyEvent;
+use devmine\events\player\PlayerBucketFillEvent;
+use devmine\events\player\PlayerGlassBottleEvent;
+use devmine\inventory\items\Armor;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\inventory\items\Potion;
+use devmine\worlds\sound\ExplodeSound;
+use devmine\worlds\sound\GraySplashSound;
+use devmine\worlds\sound\SpellSound;
+use devmine\worlds\sound\SplashSound;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\inventory\solidentity\Cauldron as TileCauldron;
+use devmine\inventory\solidentity\Tile;
+use devmine\utilities\main\Color;
 
 class Cauldron extends Solid{
 

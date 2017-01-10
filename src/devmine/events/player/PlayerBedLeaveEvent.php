@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\block\Block;
-use pocketmine\Player;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\player;
 
 class PlayerBedLeaveEvent extends PlayerEvent{
 	public static $handlerList = null;

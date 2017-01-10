@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\event\entity\EntityDeathEvent;
-use pocketmine\event\TextContainer;
-use pocketmine\item\Item;
-use pocketmine\Player;
+use devmine\events\entity\EntityDeathEvent;
+use devmine\events\TextContainer;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
 
 class PlayerDeathEvent extends EntityDeathEvent{
 	public static $handlerList = null;

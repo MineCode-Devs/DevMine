@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Effect;
-use pocketmine\event\entity\EntityEatBlockEvent;
-use pocketmine\item\FoodSource;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\Player;
+use devmine\creatures\entities\Effect;
+use devmine\events\entity\EntityEatBlockEvent;
+use devmine\inventory\items\FoodSource;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\creatures\player;
 
 class Cake extends Transparent implements FoodSource{
 

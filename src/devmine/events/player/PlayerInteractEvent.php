@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\block\Block;
-use pocketmine\event\Cancellable;
-use pocketmine\item\Item;
-use pocketmine\level\Position;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
+use devmine\inventory\blocks\Block;
+use devmine\events\Cancellable;
+use devmine\inventory\items\Item;
+use devmine\worlds\Position;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
 
 /**
  * Called when a player interacts or touches a block (including air?)
@@ -41,7 +41,7 @@ class PlayerInteractEvent extends PlayerEvent implements Cancellable{
 	const PHYSICAL = 4;
 
 	/**
-	 * @var \pocketmine\block\Block;
+	 * @var \devmine\inventory\blocks\Block;
 	 */
 	protected $blockTouched;
 
@@ -50,7 +50,7 @@ class PlayerInteractEvent extends PlayerEvent implements Cancellable{
 	/** @var int */
 	protected $blockFace;
 
-	/** @var \pocketmine\item\Item */
+	/** @var \devmine\inventory\items\Item */
 	protected $item;
 	
 	protected $action;

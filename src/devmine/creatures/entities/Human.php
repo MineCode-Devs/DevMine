@@ -13,38 +13,38 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\player\PlayerExhaustEvent;
-use pocketmine\event\player\PlayerExperienceChangeEvent;
-use pocketmine\inventory\FloatingInventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\inventory\InventoryType;
-use pocketmine\inventory\PlayerInventory;
-use pocketmine\inventory\SimpleTransactionQueue;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\math\Math;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\protocol\AddPlayerPacket;
-use pocketmine\network\protocol\RemoveEntityPacket;
-use pocketmine\Player;
-use pocketmine\utils\UUID;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityRegainHealthEvent;
+use devmine\events\player\PlayerExhaustEvent;
+use devmine\events\player\PlayerExperienceChangeEvent;
+use devmine\inventory\layout\FloatingInventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\layout\InventoryType;
+use devmine\inventory\layout\PlayerInventory;
+use devmine\inventory\layout\SimpleTransactionQueue;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\server\calculations\Math;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\server\network\protocol\AddPlayerPacket;
+use devmine\server\network\protocol\RemoveEntityPacket;
+use devmine\creatures\player;
+use devmine\utilities\main\UUID;
 
 class Human extends Creature implements ProjectileSource, InventoryHolder{
 	

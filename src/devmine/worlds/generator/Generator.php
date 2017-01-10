@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,12 +22,12 @@
 /**
  * Noise classes used in Levels
  */
-namespace pocketmine\level\generator;
+namespace devmine\worlds\generator;
 
-use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\noise\Noise;
-use pocketmine\level\generator\normal\Normal;
-use pocketmine\utils\Random;
+use devmine\worlds\ChunkManager;
+use devmine\worlds\generator\noise\Noise;
+use devmine\worlds\generator\normal\Normal;
+use devmine\utilities\main\Random;
 
 abstract class Generator{
 	private static $list = [];

@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\level\particle\SpellParticle;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\item\Potion;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\particle\SpellParticle;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\inventory\items\Potion;
 
 class ThrownPotion extends Projectile{
 	const NETWORK_ID = 86;

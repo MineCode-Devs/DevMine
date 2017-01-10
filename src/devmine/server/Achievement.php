@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\server;
 
-use pocketmine\event\TranslationContainer;
-use pocketmine\utils\TextFormat;
+use devmine\events\TranslationContainer;
+use devmine\utilities\main\TextFormat;
 
 /**
  * Handles the achievement list and a bit more

@@ -19,12 +19,12 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\Player;
-use pocketmine\math\Vector3;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\creatures\player;
+use devmine\server\calculations\Vector3;
 
 class RedstoneTorch extends RedstoneSource{
 

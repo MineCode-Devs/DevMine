@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\item\enchantment\enchantment;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\enchantment\enchantment;
 
 class RedMushroomBlock extends Solid{
 

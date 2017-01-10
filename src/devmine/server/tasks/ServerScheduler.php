@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,13 +22,13 @@
 /**
  * Task scheduling related classes
  */
-namespace pocketmine\scheduler;
+namespace devmine\server\tasks;
 
-use pocketmine\plugin\Plugin;
-use pocketmine\Server;
-use pocketmine\utils\MainLogger;
-use pocketmine\utils\PluginException;
-use pocketmine\utils\ReversePriorityQueue;
+use devmine\consumer\plugin\Plugin;
+use devmine\server\server;
+use devmine\utilities\main\MainLogger;
+use devmine\utilities\main\PluginException;
+use devmine\utilities\main\ReversePriorityQueue;
 
 class ServerScheduler{
 	public static $WORKERS = 2;

@@ -19,7 +19,7 @@
  *
  */
  
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
 class RawMutton extends Food{
 	public function __construct($meta = 0, $count = 1){

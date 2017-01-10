@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 
-use pocketmine\entity\Entity;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\level\particle\SmokeParticle;
-use pocketmine\level\sound\FizzSound;
-use pocketmine\math\Vector3;
+use devmine\creatures\entities\Entity;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\worlds\particle\SmokeParticle;
+use devmine\worlds\sound\FizzSound;
+use devmine\server\calculations\Vector3;
 
 abstract class Liquid extends Transparent{
 

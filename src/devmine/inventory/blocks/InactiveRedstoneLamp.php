@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class InactiveRedstoneLamp extends ActiveRedstoneLamp{
 	protected $id = self::INACTIVE_REDSTONE_LAMP;

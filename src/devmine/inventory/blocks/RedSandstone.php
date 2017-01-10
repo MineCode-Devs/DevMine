@@ -19,7 +19,7 @@
  *
  */
  
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class RedSandstone extends Sandstone{
 	protected $id = Block::RED_SANDSTONE;

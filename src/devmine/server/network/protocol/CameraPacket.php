@@ -16,13 +16,13 @@
  * (at your option) any later version.
  *
  * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
+ * @link http://www.github.com/DevMineTeam/DevMine
  * 
  *
  */
 
 #include <rules/DataPacket.h>
-namespace pocketmine\network\protocol;
+namespace devmine\server\network\protocol;
 
 class CameraPacket extends DataPacket{
 	

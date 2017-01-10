@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\scheduler;
+namespace devmine\server\tasks;
 
-use pocketmine\network\protocol\Info;
-use pocketmine\Server;
-use pocketmine\utils\Utils;
-use pocketmine\utils\UUID;
-use pocketmine\utils\VersionString;
+use devmine\server\network\protocol\Info;
+use devmine\server\server;
+use devmine\utilities\main\Utils;
+use devmine\utilities\main\UUID;
+use devmine\utilities\main\VersionString;
 
 class SendUsageTask extends AsyncTask{
 

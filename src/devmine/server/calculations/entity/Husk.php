@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\Player;
-use pocketmine\math\Vector3;
-use pocketmine\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\calculations\Vector3;
+use devmine\server\network\protocol\AddEntityPacket;
 
 class Husk extends Zombie{
 	const NETWORK_ID = 47;

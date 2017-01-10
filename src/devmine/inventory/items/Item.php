@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,32 +22,32 @@
 /**
  * All the Item classes
  */
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\block\Block;
-use pocketmine\block\Fence;
-use pocketmine\block\Flower;
-use pocketmine\entity\CaveSpider;
-use pocketmine\entity\Entity;
-use pocketmine\entity\PigZombie;
-use pocketmine\entity\Silverfish;
-use pocketmine\entity\Skeleton;
-use pocketmine\entity\Spider;
-use pocketmine\entity\Witch;
-use pocketmine\entity\Zombie;
-use pocketmine\inventory\Fuel;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\level\Level;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\utils\Config;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Fence;
+use devmine\inventory\blocks\Flower;
+use devmine\creatures\entities\CaveSpider;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\PigZombie;
+use devmine\creatures\entities\Silverfish;
+use devmine\creatures\entities\Skeleton;
+use devmine\creatures\entities\Spider;
+use devmine\creatures\entities\Witch;
+use devmine\creatures\entities\Zombie;
+use devmine\inventory\layout\Fuel;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\worlds\Level;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\utilities\main\Config;
 
 class Item implements ItemIds, \JsonSerializable{
 
@@ -265,7 +265,7 @@ class Item implements ItemIds, \JsonSerializable{
 	private static function initCreativeItems(){
 		self::clearCreativeItems();
 
-		$creativeItems = new Config(Server::getInstance()->getFilePath() . "src/pocketmine/resources/creativeitems.json", Config::JSON, []);
+		$creativeItems = new Config(Server::getInstance()->getFilePath() . "src/devmine/server/resources/creativeitems.json", Config::JSON, []);
 
 		foreach($creativeItems->getAll() as $data){
 			$item = Item::get($data["id"], $data["damage"], $data["count"], $data["nbt"]);

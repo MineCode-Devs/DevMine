@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\permission;
+namespace devmine\server\perms;
 
-use pocketmine\plugin\Plugin;
-use pocketmine\utils\PluginException;
+use devmine\consumer\plugin\Plugin;
+use devmine\utilities\main\PluginException;
 
 class PermissionAttachment{
 	/** @var PermissionRemovedExecutor */

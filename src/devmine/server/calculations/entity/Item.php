@@ -13,28 +13,28 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDamageEvent;
 
-use pocketmine\event\entity\ItemDespawnEvent;
-use pocketmine\event\entity\ItemSpawnEvent;
-use pocketmine\item\Item as ItemItem;
+use devmine\events\entity\ItemDespawnEvent;
+use devmine\events\entity\ItemSpawnEvent;
+use devmine\inventory\items\Item as ItemItem;
 
-use pocketmine\nbt\NBT;
+use devmine\creatures\player\NBT;
 
 
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AddItemEntityPacket;
-use pocketmine\Player;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AddItemEntityPacket;
+use devmine\creatures\player;
 
 class Item extends Entity{
 	const NETWORK_ID = 64;

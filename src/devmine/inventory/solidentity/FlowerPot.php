@@ -21,17 +21,17 @@
 
 /*
  * Originally by @beito123
- * https://github.com/beito123/PocketMine-MP-Plugins/blob/master/test%2FFlowerPot%2Fsrc%2Fbeito%2FFlowerPot%2Fomake%2FSkull.php
+ * https://github.com/beito123/DevMine-MP-Plugins/blob/master/test%2FFlowerPot%2Fsrc%2Fbeito%2FFlowerPot%2Fomake%2FSkull.php
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\block\Block;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
 
 class FlowerPot extends Spawnable{
 

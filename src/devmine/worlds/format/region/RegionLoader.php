@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -21,13 +21,13 @@
 
 declare(strict_types = 1);
 
-namespace pocketmine\level\format\region;
+namespace devmine\worlds\format\region;
 
-use pocketmine\level\format\generic\GenericChunk;
-use pocketmine\level\format\LevelProvider;
-use pocketmine\utils\Binary;
-use pocketmine\utils\ChunkException;
-use pocketmine\utils\MainLogger;
+use devmine\worlds\format\generic\GenericChunk;
+use devmine\worlds\format\LevelProvider;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\ChunkException;
+use devmine\utilities\main\MainLogger;
 
 class RegionLoader{
 	const VERSION = 1;

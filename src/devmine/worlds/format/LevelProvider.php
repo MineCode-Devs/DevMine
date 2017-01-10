@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -21,10 +21,10 @@
 
 declare(strict_types = 1);
 
-namespace pocketmine\level\format;
+namespace devmine\worlds\format;
 
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
+use devmine\worlds\Level;
+use devmine\server\calculations\Vector3;
 
 interface LevelProvider{
 
@@ -165,7 +165,7 @@ interface LevelProvider{
 	 * @param int $x
 	 * @param int $z
 	 *
-	 * @return \pocketmine\scheduler\AsyncTask|null
+	 * @return \devmine\server\tasks\AsyncTask|null
 	 */
 	public function requestChunkTask(int $x, int $z);
 

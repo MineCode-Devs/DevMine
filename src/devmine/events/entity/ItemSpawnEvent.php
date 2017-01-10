@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Item;
+use devmine\creatures\entities\Item;
 
 class ItemSpawnEvent extends EntityEvent{
 	public static $handlerList = null;

@@ -13,13 +13,13 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
 /**
  * Class used to handle Minecraft chat format, and convert it to other formats like ANSI or HTML

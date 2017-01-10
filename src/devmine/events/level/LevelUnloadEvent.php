@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\level;
+namespace devmine\events\level;
 
-use pocketmine\event\Cancellable;
+use devmine\events\Cancellable;
 
 /**
  * Called when a Level is unloaded

@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\block;
+use devmine\inventory\blocks\block;
 
 class Redstone extends Item{
 	public function __construct($meta = 0, $count = 1){

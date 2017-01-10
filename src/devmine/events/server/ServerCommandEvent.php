@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\server;
+namespace devmine\events\server;
 
-use pocketmine\command\CommandSender;
-use pocketmine\event\Cancellable;
+use devmine\server\commands\CommandSender;
+use devmine\events\Cancellable;
 
 /**
  * Called when the console runs a command, early in the process

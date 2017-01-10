@@ -16,16 +16,16 @@
  * (at your option) any later version.
  *
  * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
+ * @link http://www.github.com/DevMineTeam/DevMine
  * 
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\Player;
-use pocketmine\level\Level;
-use pocketmine\item\Item;
+use devmine\creatures\player;
+use devmine\worlds\Level;
+use devmine\inventory\items\Item;
 
 class EndRod extends Flowable{
 

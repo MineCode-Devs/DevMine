@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\item\Item as ItemItem;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\inventory\items\Item as ItemItem;
 
 class IronGolem extends Animal{
 	const NETWORK_ID = 20;

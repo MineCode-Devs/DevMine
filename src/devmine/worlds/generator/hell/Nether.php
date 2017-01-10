@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level\generator\hell;
+namespace devmine\worlds\generator\hell;
 
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\generator\biome\BiomeSelector;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\noise\Simplex;
-use pocketmine\level\generator\populator\Populator;
-use pocketmine\math\Vector3 as Vector3;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\ChunkManager;
+use devmine\worlds\generator\biome\Biome;
+use devmine\worlds\generator\biome\BiomeSelector;
+use devmine\worlds\generator\Generator;
+use devmine\worlds\generator\noise\Simplex;
+use devmine\worlds\generator\populator\Populator;
+use devmine\server\calculations\Vector3 as Vector3;
+use devmine\utilities\main\Random;
 
 class Nether extends Generator{
 

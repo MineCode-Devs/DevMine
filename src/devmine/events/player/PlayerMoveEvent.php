@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\event\Cancellable;
-use pocketmine\level\Location;
-use pocketmine\Player;
+use devmine\events\Cancellable;
+use devmine\worlds\Location;
+use devmine\creatures\player;
 
 class PlayerMoveEvent extends PlayerEvent implements Cancellable{
 	public static $handlerList = null;

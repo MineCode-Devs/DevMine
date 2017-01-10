@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\format;
+namespace devmine\worlds\format;
 
-use pocketmine\entity\Entity;
-use pocketmine\level\format\generic\SubChunk;
-use pocketmine\tile\Tile;
+use devmine\creatures\entities\Entity;
+use devmine\worlds\format\generic\SubChunk;
+use devmine\inventory\solidentity\Tile;
 
 interface Chunk{
 	const MAX_SUBCHUNKS = 16;

@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\generator\object;
+namespace devmine\worlds\generator\object;
 
-use pocketmine\block\Block;
-use pocketmine\block\Wood;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Wood;
 
 class JungleTree extends Tree{
 

@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\level;
+namespace devmine\events\level;
 
-use pocketmine\level\Level;
-use pocketmine\level\Position;
+use devmine\worlds\Level;
+use devmine\worlds\Position;
 
 /**
  * An event that is called when a level spawn changes.

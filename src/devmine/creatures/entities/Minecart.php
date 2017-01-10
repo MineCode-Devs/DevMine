@@ -19,17 +19,17 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\block\Block;
-use pocketmine\block\Rail;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\math\Math;
-use pocketmine\math\Vector3;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Rail;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\server\calculations\Math;
+use devmine\server\calculations\Vector3;
 
 class Minecart extends Vehicle{
 	const NETWORK_ID = 84;

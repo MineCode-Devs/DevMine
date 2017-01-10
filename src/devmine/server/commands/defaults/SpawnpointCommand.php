@@ -13,30 +13,30 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\level\Position;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\worlds\Position;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class SpawnpointCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.spawnpoint.description",
+			"%DevMine.command.spawnpoint.description",
 			"%commands.spawnpoint.usage"
 		);
-		$this->setPermission("pocketmine.command.spawnpoint");
+		$this->setPermission("DevMine.command.spawnpoint");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Entity;
-use pocketmine\entity\Living;
-use pocketmine\entity\Projectile;
-use pocketmine\event\Cancellable;
-use pocketmine\item\Item;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\Living;
+use devmine\creatures\entities\Projectile;
+use devmine\events\Cancellable;
+use devmine\inventory\items\Item;
 
 class EntityShootBowEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;

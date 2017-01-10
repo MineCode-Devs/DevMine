@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\math;
-use pocketmine\utils\Random;
+namespace devmine\server\calculations;
+use devmine\utilities\main\Random;
 
 /**
- * WARNING: This class is available on the PocketMine-MP Zephir project.
+ * WARNING: This class is available on the DevMine-MP Zephir project.
  * If this class is modified, remember to modify the PHP C extension.
  */
 class Vector2{

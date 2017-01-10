@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\tile\Dropper;
+use devmine\inventory\solidentity\Dropper;
 
 class DropperInventory extends ContainerInventory{
 	public function __construct(Dropper $tile){

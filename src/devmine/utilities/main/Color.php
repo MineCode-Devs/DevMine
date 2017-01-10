@@ -23,7 +23,7 @@
 * Copied from @beito123's FlowerPot plugin
  */
 
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
 class Color {
 

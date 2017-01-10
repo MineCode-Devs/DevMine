@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\network\protocol;
+namespace devmine\server\network\protocol;
 
 class RequestChunkRadiusPacket extends DataPacket{
 	const NETWORK_ID = Info::REQUEST_CHUNK_RADIUS_PACKET;

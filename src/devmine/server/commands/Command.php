@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,14 +22,14 @@
 /**
  * Command handling related classes
  */
-namespace pocketmine\command;
+namespace devmine\server\commands;
 
-use pocketmine\event\TextContainer;
-use pocketmine\event\TimingsHandler;
-use pocketmine\event\TranslationContainer;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\utils\TextFormat;
+use devmine\events\TextContainer;
+use devmine\events\TimingsHandler;
+use devmine\events\TranslationContainer;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\utilities\main\TextFormat;
 
 abstract class Command{
 	/** @var \stdClass */
@@ -114,7 +114,7 @@ abstract class Command{
 		$customData = clone $this->commandData;
 		$customData->aliases = $this->getAliases();
 		/*foreach($customData->overloads as &$overload){
-			if(($p = @$overload->pocketminePermission) !== null and !$player->hasPermission($p)){
+			if(($p = @$overload->DevMinePermission) !== null and !$player->hasPermission($p)){
 				unset($overload);
 			}
 		}*/
@@ -145,7 +145,7 @@ abstract class Command{
 	 * @return string
 	 */
 	public function getPermission(){
-		return $this->commandData->pocketminePermission ?? null;
+		return $this->commandData->DevMinePermission ?? null;
 	}
 	
 
@@ -154,9 +154,9 @@ abstract class Command{
 	 */
 	public function setPermission($permission){
 		if($permission !== null){
-			$this->commandData->pocketminePermission = $permission;
+			$this->commandData->DevMinePermission = $permission;
 		}else{
-			unset($this->commandData->pocketminePermission);
+			unset($this->commandData->DevMinePermission);
 		}
 	}
 
@@ -328,7 +328,7 @@ abstract class Command{
 
 	public static final function generateDefaultData() : \stdClass{
 		if(self::$defaultDataTemplate === null){
-			self::$defaultDataTemplate = json_decode(file_get_contents(Server::getInstance()->getFilePath() . "src/pocketmine/resources/command_default.json"));
+			self::$defaultDataTemplate = json_decode(file_get_contents(Server::getInstance()->getFilePath() . "src/devmine/server/resources/command_default.json"));
 		}
 		return clone self::$defaultDataTemplate;
 	}

@@ -19,12 +19,12 @@
  *
  */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\Block;
-use pocketmine\level\Level;
-use pocketmine\Player;
-use pocketmine\event\player\PlayerGlassBottleEvent;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\Level;
+use devmine\creatures\player;
+use devmine\events\player\PlayerGlassBottleEvent;
 
 class GlassBottle extends Item{
 	public function __construct($meta = 0, $count = 1){

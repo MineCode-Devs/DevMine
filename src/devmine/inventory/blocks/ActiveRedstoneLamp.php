@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\math\Vector3;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\server\calculations\Vector3;
 
 class ActiveRedstoneLamp extends Solid implements ElectricalAppliance, SolidLight{
 	protected $id = self::ACTIVE_REDSTONE_LAMP;

@@ -19,14 +19,14 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\event\block\BlockGrowEvent;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\item\enchantment\enchantment;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\events\block\BlockGrowEvent;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\inventory\items\enchantment\enchantment;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class NetherWart extends Flowable{
 	

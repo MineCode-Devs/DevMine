@@ -1,5 +1,5 @@
 @echo off
-TITLE Devmine- The Awesome software that does NOT use the Pocketmine folder structure!
+TITLE Devmine- The Awesome software that does NOT use the DevMine folder structure!
 cd /d %~dp0
 
 if exist bin\php\php.exe (

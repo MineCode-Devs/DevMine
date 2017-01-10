@@ -19,17 +19,17 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\Player;
-use pocketmine\tile\Hopper as TileHopper;
-use pocketmine\tile\Tile;
+use devmine\inventory\items\Item;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\Hopper as TileHopper;
+use devmine\inventory\solidentity\Tile;
 
 class Hopper extends Transparent{
 

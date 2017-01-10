@@ -13,24 +13,24 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Entity;
-use pocketmine\event\block\BlockGrowEvent;
-use pocketmine\event\entity\EntityDamageByBlockEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\creatures\entities\Entity;
+use devmine\events\block\BlockGrowEvent;
+use devmine\events\entity\EntityDamageByBlockEvent;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class Cactus extends Transparent{
 

@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\server;
+namespace devmine\events\server;
 
-use pocketmine\event;
-use pocketmine\event\Cancellable;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\Player;
+use devmine\events;
+use devmine\events\Cancellable;
+use devmine\server\network\protocol\DataPacket;
+use devmine\creatures\player;
 
 class DataPacketSendEvent extends ServerEvent implements Cancellable{
 	public static $handlerList = null;

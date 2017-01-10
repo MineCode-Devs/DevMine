@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\block\TrappedChest;
-use pocketmine\level\Level;
-use pocketmine\network\protocol\BlockEventPacket;
-use pocketmine\Player;
+use devmine\inventory\blocks\TrappedChest;
+use devmine\worlds\Level;
+use devmine\server\network\protocol\BlockEventPacket;
+use devmine\creatures\player;
 
-use pocketmine\tile\Chest;
+use devmine\inventory\solidentity\Chest;
 
 class ChestInventory extends ContainerInventory{
 	public function __construct(Chest $tile){

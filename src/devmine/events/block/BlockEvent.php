@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
@@ -22,13 +22,13 @@
 /**
  * Block related events
  */
-namespace pocketmine\event\block;
+namespace devmine\events\block;
 
-use pocketmine\block\Block;
-use pocketmine\event\Event;
+use devmine\inventory\blocks\Block;
+use devmine\events\Event;
 
 abstract class BlockEvent extends Event{
-	/** @var \pocketmine\block\Block */
+	/** @var \devmine\inventory\blocks\Block */
 	protected $block;
 
 	/**

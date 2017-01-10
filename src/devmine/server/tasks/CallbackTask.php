@@ -13,13 +13,13 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\scheduler;
+namespace devmine\server\tasks;
 
 /**
  * Allows the creation of simple callbacks with extra data
@@ -28,7 +28,7 @@ namespace pocketmine\scheduler;
  * If you want to do a task in a Plugin, consider extending PluginTask to your needs
  *
  * @deprecated 
- * Do NOT use this anymore, it was deprecated a long time ago at PocketMine
+ * Do NOT use this anymore, it was deprecated a long time ago at DevMine
  * and will be removed at some stage in the future.
  */
 

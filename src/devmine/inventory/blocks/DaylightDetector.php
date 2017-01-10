@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\Player;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\tile\Tile;
-use pocketmine\tile\DLDetector;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\inventory\solidentity\Tile;
+use devmine\inventory\solidentity\DLDetector;
 
 class DaylightDetector extends RedstoneSource{
 	protected $id = self::DAYLIGHT_SENSOR;

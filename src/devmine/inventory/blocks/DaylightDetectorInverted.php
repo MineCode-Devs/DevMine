@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\Player;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
 
 class DaylightDetectorInverted extends DaylightDetector{
 	protected $id = self::DAYLIGHT_SENSOR_INVERTED;

@@ -23,16 +23,16 @@
  * Copied from @beito123's FlowerPot plugin
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\utils\Color;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\utilities\main\Color;
 
 class Cauldron extends Spawnable{
 

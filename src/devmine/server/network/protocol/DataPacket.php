@@ -13,13 +13,13 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\network\protocol;
+namespace devmine\server\network\protocol;
 
 #include <rules/DataPacket.h>
 
@@ -28,8 +28,8 @@ namespace pocketmine\network\protocol;
 #endif
 
 
-use pocketmine\utils\BinaryStream;
-use pocketmine\utils\Utils;
+use devmine\utilities\main\BinaryStream;
+use devmine\utilities\main\Utils;
 
 
 abstract class DataPacket extends BinaryStream{

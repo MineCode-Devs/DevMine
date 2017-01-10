@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\block\Wool;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
+use devmine\inventory\blocks\Wool;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
 
 class Sheep extends Animal implements Colorable{
 	const NETWORK_ID = 13;

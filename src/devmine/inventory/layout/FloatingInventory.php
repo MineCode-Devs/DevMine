@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
 /**
  * The in-between inventory where items involved in transactions are stored temporarily

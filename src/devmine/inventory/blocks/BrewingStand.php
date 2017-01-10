@@ -19,19 +19,19 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\Player;
-use pocketmine\tile\Tile;
-use pocketmine\tile\BrewingStand as TileBrewingStand;
-use pocketmine\math\Vector3;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\Tile;
+use devmine\inventory\solidentity\BrewingStand as TileBrewingStand;
+use devmine\server\calculations\Vector3;
 
 class BrewingStand extends Transparent{
 

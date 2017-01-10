@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\event\Cancellable;
-use pocketmine\Player;
+use devmine\events\Cancellable;
+use devmine\creatures\player;
 
 class PlayerPickupExpOrbEvent extends PlayerEvent implements Cancellable{
 	public static $handlerList = null;

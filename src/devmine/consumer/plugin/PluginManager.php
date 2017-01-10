@@ -13,28 +13,28 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\plugin;
+namespace devmine\consumer\plugin;
 
-use pocketmine\command\defaults\TimingsCommand;
-use pocketmine\command\PluginCommand;
-use pocketmine\command\SimpleCommandMap;
-use pocketmine\event\Event;
-use pocketmine\event\EventPriority;
-use pocketmine\event\HandlerList;
-use pocketmine\event\Listener;
-use pocketmine\event\Timings;
-use pocketmine\event\TimingsHandler;
-use pocketmine\permission\Permissible;
-use pocketmine\permission\Permission;
-use pocketmine\Server;
-use pocketmine\utils\MainLogger;
-use pocketmine\utils\PluginException;
+use devmine\server\commands\defaults\TimingsCommand;
+use devmine\server\commands\PluginCommand;
+use devmine\server\commands\SimpleCommandMap;
+use devmine\events\Event;
+use devmine\events\EventPriority;
+use devmine\events\HandlerList;
+use devmine\events\Listener;
+use devmine\events\Timings;
+use devmine\events\TimingsHandler;
+use devmine\server\perms\Permissible;
+use devmine\server\perms\Permission;
+use devmine\server\server;
+use devmine\utilities\main\MainLogger;
+use devmine\utilities\main\PluginException;
 
 /**
  * Manages all the plugins, Permissions and Permissibles
@@ -200,15 +200,15 @@ class PluginManager{
 						$description = $loader->getPluginDescription($file);
 						if($description instanceof PluginDescription){
 							$name = $description->getName();
-							if(stripos($name, "pocketmine") !== false or stripos($name, "minecraft") !== false or stripos($name, "mojang") !== false){
-								$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.restrictedName"]));
+							if(stripos($name, "DevMine") !== false or stripos($name, "minecraft") !== false or stripos($name, "mojang") !== false){
+								$this->server->getLogger()->error($this->server->getLanguage()->translateString("DevMine.plugin.loadError", [$name, "%DevMine.plugin.restrictedName"]));
 								continue;
 							}elseif(strpos($name, " ") !== false){
-								$this->server->getLogger()->warning($this->server->getLanguage()->translateString("pocketmine.plugin.spacesDiscouraged", [$name]));
+								$this->server->getLogger()->warning($this->server->getLanguage()->translateString("DevMine.plugin.spacesDiscouraged", [$name]));
 							}
 
 							if(isset($plugins[$name]) or $this->getPlugin($name) instanceof Plugin){
-								$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.duplicateError", [$name]));
+								$this->server->getLogger()->error($this->server->getLanguage()->translateString("DevMine.plugin.duplicateError", [$name]));
 								continue;
 							}
 
@@ -239,7 +239,7 @@ class PluginManager{
 
 
 							if($compatible === false){
-								$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.incompatibleAPI"]));
+								$this->server->getLogger()->error($this->server->getLanguage()->translateString("DevMine.plugin.loadError", [$name, "%DevMine.plugin.incompatibleAPI"]));
 								continue;
 							}
 
@@ -257,7 +257,7 @@ class PluginManager{
 							}
 						}
 					}catch(\Throwable $e){
-						$this->server->getLogger()->error($this->server->getLanguage()->translateString("pocketmine.plugin.fileError", [$file, $directory, $e->getMessage()]));
+						$this->server->getLogger()->error($this->server->getLanguage()->translateString("DevMine.plugin.fileError", [$file, $directory, $e->getMessage()]));
 						$this->server->getLogger()->logException($e);
 					}
 				}
@@ -272,7 +272,7 @@ class PluginManager{
 							if(isset($loadedPlugins[$dependency]) or $this->getPlugin($dependency) instanceof Plugin){
 								unset($dependencies[$name][$key]);
 							}elseif(!isset($plugins[$dependency])){
-								$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.unknownDependency"]));
+								$this->server->getLogger()->critical($this->server->getLanguage()->translateString("DevMine.plugin.loadError", [$name, "%DevMine.plugin.unknownDependency"]));
 								break;
 							}
 						}
@@ -300,7 +300,7 @@ class PluginManager{
 						if($plugin = $this->loadPlugin($file, $loaders) and $plugin instanceof Plugin){
 							$loadedPlugins[$name] = $plugin;
 						}else{
-							$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.plugin.genericLoadError", [$name]));
+							$this->server->getLogger()->critical($this->server->getLanguage()->translateString("DevMine.plugin.genericLoadError", [$name]));
 						}
 					}
 				}
@@ -314,7 +314,7 @@ class PluginManager{
 							if($plugin = $this->loadPlugin($file, $loaders) and $plugin instanceof Plugin){
 								$loadedPlugins[$name] = $plugin;
 							}else{
-								$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.plugin.genericLoadError", [$name]));
+								$this->server->getLogger()->critical($this->server->getLanguage()->translateString("DevMine.plugin.genericLoadError", [$name]));
 							}
 						}
 					}
@@ -322,7 +322,7 @@ class PluginManager{
 					//No plugins loaded :(
 					if($missingDependency === true){
 						foreach($plugins as $name => $file){
-							$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.plugin.loadError", [$name, "%pocketmine.plugin.circularDependency"]));
+							$this->server->getLogger()->critical($this->server->getLanguage()->translateString("DevMine.plugin.loadError", [$name, "%DevMine.plugin.circularDependency"]));
 						}
 						$plugins = [];
 					}
@@ -584,7 +584,7 @@ class PluginManager{
 
 		foreach($plugin->getDescription()->getCommands() as $key => $data){
 			if(strpos($key, ":") !== false){
-				$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.plugin.commandError", [$key, $plugin->getDescription()->getFullName()]));
+				$this->server->getLogger()->critical($this->server->getLanguage()->translateString("DevMine.plugin.commandError", [$key, $plugin->getDescription()->getFullName()]));
 				continue;
 			}
 			if(is_array($data)){
@@ -601,7 +601,7 @@ class PluginManager{
 					$aliasList = [];
 					foreach($data["aliases"] as $alias){
 						if(strpos($alias, ":") !== false){
-							$this->server->getLogger()->critical($this->server->getLanguage()->translateString("pocketmine.plugin.aliasError", [$alias, $plugin->getDescription()->getFullName()]));
+							$this->server->getLogger()->critical($this->server->getLanguage()->translateString("DevMine.plugin.aliasError", [$alias, $plugin->getDescription()->getFullName()]));
 							continue;
 						}
 						$aliasList[] = $alias;
@@ -674,7 +674,7 @@ class PluginManager{
 				$registration->callEvent($event);
 			}catch(\Throwable $e){
 				$this->server->getLogger()->critical(
-					$this->server->getLanguage()->translateString("pocketmine.plugin.eventError", [
+					$this->server->getLanguage()->translateString("DevMine.plugin.eventError", [
 						$event->getEventName(),
 						$registration->getPlugin()->getDescription()->getFullName(),
 						$e->getMessage(),
@@ -723,7 +723,7 @@ class PluginManager{
 					$class = $parameters[0]->getClass()->getName();
 					$reflection = new \ReflectionClass($class);
 					if(strpos((string) $reflection->getDocComment(), "@deprecated") !== false and $this->server->getProperty("settings.deprecated-verbose", true)){
-						$this->server->getLogger()->warning($this->server->getLanguage()->translateString("pocketmine.plugin.deprecatedEvent", [
+						$this->server->getLogger()->warning($this->server->getLanguage()->translateString("DevMine.plugin.deprecatedEvent", [
 							$plugin->getName(),
 							$class,
 							get_class($listener) . "->" . $method->getName() . "()"

@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\network\protocol;
+namespace devmine\server\network\protocol;
 
 #include <rules/DataPacket.h>
 
 
-use pocketmine\inventory\FurnaceRecipe;
-use pocketmine\inventory\ShapedRecipe;
-use pocketmine\inventory\ShapelessRecipe;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\item\enchantment\EnchantmentList;
-use pocketmine\utils\BinaryStream;
+use devmine\inventory\layout\FurnaceRecipe;
+use devmine\inventory\layout\ShapedRecipe;
+use devmine\inventory\layout\ShapelessRecipe;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\inventory\items\enchantment\EnchantmentList;
+use devmine\utilities\main\BinaryStream;
 
 class CraftingDataPacket extends DataPacket{
 	const NETWORK_ID = Info::CRAFTING_DATA_PACKET;

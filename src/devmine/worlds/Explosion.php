@@ -13,33 +13,33 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level;
+namespace devmine\worlds;
 
-use pocketmine\block\Block;
-use pocketmine\entity\Entity;
-use pocketmine\event\block\BlockUpdateEvent;
-use pocketmine\event\entity\EntityDamageByBlockEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityExplodeEvent;
-use pocketmine\item\Item;
-use pocketmine\level\particle\HugeExplodeSeedParticle;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Math;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\network\protocol\ExplodePacket;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\entities\Entity;
+use devmine\events\block\BlockUpdateEvent;
+use devmine\events\entity\EntityDamageByBlockEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityExplodeEvent;
+use devmine\inventory\items\Item;
+use devmine\worlds\particle\HugeExplodeSeedParticle;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Math;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\server\network\protocol\ExplodePacket;
+use devmine\utilities\main\Random;
 
 class Explosion{
 

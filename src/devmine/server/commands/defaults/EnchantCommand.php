@@ -13,32 +13,32 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
 
-use pocketmine\command\CommandSender;
-use pocketmine\entity\Effect;
-use pocketmine\entity\InstantEffect;
-use pocketmine\event\TranslationContainer;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\utils\TextFormat;
-use pocketmine\Server;
+use devmine\server\commands\CommandSender;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\InstantEffect;
+use devmine\events\TranslationContainer;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\utilities\main\TextFormat;
+use devmine\server\server;
 
 class EnchantCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.enchant.description",
+			"%DevMine.command.enchant.description",
 			"%commands.enchant.usage"
 		);
-		$this->setPermission("pocketmine.command.enchant");
+		$this->setPermission("DevMine.command.enchant");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

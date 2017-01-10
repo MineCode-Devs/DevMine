@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
+use devmine\inventory\items\Item;
 
 class DoubleRedSandstoneSlab extends DoubleSlab{
 

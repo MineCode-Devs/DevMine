@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\event;
+namespace devmine\events;
 
-use pocketmine\command\defaults\TimingsCommand;
-use pocketmine\entity\Living;
-use pocketmine\plugin\PluginManager;
-use pocketmine\Server;
+use devmine\server\commands\defaults\TimingsCommand;
+use devmine\creatures\entities\Living;
+use devmine\consumer\plugin\PluginManager;
+use devmine\server\server;
 
 class TimingsHandler{
 
@@ -72,7 +72,7 @@ class TimingsHandler{
 		}
 
 		fwrite($fp, "# Version " . Server::getInstance()->getVersion() . PHP_EOL);
-		fwrite($fp, "# " . Server::getInstance()->getName() . " " . Server::getInstance()->getPocketMineVersion() . PHP_EOL);
+		fwrite($fp, "# " . Server::getInstance()->getName() . " " . Server::getInstance()->getDevMineVersion() . PHP_EOL);
 
 		$entities = 0;
 		$livingEntities = 0;

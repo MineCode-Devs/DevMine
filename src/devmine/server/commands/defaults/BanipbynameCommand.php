@@ -19,23 +19,23 @@
  *
  */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class BanIpByNameCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.banipbyname.description",
+			"%DevMine.command.banipbyname.description",
 			"%commands.banipbyname.usage"
 		);
-		$this->setPermission("pocketmine.command.banipbyname");
+		$this->setPermission("DevMine.command.banipbyname");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

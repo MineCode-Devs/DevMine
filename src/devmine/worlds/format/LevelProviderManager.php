@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -21,9 +21,9 @@
 
 declare(strict_types = 1);
 
-namespace pocketmine\level\format;
+namespace devmine\worlds\format;
 
-use pocketmine\utils\LevelException;
+use devmine\utilities\main\LevelException;
 
 abstract class LevelProviderManager{
 	protected static $providers = [];

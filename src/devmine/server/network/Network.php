@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,84 +22,84 @@
 /**
  * Network-related classes
  */
-namespace pocketmine\network;
+namespace devmine\server\network;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\network\protocol\AddHangingEntityPacket;
-use pocketmine\network\protocol\AddItemEntityPacket;
-use pocketmine\network\protocol\AddItemPacket;
-use pocketmine\network\protocol\AddPaintingPacket;
-use pocketmine\network\protocol\AddPlayerPacket;
-use pocketmine\network\protocol\AdventureSettingsPacket;
-use pocketmine\network\protocol\AnimatePacket;
-use pocketmine\network\protocol\AvailableCommandsPacket;
-use pocketmine\network\protocol\BatchPacket;
-use pocketmine\network\protocol\BossEventPacket;
-use pocketmine\network\protocol\ChunkRadiusUpdatedPacket;
-use pocketmine\network\protocol\CommandStepPacket;
-use pocketmine\network\protocol\ContainerClosePacket;
-use pocketmine\network\protocol\ContainerOpenPacket;
-use pocketmine\network\protocol\ContainerSetContentPacket;
-use pocketmine\network\protocol\ContainerSetDataPacket;
-use pocketmine\network\protocol\ContainerSetSlotPacket;
-use pocketmine\network\protocol\CraftingDataPacket;
-use pocketmine\network\protocol\CraftingEventPacket;
-use pocketmine\network\protocol\ChangeDimensionPacket;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\network\protocol\DropItemPacket;
-use pocketmine\network\protocol\FullChunkDataPacket;
-use pocketmine\network\protocol\Info;
-use pocketmine\network\protocol\ItemFrameDropItemPacket;
-use pocketmine\network\protocol\RequestChunkRadiusPacket;
-use pocketmine\network\protocol\SetEntityLinkPacket;
-use pocketmine\network\protocol\BlockEntityDataPacket;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\network\protocol\ExplodePacket;
-use pocketmine\network\protocol\HurtArmorPacket;
-use pocketmine\network\protocol\Info as ProtocolInfo;
-use pocketmine\network\protocol\InteractPacket;
-use pocketmine\network\protocol\InventoryActionPacket;
-use pocketmine\network\protocol\LevelEventPacket;
-use pocketmine\network\protocol\LevelSoundEventPacket;
-use pocketmine\network\protocol\DisconnectPacket;
-use pocketmine\network\protocol\LoginPacket;
-use pocketmine\network\protocol\PlayStatusPacket;
-use pocketmine\network\protocol\TextPacket;
-use pocketmine\network\protocol\MoveEntityPacket;
-use pocketmine\network\protocol\MovePlayerPacket;
-use pocketmine\network\protocol\PlayerActionPacket;
-use pocketmine\network\protocol\MobArmorEquipmentPacket;
-use pocketmine\network\protocol\MobEquipmentPacket;
-use pocketmine\network\protocol\RemoveBlockPacket;
-use pocketmine\network\protocol\RemoveEntityPacket;
-use pocketmine\network\protocol\RemovePlayerPacket;
-use pocketmine\network\protocol\ReplaceItemInSlotPacket;
-use pocketmine\network\protocol\ResourcePackClientResponsePacket;
-use pocketmine\network\protocol\ResourcePacksInfoPacket;
-use pocketmine\network\protocol\RespawnPacket;
-use pocketmine\network\protocol\SetCommandsEnabledPacket;
-use pocketmine\network\protocol\SetDifficultyPacket;
-use pocketmine\network\protocol\SetEntityDataPacket;
-use pocketmine\network\protocol\SetEntityMotionPacket;
-use pocketmine\network\protocol\SetHealthPacket;
-use pocketmine\network\protocol\SetPlayerGameTypePacket;
-use pocketmine\network\protocol\SetSpawnPositionPacket;
-use pocketmine\network\protocol\SetTimePacket;
-use pocketmine\network\protocol\SpawnExperienceOrbPacket;
-use pocketmine\network\protocol\StartGamePacket;
-use pocketmine\network\protocol\TakeItemEntityPacket;
-use pocketmine\network\protocol\BlockEventPacket;
-use pocketmine\network\protocol\UpdateBlockPacket;
-use pocketmine\network\protocol\PlayerFallPacket;
-use pocketmine\network\protocol\UseItemPacket;
-use pocketmine\network\protocol\PlayerListPacket;
-use pocketmine\network\protocol\PlayerInputPacket;
-use pocketmine\network\protocol\ShowCreditsPacket;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\utils\Binary;
-use pocketmine\utils\BinaryStream;
-use pocketmine\utils\MainLogger;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\server\network\protocol\AddHangingEntityPacket;
+use devmine\server\network\protocol\AddItemEntityPacket;
+use devmine\server\network\protocol\AddItemPacket;
+use devmine\server\network\protocol\AddPaintingPacket;
+use devmine\server\network\protocol\AddPlayerPacket;
+use devmine\server\network\protocol\AdventureSettingsPacket;
+use devmine\server\network\protocol\AnimatePacket;
+use devmine\server\network\protocol\AvailableCommandsPacket;
+use devmine\server\network\protocol\BatchPacket;
+use devmine\server\network\protocol\BossEventPacket;
+use devmine\server\network\protocol\ChunkRadiusUpdatedPacket;
+use devmine\server\network\protocol\CommandStepPacket;
+use devmine\server\network\protocol\ContainerClosePacket;
+use devmine\server\network\protocol\ContainerOpenPacket;
+use devmine\server\network\protocol\ContainerSetContentPacket;
+use devmine\server\network\protocol\ContainerSetDataPacket;
+use devmine\server\network\protocol\ContainerSetSlotPacket;
+use devmine\server\network\protocol\CraftingDataPacket;
+use devmine\server\network\protocol\CraftingEventPacket;
+use devmine\server\network\protocol\ChangeDimensionPacket;
+use devmine\server\network\protocol\DataPacket;
+use devmine\server\network\protocol\DropItemPacket;
+use devmine\server\network\protocol\FullChunkDataPacket;
+use devmine\server\network\protocol\Info;
+use devmine\server\network\protocol\ItemFrameDropItemPacket;
+use devmine\server\network\protocol\RequestChunkRadiusPacket;
+use devmine\server\network\protocol\SetEntityLinkPacket;
+use devmine\server\network\protocol\BlockEntityDataPacket;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\server\network\protocol\ExplodePacket;
+use devmine\server\network\protocol\HurtArmorPacket;
+use devmine\server\network\protocol\Info as ProtocolInfo;
+use devmine\server\network\protocol\InteractPacket;
+use devmine\server\network\protocol\InventoryActionPacket;
+use devmine\server\network\protocol\LevelEventPacket;
+use devmine\server\network\protocol\LevelSoundEventPacket;
+use devmine\server\network\protocol\DisconnectPacket;
+use devmine\server\network\protocol\LoginPacket;
+use devmine\server\network\protocol\PlayStatusPacket;
+use devmine\server\network\protocol\TextPacket;
+use devmine\server\network\protocol\MoveEntityPacket;
+use devmine\server\network\protocol\MovePlayerPacket;
+use devmine\server\network\protocol\PlayerActionPacket;
+use devmine\server\network\protocol\MobArmorEquipmentPacket;
+use devmine\server\network\protocol\MobEquipmentPacket;
+use devmine\server\network\protocol\RemoveBlockPacket;
+use devmine\server\network\protocol\RemoveEntityPacket;
+use devmine\server\network\protocol\RemovePlayerPacket;
+use devmine\server\network\protocol\ReplaceItemInSlotPacket;
+use devmine\server\network\protocol\ResourcePackClientResponsePacket;
+use devmine\server\network\protocol\ResourcePacksInfoPacket;
+use devmine\server\network\protocol\RespawnPacket;
+use devmine\server\network\protocol\SetCommandsEnabledPacket;
+use devmine\server\network\protocol\SetDifficultyPacket;
+use devmine\server\network\protocol\SetEntityDataPacket;
+use devmine\server\network\protocol\SetEntityMotionPacket;
+use devmine\server\network\protocol\SetHealthPacket;
+use devmine\server\network\protocol\SetPlayerGameTypePacket;
+use devmine\server\network\protocol\SetSpawnPositionPacket;
+use devmine\server\network\protocol\SetTimePacket;
+use devmine\server\network\protocol\SpawnExperienceOrbPacket;
+use devmine\server\network\protocol\StartGamePacket;
+use devmine\server\network\protocol\TakeItemEntityPacket;
+use devmine\server\network\protocol\BlockEventPacket;
+use devmine\server\network\protocol\UpdateBlockPacket;
+use devmine\server\network\protocol\PlayerFallPacket;
+use devmine\server\network\protocol\UseItemPacket;
+use devmine\server\network\protocol\PlayerListPacket;
+use devmine\server\network\protocol\PlayerInputPacket;
+use devmine\server\network\protocol\ShowCreditsPacket;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\BinaryStream;
+use devmine\utilities\main\MainLogger;
 
 class Network {
 
@@ -160,7 +160,7 @@ class Network {
 				$interface->process();
 			} catch (\Throwable $e) {
 				$logger = $this->server->getLogger();
-				if (\pocketmine\DEBUG > 1) {
+				if (\DevMine\DEBUG > 1) {
 					if ($logger instanceof MainLogger) {
 						$logger->logException($e);
 					}
@@ -168,7 +168,7 @@ class Network {
 
 				$interface->emergencyShutdown();
 				$this->unregisterInterface($interface);
-				$logger->critical($this->server->getLanguage()->translateString("pocketmine.server.networkError", [get_class($interface), $e->getMessage()]));
+				$logger->critical($this->server->getLanguage()->translateString("DevMine.server.networkError", [get_class($interface), $e->getMessage()]));
 			}
 		}
 	}
@@ -252,7 +252,7 @@ class Network {
 				}
 			}
 		}catch(\Throwable $e){
-			if(\pocketmine\DEBUG > 1){
+			if(\DevMine\DEBUG > 1){
 				$logger = $this->server->getLogger();
 				$logger->debug("BatchPacket " . " 0x" . bin2hex($packet->payload));
 				$logger->logException($e);

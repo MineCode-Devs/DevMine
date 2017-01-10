@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class IronTrapdoor extends Trapdoor {
 	protected $id = self::IRON_TRAPDOOR;

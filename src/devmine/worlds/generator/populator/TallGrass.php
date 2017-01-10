@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level\generator\populator;
+namespace devmine\worlds\generator\populator;
 
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\ChunkManager;
+use devmine\utilities\main\Random;
 
 class TallGrass extends Populator{
 	/** @var ChunkManager */

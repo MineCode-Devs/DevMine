@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\level\Position;
-use pocketmine\Player;
+use devmine\worlds\Position;
+use devmine\creatures\player;
 
 /**
  * Called when a player is respawned (or first time spawned)

@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -23,10 +23,10 @@
  * Various Utilities used around the code
  */
  
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
-use pocketmine\entity\Entity;
-use pocketmine\item\Item;
+use devmine\creatures\entities\Entity;
+use devmine\inventory\items\Item;
 
 class Binary{
 	const BIG_ENDIAN = 0x00;

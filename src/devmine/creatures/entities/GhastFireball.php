@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\level\format\FullChunk;
-use pocketmine\level\particle\CriticalParticle;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\entity\Projectile;
-use pocketmine\entity\Entity;
-use pocketmine\level\Explosion;
-use pocketmine\event\entity\ExplosionPrimeEvent;
+use devmine\worlds\format\FullChunk;
+use devmine\worlds\particle\CriticalParticle;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\creatures\entities\Projectile;
+use devmine\creatures\entities\Entity;
+use devmine\worlds\Explosion;
+use devmine\events\entity\ExplosionPrimeEvent;
 
 class GhastFireball extends Projectile{
 	const NETWORK_ID = 85;

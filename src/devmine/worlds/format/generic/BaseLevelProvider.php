@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -21,19 +21,19 @@
 
 declare(strict_types = 1);
 
-namespace pocketmine\level\format\generic;
+namespace devmine\worlds\format\generic;
 
-use pocketmine\level\format\LevelProvider;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\LongTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\utils\ChunkException;
-use pocketmine\utils\LevelException;
+use devmine\worlds\format\LevelProvider;
+use devmine\worlds\generator\Generator;
+use devmine\worlds\Level;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\LongTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\utilities\main\ChunkException;
+use devmine\utilities\main\LevelException;
 
 abstract class BaseLevelProvider implements LevelProvider{
 	/** @var Level */

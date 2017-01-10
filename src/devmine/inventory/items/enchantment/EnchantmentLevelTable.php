@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\item\enchantment;
+namespace devmine\inventory\items\enchantment;
 
-use pocketmine\item\Armor;
-use pocketmine\item\Item;
-use pocketmine\utils\Range;
+use devmine\inventory\items\Armor;
+use devmine\inventory\items\Item;
+use devmine\utilities\main\Range;
 
 class EnchantmentLevelTable{
 

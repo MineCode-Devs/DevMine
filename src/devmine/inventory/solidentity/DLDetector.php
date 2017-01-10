@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\block\Block;
-use pocketmine\block\DaylightDetector;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\level\Level;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\DaylightDetector;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\worlds\Level;
 
 class DLDetector extends Spawnable{
 	private $lastType = 0;

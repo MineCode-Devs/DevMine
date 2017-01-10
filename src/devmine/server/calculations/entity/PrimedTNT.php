@@ -13,25 +13,25 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
 
-use pocketmine\event\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDamageEvent;
 
-use pocketmine\event\entity\ExplosionPrimeEvent;
-use pocketmine\level\Explosion;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\events\entity\ExplosionPrimeEvent;
+use devmine\worlds\Explosion;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class PrimedTNT extends Entity implements Explosive{
 	const NETWORK_ID = 65;

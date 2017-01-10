@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\generator;
+namespace devmine\worlds\generator;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\level\format\generic\GenericChunk;
-use pocketmine\level\Level;
-use pocketmine\scheduler\AsyncTask;
-use pocketmine\Server;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\format\generic\GenericChunk;
+use devmine\worlds\Level;
+use devmine\server\tasks\AsyncTask;
+use devmine\server\server;
 
 class LightPopulationTask extends AsyncTask{
 

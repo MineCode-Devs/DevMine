@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Creeper;
-use pocketmine\event\Cancellable;
-use pocketmine\entity\Lightning;
+use devmine\creatures\entities\Creeper;
+use devmine\events\Cancellable;
+use devmine\creatures\entities\Lightning;
 
 class CreeperPowerEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;

@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -22,16 +22,16 @@
 /**
  * All the Tile classes and related classes
  */
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\event\Timings;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\utils\ChunkException;
+use devmine\events\Timings;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\Level;
+use devmine\worlds\Position;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\utilities\main\ChunkException;
 
 abstract class Tile extends Position{
 	
@@ -71,7 +71,7 @@ abstract class Tile extends Position{
 	protected $server;
 	protected $timings;
 
-	/** @var \pocketmine\event\TimingsHandler */
+	/** @var \devmine\events\TimingsHandler */
 	public $tickTimer;
 
 	/**
@@ -151,7 +151,7 @@ abstract class Tile extends Position{
 	}
 
 	/**
-	 * @return \pocketmine\block\Block
+	 * @return \devmine\inventory\blocks\Block
 	 */
 	public function getBlock(){
 		return $this->level->getBlock($this);

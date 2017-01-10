@@ -13,13 +13,13 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\server;
 
 /**
  * This class must be extended by all custom threading classes
@@ -43,9 +43,9 @@ abstract class Thread extends \Thread{
 
 	public function registerClassLoader(){
 		if(!interface_exists("ClassLoader", false)){
-			require(\pocketmine\PATH . "src/spl/ClassLoader.php");
-			require(\pocketmine\PATH . "src/spl/BaseClassLoader.php");
-			require(\pocketmine\PATH . "src/pocketmine/CompatibleClassLoader.php");
+			require(\DevMine\PATH . "src/spl/ClassLoader.php");
+			require(\DevMine\PATH . "src/spl/BaseClassLoader.php");
+			require(\DevMine\PATH . "src/DevMine/CompatibleClassLoader.php");
 		}
 		if($this->classLoader !== null){
 			$this->classLoader->register(true);

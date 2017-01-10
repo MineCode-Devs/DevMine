@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
+use devmine\inventory\items\Item;
 
 class UnpoweredRepeater extends PoweredRepeater{
 	protected $id = self::UNPOWERED_REPEATER_BLOCK;

@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
 
 class IronChestplate extends Armor{

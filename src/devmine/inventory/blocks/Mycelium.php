@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\event\block\BlockSpreadEvent;
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\item\enchantment\enchantment;
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
-use pocketmine\Server;
+use devmine\events\block\BlockSpreadEvent;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\inventory\items\enchantment\enchantment;
+use devmine\worlds\Level;
+use devmine\server\calculations\Vector3;
+use devmine\server\server;
 
 
 class Mycelium extends Solid{

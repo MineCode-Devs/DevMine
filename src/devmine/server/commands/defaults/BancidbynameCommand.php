@@ -19,23 +19,23 @@
  *
  */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class BanCidByNameCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.bancidbyname.description",
+			"%DevMine.command.bancidbyname.description",
 			"%commands.bancidbyname.usage"
 		);
-		$this->setPermission("pocketmine.command.bancidbyname");
+		$this->setPermission("DevMine.command.bancidbyname");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

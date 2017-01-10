@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\tile\Hopper;
+use devmine\inventory\solidentity\Hopper;
 
 class HopperInventory extends ContainerInventory{
 	public function __construct(Hopper $tile){

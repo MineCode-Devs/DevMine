@@ -19,12 +19,12 @@
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\block\Block;
-use pocketmine\event\Cancellable;
-use pocketmine\item\Item;
-use pocketmine\Player;
+use devmine\inventory\blocks\Block;
+use devmine\events\Cancellable;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
 
 class PlayerGlassBottleEvent extends PlayerEvent implements Cancellable{
     public static $handlerList = null;

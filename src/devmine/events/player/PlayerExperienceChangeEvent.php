@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\event\Cancellable;
-use pocketmine\entity\Human;
+use devmine\events\Cancellable;
+use devmine\creatures\entities\Human;
 
 class PlayerExperienceChangeEvent extends PlayerEvent implements Cancellable{
 	

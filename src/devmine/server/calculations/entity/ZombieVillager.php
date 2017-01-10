@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\Player;
-use pocketmine\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\network\protocol\AddEntityPacket;
 
 class ZombieVillager extends Zombie{
 	const NETWORK_ID = 44;

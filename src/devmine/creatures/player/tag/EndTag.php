@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\nbt\tag;
+namespace devmine\creatures\player\tag;
 
-use pocketmine\nbt\NBT;
+use devmine\creatures\player\NBT;
 
 class EndTag extends Tag{
 

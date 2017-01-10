@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command;
+namespace devmine\server\commands;
 
-use pocketmine\Thread;
-use pocketmine\utils\MainLogger;
-use pocketmine\utils\Utils;
+use devmine\server\Thread;
+use devmine\utilities\main\MainLogger;
+use devmine\utilities\main\Utils;
 
 class CommandReader extends Thread{
 	private $readline;
@@ -92,7 +92,7 @@ class CommandReader extends Thread{
 
 	public function run(){
 		if($this->readline){
-			readline_callback_handler_install("Tesseract> ", [$this, "readline_callback"]);
+			readline_callback_handler_install("DevMine> ", [$this, "readline_callback"]);
 			$this->logger->setConsoleCallback("readline_redisplay");
 		}
 

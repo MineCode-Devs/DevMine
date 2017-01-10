@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\inventory;
+namespace devmine\events\inventory;
 
-use pocketmine\event\Cancellable;
-use pocketmine\event\Event;
-use pocketmine\inventory\TransactionQueue;
+use devmine\events\Cancellable;
+use devmine\events\Event;
+use devmine\inventory\layout\TransactionQueue;
 
 /**
  * Called when an inventory transaction queue starts execution. 

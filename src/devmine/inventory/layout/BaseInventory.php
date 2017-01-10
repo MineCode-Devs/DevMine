@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\entity\Entity;
-use pocketmine\event\entity\EntityInventoryChangeEvent;
-use pocketmine\event\inventory\InventoryOpenEvent;
-use pocketmine\item\Item;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\ContainerSetContentPacket;
-use pocketmine\network\protocol\ContainerSetSlotPacket;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\creatures\entities\Entity;
+use devmine\events\entity\EntityInventoryChangeEvent;
+use devmine\events\inventory\InventoryOpenEvent;
+use devmine\inventory\items\Item;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\ContainerSetContentPacket;
+use devmine\server\network\protocol\ContainerSetSlotPacket;
+use devmine\creatures\player;
+use devmine\server\server;
 
 abstract class BaseInventory implements Inventory{
 

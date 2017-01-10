@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\generator;
+namespace devmine\worlds\generator;
 
-use pocketmine\block\Block;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\Level;
-use pocketmine\level\SimpleChunkManager;
-use pocketmine\scheduler\AsyncTask;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\generator\biome\Biome;
+use devmine\worlds\Level;
+use devmine\worlds\SimpleChunkManager;
+use devmine\server\tasks\AsyncTask;
+use devmine\utilities\main\Random;
 
 class GeneratorRegisterTask extends AsyncTask{
 

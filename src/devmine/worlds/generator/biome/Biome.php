@@ -13,28 +13,28 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\generator\biome;
+namespace devmine\worlds\generator\biome;
 
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\normal\biome\DesertBiome;
-use pocketmine\level\generator\normal\biome\ForestBiome;
-use pocketmine\level\generator\normal\biome\IcePlainsBiome;
-use pocketmine\level\generator\normal\biome\MountainsBiome;
-use pocketmine\level\generator\normal\biome\OceanBiome;
-use pocketmine\level\generator\normal\biome\PlainBiome;
-use pocketmine\level\generator\normal\biome\RiverBiome;
-use pocketmine\level\generator\normal\biome\SmallMountainsBiome;
-use pocketmine\level\generator\normal\biome\SwampBiome;
-use pocketmine\level\generator\normal\biome\TaigaBiome;
-use pocketmine\level\generator\populator\Populator;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\ChunkManager;
+use devmine\worlds\generator\normal\biome\DesertBiome;
+use devmine\worlds\generator\normal\biome\ForestBiome;
+use devmine\worlds\generator\normal\biome\IcePlainsBiome;
+use devmine\worlds\generator\normal\biome\MountainsBiome;
+use devmine\worlds\generator\normal\biome\OceanBiome;
+use devmine\worlds\generator\normal\biome\PlainBiome;
+use devmine\worlds\generator\normal\biome\RiverBiome;
+use devmine\worlds\generator\normal\biome\SmallMountainsBiome;
+use devmine\worlds\generator\normal\biome\SwampBiome;
+use devmine\worlds\generator\normal\biome\TaigaBiome;
+use devmine\worlds\generator\populator\Populator;
+use devmine\utilities\main\Random;
 
 abstract class Biome{
 

@@ -13,60 +13,60 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\item\enchantment;
+namespace devmine\inventory\items\enchantment;
 
-use pocketmine\item\ChainBoots;
-use pocketmine\item\ChainChestplate;
-use pocketmine\item\ChainHelmet;
-use pocketmine\item\ChainLeggings;
-use pocketmine\item\DiamondAxe;
-use pocketmine\item\DiamondBoots;
-use pocketmine\item\DiamondChestplate;
-use pocketmine\item\DiamondHelmet;
-use pocketmine\item\DiamondHoe;
-use pocketmine\item\DiamondLeggings;
-use pocketmine\item\DiamondPickaxe;
-use pocketmine\item\DiamondShovel;
-use pocketmine\item\DiamondSword;
-use pocketmine\item\GoldAxe;
-use pocketmine\item\GoldBoots;
-use pocketmine\item\GoldChestplate;
-use pocketmine\item\GoldHelmet;
-use pocketmine\item\GoldHoe;
-use pocketmine\item\GoldLeggings;
-use pocketmine\item\GoldPickaxe;
-use pocketmine\item\GoldShovel;
-use pocketmine\item\GoldSword;
-use pocketmine\item\IronAxe;
-use pocketmine\item\IronBoots;
-use pocketmine\item\IronChestplate;
-use pocketmine\item\IronHelmet;
-use pocketmine\item\IronHoe;
-use pocketmine\item\IronLeggings;
-use pocketmine\item\IronPickaxe;
-use pocketmine\item\IronShovel;
-use pocketmine\item\IronSword;
-use pocketmine\item\Item;
-use pocketmine\item\LeatherBoots;
-use pocketmine\item\LeatherCap;
-use pocketmine\item\LeatherPants;
-use pocketmine\item\LeatherTunic;
-use pocketmine\item\StoneAxe;
-use pocketmine\item\StoneHoe;
-use pocketmine\item\StonePickaxe;
-use pocketmine\item\StoneShovel;
-use pocketmine\item\StoneSword;
-use pocketmine\item\WoodenAxe;
-use pocketmine\item\WoodenHoe;
-use pocketmine\item\WoodenPickaxe;
-use pocketmine\item\WoodenShovel;
-use pocketmine\item\WoodenSword;
+use devmine\inventory\items\ChainBoots;
+use devmine\inventory\items\ChainChestplate;
+use devmine\inventory\items\ChainHelmet;
+use devmine\inventory\items\ChainLeggings;
+use devmine\inventory\items\DiamondAxe;
+use devmine\inventory\items\DiamondBoots;
+use devmine\inventory\items\DiamondChestplate;
+use devmine\inventory\items\DiamondHelmet;
+use devmine\inventory\items\DiamondHoe;
+use devmine\inventory\items\DiamondLeggings;
+use devmine\inventory\items\DiamondPickaxe;
+use devmine\inventory\items\DiamondShovel;
+use devmine\inventory\items\DiamondSword;
+use devmine\inventory\items\GoldAxe;
+use devmine\inventory\items\GoldBoots;
+use devmine\inventory\items\GoldChestplate;
+use devmine\inventory\items\GoldHelmet;
+use devmine\inventory\items\GoldHoe;
+use devmine\inventory\items\GoldLeggings;
+use devmine\inventory\items\GoldPickaxe;
+use devmine\inventory\items\GoldShovel;
+use devmine\inventory\items\GoldSword;
+use devmine\inventory\items\IronAxe;
+use devmine\inventory\items\IronBoots;
+use devmine\inventory\items\IronChestplate;
+use devmine\inventory\items\IronHelmet;
+use devmine\inventory\items\IronHoe;
+use devmine\inventory\items\IronLeggings;
+use devmine\inventory\items\IronPickaxe;
+use devmine\inventory\items\IronShovel;
+use devmine\inventory\items\IronSword;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\LeatherBoots;
+use devmine\inventory\items\LeatherCap;
+use devmine\inventory\items\LeatherPants;
+use devmine\inventory\items\LeatherTunic;
+use devmine\inventory\items\StoneAxe;
+use devmine\inventory\items\StoneHoe;
+use devmine\inventory\items\StonePickaxe;
+use devmine\inventory\items\StoneShovel;
+use devmine\inventory\items\StoneSword;
+use devmine\inventory\items\WoodenAxe;
+use devmine\inventory\items\WoodenHoe;
+use devmine\inventory\items\WoodenPickaxe;
+use devmine\inventory\items\WoodenShovel;
+use devmine\inventory\items\WoodenSword;
 
 class Enchantment{
 

@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\event\block\LeavesDecayEvent;
-use pocketmine\item\Item;
-use pocketmine\item\enchantment\enchantment;
-use pocketmine\level\Level;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\events\block\LeavesDecayEvent;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\enchantment\enchantment;
+use devmine\worlds\Level;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class Leaves2 extends Leaves{
 

@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\math\Vector3;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\server\calculations\Vector3;
 
 abstract class FlyingAnimal extends Creature implements Ageable{
 

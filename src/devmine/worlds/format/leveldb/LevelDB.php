@@ -13,29 +13,29 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\format\leveldb;
+namespace devmine\worlds\format\leveldb;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\level\format\generic\BaseLevelProvider;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\Level;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\LongTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\tile\Spawnable;
-use pocketmine\utils\Binary;
-use pocketmine\utils\BinaryStream;
-use pocketmine\utils\ChunkException;
-use pocketmine\utils\LevelException;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\format\generic\BaseLevelProvider;
+use devmine\worlds\generator\Generator;
+use devmine\worlds\Level;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\LongTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\inventory\solidentity\Spawnable;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\BinaryStream;
+use devmine\utilities\main\ChunkException;
+use devmine\utilities\main\LevelException;
 
 class LevelDB extends BaseLevelProvider{
 

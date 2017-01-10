@@ -19,13 +19,13 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Tool;
-use pocketmine\item\Item;
-use pocketmine\level\sound\NoteblockSound;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
+use devmine\inventory\items\Tool;
+use devmine\inventory\items\Item;
+use devmine\worlds\sound\NoteblockSound;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
 
 class Noteblock extends Solid implements ElectricalAppliance{
 	protected $id = self::NOTEBLOCK;

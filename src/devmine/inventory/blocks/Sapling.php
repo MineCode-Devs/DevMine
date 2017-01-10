@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\level\generator\object\Tree;
-use pocketmine\level\Level;
-use pocketmine\Player;
-use pocketmine\utils\Random;
+use devmine\inventory\items\Item;
+use devmine\worlds\generator\object\Tree;
+use devmine\worlds\Level;
+use devmine\creatures\player;
+use devmine\utilities\main\Random;
 
 class Sapling extends Flowable{
 	const OAK = 0;

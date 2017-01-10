@@ -13,13 +13,13 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\wizard;
+namespace devmine\utilities\installer;
 
 
 class InstallerLang{
@@ -38,12 +38,12 @@ class InstallerLang{
 	private $langfile;
 
 	public function __construct($lang = ""){
-		if(file_exists(\pocketmine\PATH . "src/pocketmine/lang/Installer/" . $lang . ".ini")){
+		if(file_exists(\DevMine\PATH . "src/DevMine/lang/Installer/" . $lang . ".ini")){
 			$this->lang = $lang;
-			$this->langfile = \pocketmine\PATH . "src/pocketmine/lang/Installer/" . $lang . ".ini";
+			$this->langfile = \DevMine\PATH . "src/DevMine/lang/Installer/" . $lang . ".ini";
 		}else{
 			$files = [];
-			foreach(new \DirectoryIterator(\pocketmine\PATH . "src/pocketmine/lang/Installer/") as $file){
+			foreach(new \DirectoryIterator(\DevMine\PATH . "src/DevMine/lang/Installer/") as $file){
 				if($file->getExtension() === "ini" and substr($file->getFilename(), 0, 2) === $lang){
 					$files[$file->getFilename()] = $file->getSize();
 				}
@@ -55,14 +55,14 @@ class InstallerLang{
 				$l = key($files);
 				$l = substr($l, 0, -4);
 				$this->lang = isset(self::$languages[$l]) ? $l : $lang;
-				$this->langfile = \pocketmine\PATH . "src/pocketmine/lang/Installer/" . $l . ".ini";
+				$this->langfile = \DevMine\PATH . "src/DevMine/lang/Installer/" . $l . ".ini";
 			}else{
 				$this->lang = "en";
-				$this->langfile = \pocketmine\PATH . "src/pocketmine/lang/Installer/eng.ini";
+				$this->langfile = \DevMine\PATH . "src/DevMine/lang/Installer/eng.ini";
 			}
 		}
 
-		$this->loadLang(\pocketmine\PATH . "src/pocketmine/lang/Installer/eng.ini", "eng");
+		$this->loadLang(\DevMine\PATH . "src/DevMine/lang/Installer/eng.ini", "eng");
 		if($this->lang !== "en"){
 			$this->loadLang($this->langfile, $this->lang);
 		}

@@ -13,24 +13,24 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Pocketmine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\block\Block;
-use pocketmine\block\Solid;
-use pocketmine\item\Item;
-use pocketmine\Player;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\tile\Tile;
-use pocketmine\math\Vector3;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Solid;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\inventory\solidentity\Tile;
+use devmine\server\calculations\Vector3;
 
  class BeaconBlock extends Solid{
  

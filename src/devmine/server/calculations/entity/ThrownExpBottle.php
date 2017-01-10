@@ -19,14 +19,14 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
 
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\level\particle\SpellParticle;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\worlds\particle\SpellParticle;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class ThrownExpBottle extends Projectile{
 	const NETWORK_ID = 68;

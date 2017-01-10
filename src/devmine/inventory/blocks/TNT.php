@@ -13,26 +13,26 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Entity;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\level\sound\TNTPrimeSound;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\Player;
-use pocketmine\utils\Random;
+use devmine\creatures\entities\Entity;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\worlds\sound\TNTPrimeSound;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player;
+use devmine\utilities\main\Random;
 
 class TNT extends Solid implements ElectricalAppliance{
 

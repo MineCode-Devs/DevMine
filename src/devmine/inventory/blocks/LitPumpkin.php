@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\Player;
-use pocketmine\entity\IronGolem;
-use pocketmine\entity\SnowGolem;
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ListTag;
+use devmine\creatures\player;
+use devmine\creatures\entities\IronGolem;
+use devmine\creatures\entities\SnowGolem;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\ListTag;
 
 class LitPumpkin extends Solid implements SolidLight{
 

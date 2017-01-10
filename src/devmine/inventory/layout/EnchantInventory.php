@@ -13,29 +13,29 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\block\Block;
-use pocketmine\item\Dye;
-use pocketmine\item\EnchantedBook;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\item\enchantment\EnchantmentEntry;
-use pocketmine\item\enchantment\EnchantmentLevelTable;
-use pocketmine\item\enchantment\EnchantmentList;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\level\Position;
-use pocketmine\math\Vector3;
-use pocketmine\network\protocol\CraftingDataPacket;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\tile\EnchantTable;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\items\Dye;
+use devmine\inventory\items\EnchantedBook;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\inventory\items\enchantment\EnchantmentEntry;
+use devmine\inventory\items\enchantment\EnchantmentLevelTable;
+use devmine\inventory\items\enchantment\EnchantmentList;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\worlds\Position;
+use devmine\server\calculations\Vector3;
+use devmine\server\network\protocol\CraftingDataPacket;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\inventory\solidentity\EnchantTable;
 
 class EnchantInventory extends TemporaryInventory{
 	private $bookshelfAmount = 0;

@@ -19,19 +19,19 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\Player;
-use pocketmine\tile\Chest as TileChest;
-use pocketmine\tile\Tile;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\Chest as TileChest;
+use devmine\inventory\solidentity\Tile;
 
 class TrappedChest extends RedstoneSource{
 	protected $id = self::TRAPPED_CHEST;

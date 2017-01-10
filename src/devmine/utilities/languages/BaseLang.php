@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\lang;
+namespace devmine\utilities\languages;
 
-use pocketmine\event\TextContainer;
-use pocketmine\event\TranslationContainer;
+use devmine\events\TextContainer;
+use devmine\events\TranslationContainer;
 
 class BaseLang{
 
@@ -38,7 +38,7 @@ class BaseLang{
 		$this->langName = strtolower($lang);
 
 		if($path === null){
-			$path = \pocketmine\PATH . "src/pocketmine/lang/locale/";
+			$path = \DevMine\PATH . "src/DevMine/lang/locale/";
 		}
 
 		$this->loadLang($path . $this->langName . ".ini", $this->lang);

@@ -13,159 +13,159 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\creatures\player;
 
-use pocketmine\block\Air;
-use pocketmine\block\Block;
-use pocketmine\block\Fire;
-use pocketmine\block\PressurePlate;
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\entity\Animal;
-use pocketmine\entity\Arrow;
-use pocketmine\entity\Attribute;
-use pocketmine\entity\AttributeMap;
-use pocketmine\entity\Boat;
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
-use pocketmine\entity\FishingHook;
-use pocketmine\entity\Human;
-use pocketmine\entity\Item as DroppedItem;
-use pocketmine\entity\Living;
-use pocketmine\entity\Minecart;
-use pocketmine\entity\Projectile;
-use pocketmine\entity\ThrownExpBottle;
-use pocketmine\entity\ThrownPotion;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\ItemFrameDropItemEvent;
-use pocketmine\event\entity\EntityCombustByEntityEvent;
-use pocketmine\event\entity\EntityDamageByBlockEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\entity\EntityShootBowEvent;
-use pocketmine\event\entity\ProjectileLaunchEvent;
-use pocketmine\event\inventory\CraftItemEvent;
-use pocketmine\event\inventory\InventoryCloseEvent;
-use pocketmine\event\inventory\InventoryPickupArrowEvent;
-use pocketmine\event\inventory\InventoryPickupItemEvent;
-use pocketmine\event\player\PlayerExhaustEvent;
-use pocketmine\event\player\PlayerTextPreSendEvent;
-use pocketmine\event\player\PlayerAchievementAwardedEvent;
-use pocketmine\event\player\PlayerAnimationEvent;
-use pocketmine\event\player\PlayerBedEnterEvent;
-use pocketmine\event\player\PlayerBedLeaveEvent;
-use pocketmine\event\player\PlayerChatEvent;
-use pocketmine\event\player\PlayerCommandPreprocessEvent;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\player\PlayerDropItemEvent;
-use pocketmine\event\player\PlayerGameModeChangeEvent;
-use pocketmine\event\player\PlayerHungerChangeEvent;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\player\PlayerItemConsumeEvent;
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\event\player\PlayerKickEvent;
-use pocketmine\event\player\PlayerLoginEvent;
-use pocketmine\event\player\PlayerMoveEvent;
-use pocketmine\event\player\PlayerPreLoginEvent;
-use pocketmine\event\player\PlayerQuitEvent;
-use pocketmine\event\player\PlayerRespawnEvent;
-use pocketmine\event\player\PlayerToggleFlightEvent;
-use pocketmine\event\player\PlayerToggleSneakEvent;
-use pocketmine\event\player\PlayerToggleSprintEvent;
-use pocketmine\event\player\PlayerToggleGlideEvent;
-use pocketmine\event\player\PlayerUseFishingRodEvent;
-use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\event\server\DataPacketSendEvent;
-use pocketmine\event\TextContainer;
-use pocketmine\event\Timings;
-use pocketmine\event\TranslationContainer;
-use pocketmine\inventory\AnvilInventory;
-use pocketmine\inventory\BaseTransaction;
-use pocketmine\inventory\BigShapedRecipe;
-use pocketmine\inventory\BigShapelessRecipe;
-use pocketmine\inventory\DropItemTransaction;
-use pocketmine\inventory\EnchantInventory;
-use pocketmine\inventory\FurnaceInventory;
-use pocketmine\inventory\Inventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\inventory\PlayerInventory;
-use pocketmine\inventory\ShapedRecipe;
-use pocketmine\inventory\ShapelessRecipe;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\item\FoodSource;
-use pocketmine\item\Item;
-use pocketmine\item\Potion;
-use pocketmine\level\ChunkLoader;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\Level;
-use pocketmine\level\Location;
-use pocketmine\level\Position;
-use pocketmine\level\sound\LaunchSound;
-use pocketmine\level\WeakPosition;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Vector2;
-use pocketmine\math\Vector3;
-use pocketmine\metadata\MetadataValue;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\LongTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AdventureSettingsPacket;
-use pocketmine\network\protocol\AnimatePacket;
-use pocketmine\network\protocol\AvailableCommandsPacket;
-use pocketmine\network\protocol\BatchPacket;
-use pocketmine\network\protocol\ChunkRadiusUpdatedPacket;
-use pocketmine\network\protocol\ContainerClosePacket;
-use pocketmine\network\protocol\ContainerSetContentPacket;
-use pocketmine\network\protocol\ChangeDimensionPacket;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\network\protocol\DisconnectPacket;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\network\protocol\FullChunkDataPacket;
-use pocketmine\network\protocol\Info as ProtocolInfo;
-use pocketmine\network\protocol\InteractPacket;
-use pocketmine\network\protocol\MovePlayerPacket;
-use pocketmine\network\protocol\PlayerActionPacket;
-use pocketmine\network\protocol\PlayStatusPacket;
-use pocketmine\network\protocol\ResourcePacksInfoPacket;
-use pocketmine\network\protocol\RespawnPacket;
-use pocketmine\network\protocol\SetDifficultyPacket;
-use pocketmine\network\protocol\SetEntityMotionPacket;
-use pocketmine\network\protocol\SetEntityDataPacket;
-use pocketmine\network\protocol\SetHealthPacket;
-use pocketmine\network\protocol\SetSpawnPositionPacket;
-use pocketmine\network\protocol\SetTimePacket;
-use pocketmine\network\protocol\StartGamePacket;
-use pocketmine\network\protocol\SetPlayerGameTypePacket;
-use pocketmine\network\protocol\TakeItemEntityPacket;
-use pocketmine\network\protocol\TextPacket;
-use pocketmine\network\protocol\UpdateAttributesPacket;
-use pocketmine\network\protocol\UpdateBlockPacket;
-use pocketmine\network\SourceInterface;
-use pocketmine\permission\PermissibleBase;
-use pocketmine\permission\PermissionAttachment;
-use pocketmine\plugin\Plugin;
-use pocketmine\tile\ItemFrame;
-use pocketmine\tile\Sign;
-use pocketmine\tile\Spawnable;
-use pocketmine\tile\Tile;
-use pocketmine\utils\Binary;
-use pocketmine\utils\TextFormat;
-use pocketmine\utils\UUID;
+use devmine\inventory\blocks\Air;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Fire;
+use devmine\inventory\blocks\PressurePlate;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\creatures\entities\Animal;
+use devmine\creatures\entities\Arrow;
+use devmine\creatures\entities\Attribute;
+use devmine\creatures\entities\AttributeMap;
+use devmine\creatures\entities\Boat;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\FishingHook;
+use devmine\creatures\entities\Human;
+use devmine\creatures\entities\Item as DroppedItem;
+use devmine\creatures\entities\Living;
+use devmine\creatures\entities\Minecart;
+use devmine\creatures\entities\Projectile;
+use devmine\creatures\entities\ThrownExpBottle;
+use devmine\creatures\entities\ThrownPotion;
+use devmine\events\block\BlockBreakEvent;
+use devmine\events\block\ItemFrameDropItemEvent;
+use devmine\events\entity\EntityCombustByEntityEvent;
+use devmine\events\entity\EntityDamageByBlockEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityRegainHealthEvent;
+use devmine\events\entity\EntityShootBowEvent;
+use devmine\events\entity\ProjectileLaunchEvent;
+use devmine\events\inventory\CraftItemEvent;
+use devmine\events\inventory\InventoryCloseEvent;
+use devmine\events\inventory\InventoryPickupArrowEvent;
+use devmine\events\inventory\InventoryPickupItemEvent;
+use devmine\events\player\PlayerExhaustEvent;
+use devmine\events\player\PlayerTextPreSendEvent;
+use devmine\events\player\PlayerAchievementAwardedEvent;
+use devmine\events\player\PlayerAnimationEvent;
+use devmine\events\player\PlayerBedEnterEvent;
+use devmine\events\player\PlayerBedLeaveEvent;
+use devmine\events\player\PlayerChatEvent;
+use devmine\events\player\PlayerCommandPreprocessEvent;
+use devmine\events\player\PlayerDeathEvent;
+use devmine\events\player\PlayerDropItemEvent;
+use devmine\events\player\PlayerGameModeChangeEvent;
+use devmine\events\player\PlayerHungerChangeEvent;
+use devmine\events\player\PlayerInteractEvent;
+use devmine\events\player\PlayerItemConsumeEvent;
+use devmine\events\player\PlayerJoinEvent;
+use devmine\events\player\PlayerKickEvent;
+use devmine\events\player\PlayerLoginEvent;
+use devmine\events\player\PlayerMoveEvent;
+use devmine\events\player\PlayerPreLoginEvent;
+use devmine\events\player\PlayerQuitEvent;
+use devmine\events\player\PlayerRespawnEvent;
+use devmine\events\player\PlayerToggleFlightEvent;
+use devmine\events\player\PlayerToggleSneakEvent;
+use devmine\events\player\PlayerToggleSprintEvent;
+use devmine\events\player\PlayerToggleGlideEvent;
+use devmine\events\player\PlayerUseFishingRodEvent;
+use devmine\events\server\DataPacketReceiveEvent;
+use devmine\events\server\DataPacketSendEvent;
+use devmine\events\TextContainer;
+use devmine\events\Timings;
+use devmine\events\TranslationContainer;
+use devmine\inventory\layout\AnvilInventory;
+use devmine\inventory\layout\BaseTransaction;
+use devmine\inventory\layout\BigShapedRecipe;
+use devmine\inventory\layout\BigShapelessRecipe;
+use devmine\inventory\layout\DropItemTransaction;
+use devmine\inventory\layout\EnchantInventory;
+use devmine\inventory\layout\FurnaceInventory;
+use devmine\inventory\layout\Inventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\layout\PlayerInventory;
+use devmine\inventory\layout\ShapedRecipe;
+use devmine\inventory\layout\ShapelessRecipe;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\inventory\items\FoodSource;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Potion;
+use devmine\worlds\ChunkLoader;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\Level;
+use devmine\worlds\Location;
+use devmine\worlds\Position;
+use devmine\worlds\sound\LaunchSound;
+use devmine\worlds\WeakPosition;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Vector2;
+use devmine\server\calculations\Vector3;
+use devmine\server\meta\MetadataValue;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\LongTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AdventureSettingsPacket;
+use devmine\server\network\protocol\AnimatePacket;
+use devmine\server\network\protocol\AvailableCommandsPacket;
+use devmine\server\network\protocol\BatchPacket;
+use devmine\server\network\protocol\ChunkRadiusUpdatedPacket;
+use devmine\server\network\protocol\ContainerClosePacket;
+use devmine\server\network\protocol\ContainerSetContentPacket;
+use devmine\server\network\protocol\ChangeDimensionPacket;
+use devmine\server\network\protocol\DataPacket;
+use devmine\server\network\protocol\DisconnectPacket;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\server\network\protocol\FullChunkDataPacket;
+use devmine\server\network\protocol\Info as ProtocolInfo;
+use devmine\server\network\protocol\InteractPacket;
+use devmine\server\network\protocol\MovePlayerPacket;
+use devmine\server\network\protocol\PlayerActionPacket;
+use devmine\server\network\protocol\PlayStatusPacket;
+use devmine\server\network\protocol\ResourcePacksInfoPacket;
+use devmine\server\network\protocol\RespawnPacket;
+use devmine\server\network\protocol\SetDifficultyPacket;
+use devmine\server\network\protocol\SetEntityMotionPacket;
+use devmine\server\network\protocol\SetEntityDataPacket;
+use devmine\server\network\protocol\SetHealthPacket;
+use devmine\server\network\protocol\SetSpawnPositionPacket;
+use devmine\server\network\protocol\SetTimePacket;
+use devmine\server\network\protocol\StartGamePacket;
+use devmine\server\network\protocol\SetPlayerGameTypePacket;
+use devmine\server\network\protocol\TakeItemEntityPacket;
+use devmine\server\network\protocol\TextPacket;
+use devmine\server\network\protocol\UpdateAttributesPacket;
+use devmine\server\network\protocol\UpdateBlockPacket;
+use devmine\server\network\SourceInterface;
+use devmine\server\perms\PermissibleBase;
+use devmine\server\perms\PermissionAttachment;
+use devmine\consumer\plugin\Plugin;
+use devmine\inventory\solidentity\ItemFrame;
+use devmine\inventory\solidentity\Sign;
+use devmine\inventory\solidentity\Spawnable;
+use devmine\inventory\solidentity\Tile;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\TextFormat;
+use devmine\utilities\main\UUID;
 
 /**
  * Main class that handles networking, recovery, and packet sending to the server part
@@ -1504,7 +1504,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				}
 		}
 
-			/** @var \pocketmine\block\PressurePlate $block * */
+			/** @var \devmine\inventory\blocks\PressurePlate $block * */
 			foreach($this->activatedPressurePlates as $key => $block){
 				if(!isset($blocksaround[$key])) $block->checkActivation();
 			}
@@ -2080,7 +2080,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$this->setNameTagVisible(true);
 		$this->setNameTagAlwaysVisible(true);
 
-		$this->server->getLogger()->info($this->getServer()->getLanguage()->translateString("pocketmine.player.logIn", [
+		$this->server->getLogger()->info($this->getServer()->getLanguage()->translateString("DevMine.player.logIn", [
 			TextFormat::AQUA . $this->username . TextFormat::WHITE,
 			$this->ip,
 			$this->port,
@@ -2919,7 +2919,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				if($target instanceof Entity and $this->getGamemode() !== Player::VIEW and $this->isAlive() and $target->isAlive()){
 					if($target instanceof DroppedItem or $target instanceof Arrow){
 						$this->kick("Attempting to attack an invalid entity");
-						$this->server->getLogger()->warning($this->getServer()->getLanguage()->translateString("pocketmine.player.invalidEntity", [$this->getName()]));
+						$this->server->getLogger()->warning($this->getServer()->getLanguage()->translateString("DevMine.player.invalidEntity", [$this->getName()]));
 						break;
 					}
 
@@ -3599,9 +3599,9 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 		$pk = new TextPacket();
 		if(!$this->server->isLanguageForced()){
 			$pk->type = TextPacket::TYPE_TRANSLATION;
-			$pk->message = $this->server->getLanguage()->translateString($message, $parameters, "pocketmine.");
+			$pk->message = $this->server->getLanguage()->translateString($message, $parameters, "DevMine.");
 			foreach($parameters as $i => $p){
-				$parameters[$i] = $this->server->getLanguage()->translateString($p, $parameters, "pocketmine.");
+				$parameters[$i] = $this->server->getLanguage()->translateString($p, $parameters, "DevMine.");
 			}
 			$pk->parameters = $parameters;
 		}else{
@@ -3717,7 +3717,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 			$this->server->getPluginManager()->unsubscribeFromPermission(Server::BROADCAST_CHANNEL_USERS, $this);
 			$this->spawned = false;
-			$this->server->getLogger()->info($this->getServer()->getLanguage()->translateString("pocketmine.player.logOut", [
+			$this->server->getLogger()->info($this->getServer()->getLanguage()->translateString("DevMine.player.logOut", [
 				TextFormat::AQUA . $this->getName() . TextFormat::WHITE,
 				$this->ip,
 				$this->port,

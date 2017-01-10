@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -21,16 +21,16 @@
 
 declare(strict_types = 1);
 
-namespace pocketmine\level\format\region;
+namespace devmine\worlds\format\region;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\level\format\generic\GenericChunk;
-use pocketmine\level\format\generic\SubChunk;
-use pocketmine\level\format\generic\BaseLevelProvider;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\Level;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\{
+use devmine\worlds\format\Chunk;
+use devmine\worlds\format\generic\GenericChunk;
+use devmine\worlds\format\generic\SubChunk;
+use devmine\worlds\format\generic\BaseLevelProvider;
+use devmine\worlds\generator\Generator;
+use devmine\worlds\Level;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\{
 	ByteArrayTag,
 	ByteTag,
 	CompoundTag,
@@ -40,8 +40,8 @@ use pocketmine\nbt\tag\{
 	LongTag,
 	StringTag
 };
-use pocketmine\Player;
-use pocketmine\utils\MainLogger;
+use devmine\creatures\player;
+use devmine\utilities\main\MainLogger;
 
 class McRegion extends BaseLevelProvider{
 

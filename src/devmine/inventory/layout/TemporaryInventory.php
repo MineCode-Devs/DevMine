@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\Player;
+use devmine\creatures\player;
 
 abstract class TemporaryInventory extends ContainerInventory{
 	//TODO

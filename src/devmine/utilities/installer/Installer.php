@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -23,10 +23,10 @@
  * Set-up wizard used on the first run
  * Can be disabled with --no-wizard
  */
-namespace pocketmine\wizard;
+namespace devmine\utilities\installer;
 
-use pocketmine\utils\Config;
-use pocketmine\utils\Utils;
+use devmine\utilities\main\Config;
+use devmine\utilities\main\Utils;
 
 class Installer{
 	const DEFAULT_NAME = "Minecraft: PE Server";
@@ -49,7 +49,7 @@ class Installer{
 	private $defaultLang;
 
 	public function __construct(){
-		echo "[*] Tesseract set-up wizard\n";
+		echo "[*] DevMine set-up wizard\n";
 		echo "[*] Please select a language:\n";
 		foreach(InstallerLang::$languages as $short => $native){
 			echo " $native => $short\n";
@@ -69,7 +69,7 @@ class Installer{
 		echo "[*] " . $this->lang->language_has_been_selected . "\n";
 
 		if(!$this->showLicense()){
-			@\pocketmine\kill(getmypid());
+			@\DevMine\kill(getmypid());
 			exit(-1);
 		}
 
@@ -92,7 +92,7 @@ class Installer{
 	}
 
 	private function showLicense(){
-		echo $this->lang->welcome_to_pocketmine . "\n";
+		echo $this->lang->welcome_to_DevMine . "\n";
 		echo <<<LICENSE
 
   This program is free software: you can redistribute it and/or modify
@@ -120,7 +120,7 @@ LICENSE;
 	}
 
 	private function generateBaseConfig(){
-		$config = new Config(\pocketmine\DATA . "server.properties", Config::PROPERTIES);
+		$config = new Config(\DevMine\DATA . "server.properties", Config::PROPERTIES);
 		echo "[?] " . $this->lang->name_your_server . " (" . self::DEFAULT_NAME . "): ";
 		$server_name = $this->getInput(self::DEFAULT_NAME);
 		$config->set("server-name", $server_name);
@@ -183,13 +183,13 @@ LICENSE;
 		if($op === ""){
 			echo "[!] " . $this->lang->op_warning . "\n";
 		}else{
-			$ops = new Config(\pocketmine\DATA . "ops.txt", Config::ENUM);
+			$ops = new Config(\DevMine\DATA . "ops.txt", Config::ENUM);
 			$ops->set($op, true);
 			$ops->save();
 		}
 		echo "[*] " . $this->lang->whitelist_info . "\n";
 		echo "[?] " . $this->lang->whitelist_enable . " (y/N): ";
-		$config = new Config(\pocketmine\DATA . "server.properties", Config::PROPERTIES);
+		$config = new Config(\DevMine\DATA . "server.properties", Config::PROPERTIES);
 		if(strtolower($this->getInput("n")) === "y"){
 			echo "[!] " . $this->lang->whitelist_warning . "\n";
 			$config->set("white-list", true);
@@ -200,7 +200,7 @@ LICENSE;
 	}
 
 	private function networkFunctions(){
-		$config = new Config(\pocketmine\DATA . "server.properties", Config::PROPERTIES);
+		$config = new Config(\DevMine\DATA . "server.properties", Config::PROPERTIES);
 		echo "[!] " . $this->lang->query_warning1 . "\n";
 		echo "[!] " . $this->lang->query_warning2 . "\n";
 		echo "[?] " . $this->lang->query_disable . " (y/N): ";
@@ -236,8 +236,8 @@ LICENSE;
 
 	private function endWizard(){
 		echo "[*] " . $this->lang->you_have_finished . "\n";
-		echo "[*] " . $this->lang->pocketmine_plugins . "\n";
-		echo "[*] " . $this->lang->pocketmine_will_start . "\n\n\n";
+		echo "[*] " . $this->lang->DevMine_plugins . "\n";
+		echo "[*] " . $this->lang->DevMine_will_start . "\n\n\n";
 		sleep(4);
 	}
 

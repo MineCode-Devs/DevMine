@@ -13,28 +13,28 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\utilities\main\TextFormat;
 
 class PluginsCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.plugins.description",
-			"%pocketmine.command.plugins.usage",
+			"%DevMine.command.plugins.description",
+			"%DevMine.command.plugins.usage",
 			["pl"]
 		);
-		$this->setPermission("pocketmine.command.plugins");
+		$this->setPermission("DevMine.command.plugins");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -55,6 +55,6 @@ class PluginsCommand extends VanillaCommand{
 			$list .= $plugin->getDescription()->getFullName();
 		}
 
-		$sender->sendMessage(new TranslationContainer("pocketmine.command.plugins.success", [count($plugins), $list]));
+		$sender->sendMessage(new TranslationContainer("DevMine.command.plugins.success", [count($plugins), $list]));
 	}
 }

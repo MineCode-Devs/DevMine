@@ -13,31 +13,31 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\block\Block;
-use pocketmine\event\inventory\FurnaceBurnEvent;
-use pocketmine\event\inventory\FurnaceSmeltEvent;
-use pocketmine\inventory\FurnaceInventory;
-use pocketmine\inventory\FurnaceRecipe;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\NBT;
+use devmine\inventory\blocks\Block;
+use devmine\events\inventory\FurnaceBurnEvent;
+use devmine\events\inventory\FurnaceSmeltEvent;
+use devmine\inventory\layout\FurnaceInventory;
+use devmine\inventory\layout\FurnaceRecipe;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\NBT;
 
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\ContainerSetDataPacket;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\ContainerSetDataPacket;
 
 class Furnace extends Spawnable implements InventoryHolder, Container, Nameable{
 	/** @var FurnaceInventory */

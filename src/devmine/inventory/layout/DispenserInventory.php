@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\tile\Dispenser;
+use devmine\inventory\solidentity\Dispenser;
 
 class DispenserInventory extends ContainerInventory{
 	public function __construct(Dispenser $tile){

@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\event;
+namespace devmine\events;
 
-use pocketmine\plugin\Plugin;
-use pocketmine\plugin\RegisteredListener;
+use devmine\consumer\plugin\Plugin;
+use devmine\consumer\plugin\RegisteredListener;
 
 class HandlerList{
 

@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -24,19 +24,19 @@
  */
 declare(strict_types = 1);
 
-namespace pocketmine\level\format\generic;
+namespace devmine\worlds\format\generic;
 
-use pocketmine\block\Block;
-use pocketmine\entity\Entity;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\format\LevelProvider;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
-use pocketmine\tile\Tile;
-use pocketmine\tile\Spawnable;
-use pocketmine\utils\BinaryStream;
-use pocketmine\utils\ChunkException;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\entities\Entity;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\format\LevelProvider;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\Tile;
+use devmine\inventory\solidentity\Spawnable;
+use devmine\utilities\main\BinaryStream;
+use devmine\utilities\main\ChunkException;
 
 class GenericChunk implements Chunk{
 

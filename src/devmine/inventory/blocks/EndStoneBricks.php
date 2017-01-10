@@ -16,15 +16,15 @@
  * (at your option) any later version.
  *
  * @author Tessetact Team
- * @link http://www.github.com/TesseractTeam/Tesseract
+ * @link http://www.github.com/DevMineTeam/DevMine
  * 
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
 
 class EndStoneBricks extends Solid{
 

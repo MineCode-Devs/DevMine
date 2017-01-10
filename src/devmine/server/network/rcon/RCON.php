@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -26,12 +26,12 @@
  * Implementation of the GeniRCON Protocol to allow full remote console access
  * Source: https://github.com/iTXTech/GeniRCON
  */
-namespace pocketmine\network\rcon;
+namespace devmine\server\network\rcon;
 
-use pocketmine\command\RemoteConsoleCommandSender;
-use pocketmine\event\server\RemoteServerCommandEvent;
-use pocketmine\utils\Utils;
-use pocketmine\Server;
+use devmine\server\commands\RemoteConsoleCommandSender;
+use devmine\events\server\RemoteServerCommandEvent;
+use devmine\utilities\main\Utils;
+use devmine\server\server;
 
 class RCON{
 	const PROTOCOL_VERSION = 3;

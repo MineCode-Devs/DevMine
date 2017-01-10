@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,51 +22,51 @@
 /**
  * All the entity classes
  */
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\block\Block;
-use pocketmine\block\Fire;
-use pocketmine\block\Portal;
-use pocketmine\block\PressurePlate;
-use pocketmine\block\Water;
-use pocketmine\block\SlimeBlock;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDespawnEvent;
-use pocketmine\event\entity\EntityEffectAddEvent;
-use pocketmine\event\entity\EntityEffectRemoveEvent;
-use pocketmine\event\entity\EntityLevelChangeEvent;
-use pocketmine\event\entity\EntityMotionEvent;
-use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\entity\EntitySpawnEvent;
-use pocketmine\event\entity\EntityTeleportEvent;
-use pocketmine\event\Timings;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\Level;
-use pocketmine\level\Location;
-use pocketmine\level\particle\DestroyBlockParticle;
-use pocketmine\level\Position;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Math;
-use pocketmine\math\Vector2;
-use pocketmine\math\Vector3;
-use pocketmine\metadata\Metadatable;
-use pocketmine\metadata\MetadataValue;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\protocol\MobEffectPacket;
-use pocketmine\network\protocol\RemoveEntityPacket;
-use pocketmine\network\protocol\SetEntityDataPacket;
-use pocketmine\network\protocol\SetEntityLinkPacket;
-use pocketmine\Player;
-use pocketmine\plugin\Plugin;
-use pocketmine\Server;
-use pocketmine\utils\ChunkException;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Fire;
+use devmine\inventory\blocks\Portal;
+use devmine\inventory\blocks\PressurePlate;
+use devmine\inventory\blocks\Water;
+use devmine\inventory\blocks\SlimeBlock;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDespawnEvent;
+use devmine\events\entity\EntityEffectAddEvent;
+use devmine\events\entity\EntityEffectRemoveEvent;
+use devmine\events\entity\EntityLevelChangeEvent;
+use devmine\events\entity\EntityMotionEvent;
+use devmine\events\entity\EntityRegainHealthEvent;
+use devmine\events\entity\EntitySpawnEvent;
+use devmine\events\entity\EntityTeleportEvent;
+use devmine\events\Timings;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\Level;
+use devmine\worlds\Location;
+use devmine\worlds\particle\DestroyBlockParticle;
+use devmine\worlds\Position;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Math;
+use devmine\server\calculations\Vector2;
+use devmine\server\calculations\Vector3;
+use devmine\server\meta\Metadatable;
+use devmine\server\meta\MetadataValue;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\server\network\protocol\MobEffectPacket;
+use devmine\server\network\protocol\RemoveEntityPacket;
+use devmine\server\network\protocol\SetEntityDataPacket;
+use devmine\server\network\protocol\SetEntityLinkPacket;
+use devmine\creatures\player;
+use devmine\consumer\plugin\Plugin;
+use devmine\server\server;
+use devmine\utilities\main\ChunkException;
 
 abstract class Entity extends Location implements Metadatable{
 
@@ -271,7 +271,7 @@ abstract class Entity extends Location implements Metadatable{
 
 	public $closed = false;
 
-	/** @var \pocketmine\event\TimingsHandler */
+	/** @var \devmine\events\TimingsHandler */
 	protected $timings;
 	protected $isPlayer = false;
 
@@ -1533,7 +1533,7 @@ abstract class Entity extends Location implements Metadatable{
 		}
 
 		if($this->getLevel()->getServer()->redstoneEnabled and !$this->isPlayer){
-			/** @var \pocketmine\block\PressurePlate $block * */
+			/** @var \devmine\inventory\blocks\PressurePlate $block * */
 			foreach($this->activatedPressurePlates as $key => $block){
 				if(!isset($blocksaround[$key])) $block->checkActivation();
 			}
@@ -1751,7 +1751,7 @@ abstract class Entity extends Location implements Metadatable{
 		}
 
 		if($this->getLevel()->getServer()->redstoneEnabled){
-			/** @var \pocketmine\block\PressurePlate $block * */
+			/** @var \devmine\inventory\blocks\PressurePlate $block * */
 			foreach($this->activatedPressurePlates as $key => $block){
 				$block->checkActivation();
 			}

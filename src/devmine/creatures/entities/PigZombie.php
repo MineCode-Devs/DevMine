@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\network\protocol\MobEquipmentPacket;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\Player;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\item\enchantment\Enchantment;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\server\network\protocol\MobEquipmentPacket;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\creatures\player;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\inventory\items\enchantment\Enchantment;
 
 class PigZombie extends Monster{
 	const NETWORK_ID = 36;

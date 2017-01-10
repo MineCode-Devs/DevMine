@@ -13,22 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\item\Potion;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\particle\CriticalParticle;
-use pocketmine\level\particle\MobSpellParticle;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\inventory\items\Potion;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\particle\CriticalParticle;
+use devmine\worlds\particle\MobSpellParticle;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class Arrow extends Projectile{
 	const NETWORK_ID = 80;

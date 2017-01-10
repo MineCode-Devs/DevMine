@@ -12,19 +12,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\network\protocol\BlockEntityDataPacket;
-use pocketmine\Player;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\server\network\protocol\BlockEntityDataPacket;
+use devmine\creatures\player;
 
 abstract class Spawnable extends Tile{
 	

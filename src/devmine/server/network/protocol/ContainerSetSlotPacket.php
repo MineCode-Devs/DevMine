@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\network\protocol;
+namespace devmine\server\network\protocol;
 
 #include <rules/DataPacket.h>
 
-use pocketmine\item\Item;
+use devmine\inventory\items\Item;
 
 class ContainerSetSlotPacket extends DataPacket{
 	const NETWORK_ID = Info::CONTAINER_SET_SLOT_PACKET;

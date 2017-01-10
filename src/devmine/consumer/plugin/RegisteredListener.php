@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\plugin;
+namespace devmine\consumer\plugin;
 
-use pocketmine\event\Cancellable;
-use pocketmine\event\Event;
-use pocketmine\event\Listener;
-use pocketmine\event\TimingsHandler;
+use devmine\events\Cancellable;
+use devmine\events\Event;
+use devmine\events\Listener;
+use devmine\events\TimingsHandler;
 
 class RegisteredListener{
 

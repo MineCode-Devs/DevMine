@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
+use devmine\inventory\items\Item;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
 
 class Rail extends Flowable{
 

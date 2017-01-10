@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
 interface TransactionQueue{
 

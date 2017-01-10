@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\item\Item;
-use pocketmine\level\Position;
-use pocketmine\Player;
+use devmine\inventory\items\Item;
+use devmine\worlds\Position;
+use devmine\creatures\player;
 
 class AnvilInventory extends TemporaryInventory{
 

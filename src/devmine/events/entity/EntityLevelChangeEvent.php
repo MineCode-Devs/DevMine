@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Entity;
-use pocketmine\Event;
-use pocketmine\event\Cancellable;
-use pocketmine\level\Level;
+use devmine\creatures\entities\Entity;
+use devmine\events;
+use devmine\events\Cancellable;
+use devmine\worlds\Level;
 
 class EntityLevelChangeEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;

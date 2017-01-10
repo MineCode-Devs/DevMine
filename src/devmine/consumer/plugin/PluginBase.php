@@ -13,26 +13,26 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\plugin;
+namespace devmine\consumer\plugin;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\command\PluginIdentifiableCommand;
-use pocketmine\Server;
-use pocketmine\utils\Config;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\server\commands\PluginIdentifiableCommand;
+use devmine\server\server;
+use devmine\utilities\main\Config;
 
 abstract class PluginBase implements Plugin{
 
 	/** @var PluginLoader */
 	private $loader;
 
-	/** @var \pocketmine\Server */
+	/** @var \devmine\server\server */
 	private $server;
 
 	/** @var bool */

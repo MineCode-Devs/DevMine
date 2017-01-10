@@ -13,25 +13,25 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\Block;
-use pocketmine\entity\Entity;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\Level;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\Player;
-use pocketmine\tile\MobSpawner;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\entities\Entity;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\Level;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\MobSpawner;
 
 class SpawnEgg extends Item{
 	public function __construct($meta = 0, $count = 1){

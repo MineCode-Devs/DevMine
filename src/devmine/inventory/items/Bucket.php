@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\Air;
-use pocketmine\block\Block;
-use pocketmine\block\Liquid;
-use pocketmine\event\player\PlayerBucketFillEvent;
-use pocketmine\event\player\PlayerBucketEmptyEvent;
-use pocketmine\level\Level;
-use pocketmine\Player;
+use devmine\inventory\blocks\Air;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Liquid;
+use devmine\events\player\PlayerBucketFillEvent;
+use devmine\events\player\PlayerBucketEmptyEvent;
+use devmine\worlds\Level;
+use devmine\creatures\player;
 
 class Bucket extends Item{
 	public function __construct($meta = 0, $count = 1){

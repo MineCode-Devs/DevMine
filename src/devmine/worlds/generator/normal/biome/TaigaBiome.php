@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\generator\normal\biome;
+namespace devmine\worlds\generator\normal\biome;
 
-use pocketmine\block\Sapling;
-use pocketmine\level\generator\populator\TallGrass;
-use pocketmine\level\generator\populator\Tree;
+use devmine\inventory\blocks\Sapling;
+use devmine\worlds\generator\populator\TallGrass;
+use devmine\worlds\generator\populator\Tree;
 
 class TaigaBiome extends SnowyBiome{
 

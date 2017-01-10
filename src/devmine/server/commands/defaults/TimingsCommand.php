@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\CommandSender;
-use pocketmine\event\TimingsHandler;
-use pocketmine\event\TranslationContainer;
+use devmine\server\commands\CommandSender;
+use devmine\events\TimingsHandler;
+use devmine\events\TranslationContainer;
 
 
 class TimingsCommand extends VanillaCommand{
@@ -33,10 +33,10 @@ class TimingsCommand extends VanillaCommand{
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.timings.description",
-			"%pocketmine.command.timings.usage"
+			"%DevMine.command.timings.description",
+			"%DevMine.command.timings.usage"
 		);
-		$this->setPermission("pocketmine.command.timings");
+		$this->setPermission("DevMine.command.timings");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -55,17 +55,17 @@ class TimingsCommand extends VanillaCommand{
 		if($mode === "on"){
 			$sender->getServer()->getPluginManager()->setUseTimings(true);
 			TimingsHandler::reload();
-			$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.enable"));
+			$sender->sendMessage(new TranslationContainer("DevMine.command.timings.enable"));
 
 			return true;
 		}elseif($mode === "off"){
 			$sender->getServer()->getPluginManager()->setUseTimings(false);
-			$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.disable"));
+			$sender->sendMessage(new TranslationContainer("DevMine.command.timings.disable"));
 			return true;
 		}
 
 		if(!$sender->getServer()->getPluginManager()->useTimings()){
-			$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.timingsDisabled"));
+			$sender->sendMessage(new TranslationContainer("DevMine.command.timings.timingsDisabled"));
 
 			return true;
 		}
@@ -74,7 +74,7 @@ class TimingsCommand extends VanillaCommand{
 
 		if($mode === "reset"){
 			TimingsHandler::reload();
-			$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.reset"));
+			$sender->sendMessage(new TranslationContainer("DevMine.command.timings.reset"));
 		}elseif($mode === "merged" or $mode === "report" or $paste){
 
 			$sampleTime = microtime(true) - self::$timingStart;
@@ -113,23 +113,23 @@ class TimingsCommand extends VanillaCommand{
 				curl_setopt($ch, CURLOPT_AUTOREFERER, false);
 				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 				curl_setopt($ch, CURLOPT_HEADER, true);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, ["User-Agent: " . $this->getName() . " " . $sender->getServer()->getPocketMineVersion()]);
+				curl_setopt($ch, CURLOPT_HTTPHEADER, ["User-Agent: " . $this->getName() . " " . $sender->getServer()->getDevMineVersion()]);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 				$data = curl_exec($ch);
 				curl_close($ch);
 				if(preg_match('#^Location: http://paste\\.ubuntu\\.com/([0-9]{1,})/#m', $data, $matches) == 0){
-					$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.pasteError"));
+					$sender->sendMessage(new TranslationContainer("DevMine.command.timings.pasteError"));
 
 					return true;
 				}
 
 
-				$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.timingsUpload", ["http://paste.ubuntu.com/" . $matches[1] . "/"]));
-				$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.timingsRead", ["http://timings.aikar.co/?url=" . $matches[1]]));
+				$sender->sendMessage(new TranslationContainer("DevMine.command.timings.timingsUpload", ["http://paste.ubuntu.com/" . $matches[1] . "/"]));
+				$sender->sendMessage(new TranslationContainer("DevMine.command.timings.timingsRead", ["http://timings.aikar.co/?url=" . $matches[1]]));
 				fclose($fileTimings);
 			}else{
 				fclose($fileTimings);
-				$sender->sendMessage(new TranslationContainer("pocketmine.command.timings.timingsWrite", [$timings]));
+				$sender->sendMessage(new TranslationContainer("DevMine.command.timings.timingsWrite", [$timings]));
 			}
 		}
 

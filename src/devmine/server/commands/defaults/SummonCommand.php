@@ -19,28 +19,28 @@
  *
  */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\nbt\NBT;
-use pocketmine\Player;
-use pocketmine\entity\Entity;
-use pocketmine\utils\TextFormat;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player;
+use devmine\creatures\entities\Entity;
+use devmine\utilities\main\TextFormat;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
 
 class SummonCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.summon.description",
+			"%DevMine.command.summon.description",
 			"%commands.summon.usage"
 		);
-		$this->setPermission("pocketmine.command.summon");
+		$this->setPermission("DevMine.command.summon");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

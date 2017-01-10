@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\event\inventory\InventoryTransactionEvent;
-use pocketmine\item\Item;
-use pocketmine\Player;
+use devmine\events\inventory\InventoryTransactionEvent;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
 
 class SimpleTransactionQueue implements TransactionQueue{
 

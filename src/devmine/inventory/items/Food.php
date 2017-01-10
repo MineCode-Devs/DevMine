@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\entity\Entity;
-use pocketmine\entity\Human;
-use pocketmine\event\entity\EntityEatItemEvent;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\Human;
+use devmine\events\entity\EntityEatItemEvent;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\creatures\player;
+use devmine\server\server;
 
 abstract class Food extends Item implements FoodSource{
 	public function canBeConsumed() : bool{

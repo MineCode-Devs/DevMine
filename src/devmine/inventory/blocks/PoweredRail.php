@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\Player;
-use pocketmine\item\Item;
-use pocketmine\math\Vector3;
+use devmine\creatures\player;
+use devmine\inventory\items\Item;
+use devmine\server\calculations\Vector3;
 
 class PoweredRail extends Rail{
 

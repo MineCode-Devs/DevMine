@@ -13,22 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\event;
+namespace devmine\events;
 
 
-use pocketmine\entity\Entity;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\Player;
-use pocketmine\plugin\PluginManager;
-use pocketmine\scheduler\PluginTask;
-use pocketmine\scheduler\TaskHandler;
-use pocketmine\tile\Tile;
+use devmine\creatures\entities\Entity;
+use devmine\server\network\protocol\DataPacket;
+use devmine\creatures\player;
+use devmine\consumer\plugin\PluginManager;
+use devmine\server\tasks\PluginTask;
+use devmine\server\tasks\TaskHandler;
+use devmine\inventory\solidentity\Tile;
 
 abstract class Timings{
 

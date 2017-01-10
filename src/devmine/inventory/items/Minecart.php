@@ -19,16 +19,16 @@
  *
  */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\level\Level;
-use pocketmine\block\Block;
-use pocketmine\Player;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\entity\Minecart as MinecartEntity;
+use devmine\worlds\Level;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\player;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\entities\Minecart as MinecartEntity;
 
 class Minecart extends Item{
 	public function __construct($meta = 0, $count = 1){

@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\particle;
+namespace devmine\worlds\particle;
 
-use pocketmine\math\Vector3;
-use pocketmine\network\protocol\LevelEventPacket;
+use devmine\server\calculations\Vector3;
+use devmine\server\network\protocol\LevelEventPacket;
 
 class GenericParticle extends Particle{
 

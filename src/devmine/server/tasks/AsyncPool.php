@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\scheduler;
+namespace devmine\server\tasks;
 
-use pocketmine\event\Timings;
-use pocketmine\Server;
+use devmine\events\Timings;
+use devmine\server\server;
 
 class AsyncPool{
 

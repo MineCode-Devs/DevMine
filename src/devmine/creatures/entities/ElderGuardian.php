@@ -13,24 +13,24 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\math\Vector3;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\server\calculations\Vector3;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class ElderGuardian extends WaterAnimal implements Ageable{
 	const NETWORK_ID = 50;

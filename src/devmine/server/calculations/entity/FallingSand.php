@@ -13,29 +13,29 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\block\Anvil;
-use pocketmine\block\Block;
-use pocketmine\block\Liquid;
-use pocketmine\block\SnowLayer;
-use pocketmine\event\entity\EntityBlockChangeEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
+use devmine\inventory\blocks\Anvil;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Liquid;
+use devmine\inventory\blocks\SnowLayer;
+use devmine\events\entity\EntityBlockChangeEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\events\entity\EntityDamageEvent;
 
-use pocketmine\item\Item as ItemItem;
-use pocketmine\level\sound\AnvilFallSound;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\worlds\sound\AnvilFallSound;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class FallingSand extends Entity{
 	const NETWORK_ID = 66;

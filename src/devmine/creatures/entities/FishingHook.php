@@ -19,16 +19,16 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\player\PlayerFishEvent;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Server;
+use devmine\events\player\PlayerFishEvent;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\server\server;
 
 class FishingHook extends Projectile{
 	const NETWORK_ID = 77;

@@ -43,12 +43,12 @@ if [ "$PHP_BINARY" == "" ]; then
 fi
 
 if [ "$Devmine_FILE" == "" ]; then
-	if [ -f ./PocketMine-devmine.phar ]; then
-		DevMine_FILE="./PocketMine-devmine.phar"
+	if [ -f ./DevMine-devmine.phar ]; then
+		DevMine_FILE="./DevMine-devmine.phar"
 	elif [ -f ./Devmine*.phar ]; then
 	    	DevMine_FILE="./DevMine*.phar"
-	elif [ -f ./PocketMine-MP.phar ]; then
-		DevMine_FILE="./PocketMine-MP.phar"
+	elif [ -f ./DevMine-MP.phar ]; then
+		DevMine_FILE="./DevMine-MP.phar"
 	elif [ -f ./src/devmine/server/DevMine.php ]; then
 		Devmine_FILE="./src/devmine/server/DevMine.php"
 	else

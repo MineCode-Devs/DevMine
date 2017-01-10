@@ -13,22 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
-use pocketmine\event\Cancellable;
-use pocketmine\inventory\PlayerInventory;
-use pocketmine\item\Armor;
-use pocketmine\Player;
-use pocketmine\item\Item;
-use pocketmine\item\enchantment\enchantment;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
+use devmine\events\Cancellable;
+use devmine\inventory\layout\PlayerInventory;
+use devmine\inventory\items\Armor;
+use devmine\creatures\player;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\enchantment\enchantment;
 
 class EntityDamageEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;

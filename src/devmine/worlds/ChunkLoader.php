@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level;
+namespace devmine\worlds;
 
-use pocketmine\block\Block;
-use pocketmine\level\format\Chunk;
-use pocketmine\math\Vector3;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\format\Chunk;
+use devmine\server\calculations\Vector3;
 
 /**
  * If you want to keep chunks loaded and receive notifications on a specific area,

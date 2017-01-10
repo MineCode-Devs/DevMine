@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\block;
+namespace devmine\events\block;
 
-use pocketmine\block\Block;
-use pocketmine\event\Cancellable;
-use pocketmine\Player;
+use devmine\inventory\blocks\Block;
+use devmine\events\Cancellable;
+use devmine\creatures\player;
 
 /**
  * Called when a sign is changed by a player.
@@ -31,7 +31,7 @@ use pocketmine\Player;
 class SignChangeEvent extends BlockEvent implements Cancellable{
 	public static $handlerList = null;
 
-	/** @var \pocketmine\Player */
+	/** @var \devmine\creatures\player */
 	private $player;
 	/** @var string[] */
 	private $lines = [];

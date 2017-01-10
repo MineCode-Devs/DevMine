@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -22,9 +22,9 @@
 /**
  * UPnP port forwarding support. Only for Windows
  */
-namespace pocketmine\network\upnp;
+namespace devmine\server\network\upnp;
 
-use pocketmine\utils\Utils;
+use devmine\utilities\main\Utils;
 
 abstract class UPnP{
 	public static function PortForward($port){
@@ -41,7 +41,7 @@ abstract class UPnP{
 			if($com === false or !is_object($com->StaticPortMappingCollection)){
 				return false;
 			}
-			$com->StaticPortMappingCollection->Add($port, "UDP", $port, $myLocalIP, true, "PocketMine-MP");
+			$com->StaticPortMappingCollection->Add($port, "UDP", $port, $myLocalIP, true, "DevMine-MP");
 		}catch(\Throwable $e){
 			return false;
 		}

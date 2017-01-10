@@ -13,30 +13,30 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\network\protocol\Info;
-use pocketmine\plugin\Plugin;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\server\network\protocol\Info;
+use devmine\consumer\plugin\Plugin;
+use devmine\utilities\main\TextFormat;
 
 class VersionCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.version.description",
-			"%pocketmine.command.version.usage",
+			"%DevMine.command.version.description",
+			"%DevMine.command.version.usage",
 			["ver", "about"]
 		);
-		$this->setPermission("pocketmine.command.version");
+		$this->setPermission("DevMine.command.version");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -45,23 +45,23 @@ class VersionCommand extends VanillaCommand{
 		}
 
 		if(\count($args) === 0){
-			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended.title"));
-			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended1", [
+			$sender->sendMessage(new TranslationContainer("DevMine.server.info.extended.title"));
+			$sender->sendMessage(new TranslationContainer("DevMine.server.info.extended1", [
 											$sender->getServer()->getName(), 
 											$sender->getServer()->getFormattedVersion("-"),
 											$sender->getServer()->getCodename()
 			]));
-			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended2", [
+			$sender->sendMessage(new TranslationContainer("DevMine.server.info.extended2", [
 											phpversion()
 			]));
-			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended3", [
+			$sender->sendMessage(new TranslationContainer("DevMine.server.info.extended3", [
 											$sender->getServer()->getApiVersion()
 			
 			]));
-			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended4", [
+			$sender->sendMessage(new TranslationContainer("DevMine.server.info.extended4", [
 											$sender->getServer()->getVersion()											 
 			]));
-			$sender->sendMessage(new TranslationContainer("pocketmine.server.info.extended5", [
+			$sender->sendMessage(new TranslationContainer("DevMine.server.info.extended5", [
 											Info::CURRENT_PROTOCOL
 			]));
 		}else{
@@ -84,7 +84,7 @@ class VersionCommand extends VanillaCommand{
 			}
 
 			if(!$found){
-				$sender->sendMessage(new TranslationContainer("pocketmine.command.version.noSuchPlugin"));
+				$sender->sendMessage(new TranslationContainer("DevMine.command.version.noSuchPlugin"));
 			}
 		}
 

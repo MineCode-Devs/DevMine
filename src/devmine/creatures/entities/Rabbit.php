@@ -19,17 +19,17 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player;
 
 class Rabbit extends Animal{
 	const NETWORK_ID = 18;

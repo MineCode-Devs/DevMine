@@ -13,31 +13,31 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class SetWorldSpawnCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.setworldspawn.description",
+			"%DevMine.command.setworldspawn.description",
 			"%commands.setworldspawn.usage",
 			["setspawn"]
 		);
-		$this->setPermission("pocketmine.command.setworldspawn");
+		$this->setPermission("DevMine.command.setworldspawn");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

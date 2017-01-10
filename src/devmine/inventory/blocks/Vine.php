@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Entity;
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\level\Level;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\Player;
+use devmine\creatures\entities\Entity;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\worlds\Level;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\creatures\player;
 
 class Vine extends Transparent{
 

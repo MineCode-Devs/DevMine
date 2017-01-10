@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
-use pocketmine\level\Level;
-use pocketmine\math\Vector3;
+use devmine\inventory\blocks\Block;
+use devmine\worlds\ChunkManager;
+use devmine\worlds\Level;
+use devmine\server\calculations\Vector3;
 
 /**
  * This class performs ray tracing and iterates along blocks on a line

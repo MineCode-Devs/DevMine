@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\block\Liquid;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\math\Vector3;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\network\protocol\ExplodePacket;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\Player;
+use devmine\inventory\blocks\Liquid;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\server\calculations\Vector3;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\server\network\protocol\ExplodePacket;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\creatures\player;
 
 class Lightning extends Animal{
 	const NETWORK_ID = 93;

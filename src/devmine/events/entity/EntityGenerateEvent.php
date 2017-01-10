@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Entity;
-use pocketmine\event\Cancellable;
-use pocketmine\level\Position;
+use devmine\creatures\entities\Entity;
+use devmine\events\Cancellable;
+use devmine\worlds\Position;
 
 class EntityGenerateEvent extends EntityEvent implements Cancellable{
 	public static $handlerList = null;

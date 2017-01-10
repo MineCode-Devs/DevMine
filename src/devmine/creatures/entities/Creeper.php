@@ -20,12 +20,12 @@
  */
 
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\entity\CreeperPowerEvent;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\events\entity\CreeperPowerEvent;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class Creeper extends Monster{
 	const NETWORK_ID = 33;

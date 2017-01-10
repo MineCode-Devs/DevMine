@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\event\block;
+namespace devmine\events\block;
 
-use pocketmine\event\Cancellable;
+use devmine\events\Cancellable;
 
 class BlockBurnEvent extends BlockEvent implements Cancellable{
 	public static $handlerList = null;

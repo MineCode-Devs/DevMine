@@ -19,33 +19,33 @@
  *
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\block\Block;
-use pocketmine\entity\Entity;
-use pocketmine\inventory\DispenserInventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\particle\SmokeParticle;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\entity\Item as ItemEntity;
-use pocketmine\entity\Egg;
-use pocketmine\entity\ThrownExpBottle;
-use pocketmine\entity\ThrownPotion;
-use pocketmine\entity\Arrow;
-use pocketmine\entity\Snowball;
+use devmine\inventory\blocks\Block;
+use devmine\creatures\entities\Entity;
+use devmine\inventory\layout\DispenserInventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\particle\SmokeParticle;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\entities\Item as ItemEntity;
+use devmine\creatures\entities\Egg;
+use devmine\creatures\entities\ThrownExpBottle;
+use devmine\creatures\entities\ThrownPotion;
+use devmine\creatures\entities\Arrow;
+use devmine\creatures\entities\Snowball;
 
 
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\IntTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\IntTag;
 
-use pocketmine\nbt\tag\StringTag;
+use devmine\creatures\player\tag\StringTag;
 
 class Dispenser extends Spawnable implements InventoryHolder, Container, Nameable{
 

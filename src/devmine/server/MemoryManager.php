@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\server;
 
-use pocketmine\event\server\LowMemoryEvent;
-use pocketmine\event\Timings;
-use pocketmine\scheduler\GarbageCollectionTask;
-use pocketmine\utils\Utils;
+use devmine\events\server\LowMemoryEvent;
+use devmine\events\Timings;
+use devmine\server\tasks\GarbageCollectionTask;
+use devmine\utilities\main\Utils;
 
 
 class MemoryManager{

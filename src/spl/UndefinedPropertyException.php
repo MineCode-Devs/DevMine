@@ -1,8 +1,8 @@
 <?php
 
 /*
- * PocketMine Standard PHP Library
- * Copyright (C) 2014-2016 PocketMine Team <https://github.com/PocketMine/PocketMine-SPL>
+ * DevMine Standard PHP Library
+ * Copyright (C) 2014-2016 Mostly by PocketMine team, modified by DevMine Team <https://github.com/DevMine/DevMine-SPL>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

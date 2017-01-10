@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\Player;
-use pocketmine\level\sound\ButtonClickSound;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
+use devmine\worlds\sound\ButtonClickSound;
 
 class StoneButton extends WoodenButton{
 	protected $id = self::STONE_BUTTON;

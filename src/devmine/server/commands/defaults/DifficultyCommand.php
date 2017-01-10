@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\SetDifficultyPacket;
-use pocketmine\Server;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\SetDifficultyPacket;
+use devmine\server\server;
 
 
 class DifficultyCommand extends VanillaCommand{
@@ -34,10 +34,10 @@ class DifficultyCommand extends VanillaCommand{
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.difficulty.description",
+			"%DevMine.command.difficulty.description",
 			"%commands.difficulty.usage"
 		);
-		$this->setPermission("pocketmine.command.difficulty");
+		$this->setPermission("DevMine.command.difficulty");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

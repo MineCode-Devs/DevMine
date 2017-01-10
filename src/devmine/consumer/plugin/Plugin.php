@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,9 +22,9 @@
 /**
  * Plugin related classes
  */
-namespace pocketmine\plugin;
+namespace devmine\consumer\plugin;
 
-use pocketmine\command\CommandExecutor;
+use devmine\server\commands\CommandExecutor;
 
 
 /**
@@ -84,7 +84,7 @@ interface Plugin extends CommandExecutor{
 	public function getResources();
 
 	/**
-	 * @return \pocketmine\utils\Config
+	 * @return \devmine\utilities\main\Config
 	 */
 	public function getConfig();
 
@@ -95,7 +95,7 @@ interface Plugin extends CommandExecutor{
 	public function reloadConfig();
 
 	/**
-	 * @return \pocketmine\Server
+	 * @return \devmine\server\server
 	 */
 	public function getServer();
 

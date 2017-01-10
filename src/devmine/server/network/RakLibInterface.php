@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\network;
+namespace devmine\server\network;
 
-use pocketmine\event\player\PlayerCreationEvent;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\network\protocol\Info as ProtocolInfo;
-use pocketmine\network\protocol\Info;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\utils\MainLogger;
+use devmine\events\player\PlayerCreationEvent;
+use devmine\server\network\protocol\DataPacket;
+use devmine\server\network\protocol\Info as ProtocolInfo;
+use devmine\server\network\protocol\Info;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\utilities\main\MainLogger;
 use raklib\protocol\EncapsulatedPacket;
 use raklib\protocol\PacketReliability;
 use raklib\RakLib;
@@ -143,7 +143,7 @@ class RakLibInterface implements ServerInstance, AdvancedSourceInterface{
 				}
 			}catch(\Throwable $e){
 				$logger = $this->server->getLogger();
-				if(\pocketmine\DEBUG > 1 and isset($pk)){
+				if(\DevMine\DEBUG > 1 and isset($pk)){
 					$logger->debug("Exception in packet " . get_class($pk) . " 0x" . bin2hex($packet->buffer));
 				}
 				$logger->logException($e);

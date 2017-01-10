@@ -5,14 +5,14 @@
  * @link https://github.com/Nukkit/Nukkit
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\network\protocol\AddPaintingPacket;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\Player;
-use pocketmine\level\particle\DestroyBlockParticle;
-use pocketmine\block\Block;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\server\network\protocol\AddPaintingPacket;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\creatures\player;
+use devmine\worlds\particle\DestroyBlockParticle;
+use devmine\inventory\blocks\Block;
 
 class Painting extends Hanging{
 	const NETWORK_ID = 83;

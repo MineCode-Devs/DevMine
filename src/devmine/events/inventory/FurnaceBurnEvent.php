@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\inventory;
+namespace devmine\events\inventory;
 
-use pocketmine\event\block\BlockEvent;
-use pocketmine\event\Cancellable;
-use pocketmine\item\Item;
-use pocketmine\tile\Furnace;
+use devmine\events\block\BlockEvent;
+use devmine\events\Cancellable;
+use devmine\inventory\items\Item;
+use devmine\inventory\solidentity\Furnace;
 
 class FurnaceBurnEvent extends BlockEvent implements Cancellable{
 	public static $handlerList = null;

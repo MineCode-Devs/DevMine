@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\utils\Color;
-use pocketmine\item\enchantment\enchantment;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\utilities\main\Color;
+use devmine\inventory\items\enchantment\enchantment;
 
 abstract class Armor extends Item{
 	const TIER_LEATHER = 1;

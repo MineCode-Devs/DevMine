@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -22,9 +22,9 @@
 /**
  * Permission related classes
  */
-namespace pocketmine\permission;
+namespace devmine\server\perms;
 
-use pocketmine\Server;
+use devmine\server\server;
 
 /**
  * Represents a permission

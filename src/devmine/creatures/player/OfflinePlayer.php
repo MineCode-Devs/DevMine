@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\creatures\player;
 
 
-use pocketmine\metadata\MetadataValue;
-use pocketmine\metadata\Metadatable;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\plugin\Plugin;
+use devmine\server\meta\MetadataValue;
+use devmine\server\meta\Metadatable;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\consumer\plugin\Plugin;
 
 class OfflinePlayer implements IPlayer, Metadatable{
 

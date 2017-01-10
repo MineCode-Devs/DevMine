@@ -12,16 +12,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 #include <rules/DataPacket.h>
 #ifndef COMPILE
 #endif
-use pocketmine\item\Item;
+use devmine\inventory\items\Item;
 
 class BinaryStream extends \stdClass{
 	public $offset;

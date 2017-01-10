@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -22,27 +22,27 @@
 /**
  * Named Binary Tag handling classes
  */
-namespace pocketmine\nbt;
+namespace devmine\creatures\player;
 
-use pocketmine\item\Item;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\ByteArrayTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\EndTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\IntArrayTag;
-use pocketmine\nbt\tag\LongTag;
-use pocketmine\nbt\tag\NamedTAG;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\nbt\tag\Tag;
-use pocketmine\utils\Utils;
+use devmine\inventory\items\Item;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\ByteArrayTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\EndTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\IntArrayTag;
+use devmine\creatures\player\tag\LongTag;
+use devmine\creatures\player\tag\NamedTAG;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player\tag\Tag;
+use devmine\utilities\main\Utils;
 
 #ifndef COMPILE
-use pocketmine\utils\Binary;
+use devmine\utilities\main\Binary;
 
 #endif
 

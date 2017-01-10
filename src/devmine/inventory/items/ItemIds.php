@@ -19,9 +19,9 @@
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\BlockIds;
+use devmine\inventory\blocks\BlockIds;
 
 interface ItemIds extends BlockIds{
 	

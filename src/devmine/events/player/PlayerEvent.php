@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
@@ -22,12 +22,12 @@
 /**
  * Player-only related events
  */
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\event\Event;
+use devmine\events\Event;
 
 abstract class PlayerEvent extends Event{
-	/** @var \pocketmine\Player */
+	/** @var \devmine\creatures\player */
 	protected $player;
 
 	public function getPlayer(){

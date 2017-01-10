@@ -13,30 +13,30 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
 
-use pocketmine\block\Block;
-use pocketmine\event\entity\EntityDamageByChildEntityEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDeathEvent;
-use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\Timings;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\Player;
-use pocketmine\Server;
-use pocketmine\utils\BlockIterator;
+use devmine\inventory\blocks\Block;
+use devmine\events\entity\EntityDamageByChildEntityEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDeathEvent;
+use devmine\events\entity\EntityRegainHealthEvent;
+use devmine\events\Timings;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\creatures\player;
+use devmine\server\server;
+use devmine\utilities\main\BlockIterator;
 
 abstract class Living extends Entity implements Damageable{
 

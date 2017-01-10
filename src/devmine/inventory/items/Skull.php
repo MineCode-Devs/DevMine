@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\Block;
+use devmine\inventory\blocks\Block;
 
 class Skull extends Item{
 	const SKELETON = 0;

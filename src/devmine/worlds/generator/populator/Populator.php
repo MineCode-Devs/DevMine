@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -22,10 +22,10 @@
 /**
  * All the Object populator classes
  */
-namespace pocketmine\level\generator\populator;
+namespace devmine\worlds\generator\populator;
 
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
+use devmine\worlds\ChunkManager;
+use devmine\utilities\main\Random;
 
 abstract class Populator{
 	public abstract function populate(ChunkManager $level, $chunkX, $chunkZ, Random $random);

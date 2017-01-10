@@ -13,25 +13,25 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\Player;
-use pocketmine\tile\FlowerPot as TileFlowerPot;
-use pocketmine\tile\Tile;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\FlowerPot as TileFlowerPot;
+use devmine\inventory\solidentity\Tile;
 
 class FlowerPot extends Flowable{
 

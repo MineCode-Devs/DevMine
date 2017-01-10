@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\event\level;
+namespace devmine\events\level;
 
-use pocketmine\event\Cancellable;
-use pocketmine\level\Level;
-use pocketmine\level\weather\Weather;
+use devmine\events\Cancellable;
+use devmine\worlds\Level;
+use devmine\worlds\weather\Weather;
 
 class WeatherChangeEvent extends LevelEvent implements Cancellable{
 	public static $handlerList = null;

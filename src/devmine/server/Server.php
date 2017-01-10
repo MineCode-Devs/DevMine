@@ -13,176 +13,176 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\server;
 
-use pocketmine\block\Block;
-use pocketmine\command\CommandReader;
-use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
-use pocketmine\command\PluginIdentifiableCommand;
-use pocketmine\command\SimpleCommandMap;
-use pocketmine\entity\Arrow;
-use pocketmine\entity\Attribute;
-use pocketmine\entity\Bat;
-use pocketmine\entity\Blaze;
-//use pocketmine\entity\BlazeFireball;
-//use pocketmine\entity\BlueWitherSkull;
-use pocketmine\entity\Boat;
-//use pocketmine\entity\Camera;
-use pocketmine\entity\CaveSpider;
-use pocketmine\entity\Chicken;
-use pocketmine\entity\Cow;
-use pocketmine\entity\Creeper;
-use pocketmine\entity\Effect;
-use pocketmine\entity\Egg;
-use pocketmine\entity\Enderman;
+use devmine\inventory\blocks\Block;
+use devmine\server\commands\CommandReader;
+use devmine\server\commands\CommandSender;
+use devmine\server\commands\ConsoleCommandSender;
+use devmine\server\commands\PluginIdentifiableCommand;
+use devmine\server\commands\SimpleCommandMap;
+use devmine\creatures\entities\Arrow;
+use devmine\creatures\entities\Attribute;
+use devmine\creatures\entities\Bat;
+use devmine\creatures\entities\Blaze;
+//use devmine\creatures\entities\BlazeFireball;
+//use devmine\creatures\entities\BlueWitherSkull;
+use devmine\creatures\entities\Boat;
+//use devmine\creatures\entities\Camera;
+use devmine\creatures\entities\CaveSpider;
+use devmine\creatures\entities\Chicken;
+use devmine\creatures\entities\Cow;
+use devmine\creatures\entities\Creeper;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Egg;
+use devmine\creatures\entities\Enderman;
 
-//use pocketmine\entity\EnderDragon;
+//use devmine\creatures\entities\EnderDragon;
 
-//use pocketmine\entity\ElderGuardian;
-use pocketmine\entity\Entity;
-use pocketmine\entity\FallingSand;
-use pocketmine\entity\FishingHook;
-use pocketmine\entity\Ghast;
-//use pocketmine\entity\GhastFireball;
-//use pocketmine\entity\Guardian;
-use pocketmine\entity\Human;
-use pocketmine\entity\Husk;
-use pocketmine\entity\IronGolem;
-use pocketmine\entity\Item as DroppedItem;
-use pocketmine\entity\LavaSlime;
-//use pocketmine\entity\LeashKnot;
-use pocketmine\entity\Lightning;
-use pocketmine\entity\Minecart;
-use pocketmine\entity\MinecartChest;
-use pocketmine\entity\MinecartHopper;
-use pocketmine\entity\MinecartTNT;
-use pocketmine\entity\Mooshroom;
-use pocketmine\entity\Ocelot;
-use pocketmine\entity\Painting;
-use pocketmine\entity\Pig;
-use pocketmine\entity\PigZombie;
-use pocketmine\entity\PrimedTNT;
-use pocketmine\entity\Rabbit;
-use pocketmine\entity\Sheep;
-use pocketmine\entity\Silverfish;
-use pocketmine\entity\Skeleton;
-use pocketmine\entity\Slime;
-use pocketmine\entity\Snowball;
-use pocketmine\entity\SnowGolem;
-use pocketmine\entity\Spider;
-use pocketmine\entity\Squid;
-use pocketmine\entity\Stray;
-use pocketmine\entity\ThrownExpBottle;
-use pocketmine\entity\ThrownPotion;
-use pocketmine\entity\Villager;
-use pocketmine\entity\Witch;
-//use pocketmine\entity\Wither;
-//use pocketmine\entity\WitherSkeleton;
-use pocketmine\entity\Wolf;
-use pocketmine\entity\XPOrb;
-use pocketmine\entity\Zombie;
-use pocketmine\entity\ZombieVillager;
-use pocketmine\event\HandlerList;
-use pocketmine\event\level\LevelInitEvent;
-use pocketmine\event\level\LevelLoadEvent;
-use pocketmine\event\server\QueryRegenerateEvent;
-use pocketmine\event\server\ServerCommandEvent;
-use pocketmine\event\Timings;
-use pocketmine\event\TimingsHandler;
-use pocketmine\event\TranslationContainer;
-use pocketmine\inventory\CraftingManager;
-use pocketmine\inventory\InventoryType;
-use pocketmine\inventory\Recipe;
-use pocketmine\inventory\ShapedRecipe;
-use pocketmine\inventory\ShapelessRecipe;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\item\enchantment\EnchantmentLevelTable;
-use pocketmine\item\Item;
-use pocketmine\lang\BaseLang;
-use pocketmine\level\format\region\Anvil;
-use pocketmine\level\format\leveldb\LevelDB;
-use pocketmine\level\format\LevelProviderManager;
-use pocketmine\level\format\region\McRegion;
-use pocketmine\level\format\region\PMAnvil;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\generator\Flat;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\hell\Nether;
-use pocketmine\level\generator\normal\Normal;
-use pocketmine\level\Level;
-use pocketmine\metadata\EntityMetadataStore;
-use pocketmine\metadata\LevelMetadataStore;
-use pocketmine\metadata\PlayerMetadataStore;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\LongTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\CompressBatchedTask;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\Info;
-use pocketmine\network\protocol\BatchPacket;
-use pocketmine\network\protocol\CraftingDataPacket;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\network\protocol\PlayerListPacket;
-use pocketmine\network\query\QueryHandler;
-use pocketmine\network\RakLibInterface;
-use pocketmine\network\rcon\RCON;
-use pocketmine\network\SourceInterface;
-use pocketmine\network\upnp\UPnP;
-use pocketmine\permission\BanList;
-use pocketmine\permission\DefaultPermissions;
-use pocketmine\plugin\PharPluginLoader;
-use pocketmine\plugin\Plugin;
-use pocketmine\plugin\PluginLoadOrder;
-use pocketmine\plugin\PluginManager;
-use pocketmine\plugin\ScriptPluginLoader;
-use pocketmine\scheduler\CallbackTask;
-use pocketmine\scheduler\DServerTask;
-use pocketmine\scheduler\FileWriteTask;
-use pocketmine\scheduler\SendUsageTask;
-use pocketmine\scheduler\ServerScheduler;
-use pocketmine\tile\Beacon;
-use pocketmine\tile\BrewingStand;
-use pocketmine\tile\Cauldron;
-use pocketmine\tile\Chest;
-use pocketmine\tile\Dispenser;
-use pocketmine\tile\DLDetector;
-use pocketmine\tile\Dropper;
-use pocketmine\tile\EnchantTable;
-use pocketmine\tile\FlowerPot;
-use pocketmine\tile\Furnace;
-use pocketmine\tile\Hopper;
-use pocketmine\tile\ItemFrame;
-use pocketmine\tile\MobSpawner;
-use pocketmine\tile\Sign;
-use pocketmine\tile\Skull;
-use pocketmine\tile\Tile;
-use pocketmine\utils\Binary;
-use pocketmine\utils\Color;
-use pocketmine\utils\Config;
-use pocketmine\utils\LevelException;
-use pocketmine\utils\MainLogger;
-use pocketmine\utils\ServerException;
-use pocketmine\utils\Terminal;
-use pocketmine\utils\TextFormat;
-use pocketmine\utils\Utils;
-use pocketmine\utils\UUID;
-use pocketmine\utils\VersionString;
+//use devmine\creatures\entities\ElderGuardian;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\FallingSand;
+use devmine\creatures\entities\FishingHook;
+use devmine\creatures\entities\Ghast;
+//use devmine\creatures\entities\GhastFireball;
+//use devmine\creatures\entities\Guardian;
+use devmine\creatures\entities\Human;
+use devmine\creatures\entities\Husk;
+use devmine\creatures\entities\IronGolem;
+use devmine\creatures\entities\Item as DroppedItem;
+use devmine\creatures\entities\LavaSlime;
+//use devmine\creatures\entities\LeashKnot;
+use devmine\creatures\entities\Lightning;
+use devmine\creatures\entities\Minecart;
+use devmine\creatures\entities\MinecartChest;
+use devmine\creatures\entities\MinecartHopper;
+use devmine\creatures\entities\MinecartTNT;
+use devmine\creatures\entities\Mooshroom;
+use devmine\creatures\entities\Ocelot;
+use devmine\creatures\entities\Painting;
+use devmine\creatures\entities\Pig;
+use devmine\creatures\entities\PigZombie;
+use devmine\creatures\entities\PrimedTNT;
+use devmine\creatures\entities\Rabbit;
+use devmine\creatures\entities\Sheep;
+use devmine\creatures\entities\Silverfish;
+use devmine\creatures\entities\Skeleton;
+use devmine\creatures\entities\Slime;
+use devmine\creatures\entities\Snowball;
+use devmine\creatures\entities\SnowGolem;
+use devmine\creatures\entities\Spider;
+use devmine\creatures\entities\Squid;
+use devmine\creatures\entities\Stray;
+use devmine\creatures\entities\ThrownExpBottle;
+use devmine\creatures\entities\ThrownPotion;
+use devmine\creatures\entities\Villager;
+use devmine\creatures\entities\Witch;
+//use devmine\creatures\entities\Wither;
+//use devmine\creatures\entities\WitherSkeleton;
+use devmine\creatures\entities\Wolf;
+use devmine\creatures\entities\XPOrb;
+use devmine\creatures\entities\Zombie;
+use devmine\creatures\entities\ZombieVillager;
+use devmine\events\HandlerList;
+use devmine\events\level\LevelInitEvent;
+use devmine\events\level\LevelLoadEvent;
+use devmine\events\server\QueryRegenerateEvent;
+use devmine\events\server\ServerCommandEvent;
+use devmine\events\Timings;
+use devmine\events\TimingsHandler;
+use devmine\events\TranslationContainer;
+use devmine\inventory\layout\CraftingManager;
+use devmine\inventory\layout\InventoryType;
+use devmine\inventory\layout\Recipe;
+use devmine\inventory\layout\ShapedRecipe;
+use devmine\inventory\layout\ShapelessRecipe;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\inventory\items\enchantment\EnchantmentLevelTable;
+use devmine\inventory\items\Item;
+use devmine\utilities\languages\BaseLang;
+use devmine\worlds\format\region\Anvil;
+use devmine\worlds\format\leveldb\LevelDB;
+use devmine\worlds\format\LevelProviderManager;
+use devmine\worlds\format\region\McRegion;
+use devmine\worlds\format\region\PMAnvil;
+use devmine\worlds\generator\biome\Biome;
+use devmine\worlds\generator\Flat;
+use devmine\worlds\generator\Generator;
+use devmine\worlds\generator\hell\Nether;
+use devmine\worlds\generator\normal\Normal;
+use devmine\worlds\Level;
+use devmine\server\meta\EntityMetadataStore;
+use devmine\server\meta\LevelMetadataStore;
+use devmine\server\meta\PlayerMetadataStore;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\LongTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\server\network\CompressBatchedTask;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\Info;
+use devmine\server\network\protocol\BatchPacket;
+use devmine\server\network\protocol\CraftingDataPacket;
+use devmine\server\network\protocol\DataPacket;
+use devmine\server\network\protocol\PlayerListPacket;
+use devmine\server\network\query\QueryHandler;
+use devmine\server\network\RakLibInterface;
+use devmine\server\network\rcon\RCON;
+use devmine\server\network\SourceInterface;
+use devmine\server\network\upnp\UPnP;
+use devmine\server\perms\BanList;
+use devmine\server\perms\DefaultPermissions;
+use devmine\consumer\plugin\PharPluginLoader;
+use devmine\consumer\plugin\Plugin;
+use devmine\consumer\plugin\PluginLoadOrder;
+use devmine\consumer\plugin\PluginManager;
+use devmine\consumer\plugin\ScriptPluginLoader;
+use devmine\server\tasks\CallbackTask;
+use devmine\server\tasks\DServerTask;
+use devmine\server\tasks\FileWriteTask;
+use devmine\server\tasks\SendUsageTask;
+use devmine\server\tasks\ServerScheduler;
+use devmine\inventory\solidentity\Beacon;
+use devmine\inventory\solidentity\BrewingStand;
+use devmine\inventory\solidentity\Cauldron;
+use devmine\inventory\solidentity\Chest;
+use devmine\inventory\solidentity\Dispenser;
+use devmine\inventory\solidentity\DLDetector;
+use devmine\inventory\solidentity\Dropper;
+use devmine\inventory\solidentity\EnchantTable;
+use devmine\inventory\solidentity\FlowerPot;
+use devmine\inventory\solidentity\Furnace;
+use devmine\inventory\solidentity\Hopper;
+use devmine\inventory\solidentity\ItemFrame;
+use devmine\inventory\solidentity\MobSpawner;
+use devmine\inventory\solidentity\Sign;
+use devmine\inventory\solidentity\Skull;
+use devmine\inventory\solidentity\Tile;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\Color;
+use devmine\utilities\main\Config;
+use devmine\utilities\main\LevelException;
+use devmine\utilities\main\MainLogger;
+use devmine\utilities\main\ServerException;
+use devmine\utilities\main\Terminal;
+use devmine\utilities\main\TextFormat;
+use devmine\utilities\main\Utils;
+use devmine\utilities\main\UUID;
+use devmine\utilities\main\VersionString;
 
-//TODO use pocketmine\level\generator\ender\Ender;
+//TODO use devmine\worlds\generator\ender\Ender;
 
 
 
@@ -190,8 +190,8 @@ use pocketmine\utils\VersionString;
  * The class that manages everything
  */
 class Server{
-	const BROADCAST_CHANNEL_ADMINISTRATIVE = "pocketmine.broadcast.admin";
-	const BROADCAST_CHANNEL_USERS = "pocketmine.broadcast.user";
+	const BROADCAST_CHANNEL_ADMINISTRATIVE = "DevMine.broadcast.admin";
+	const BROADCAST_CHANNEL_USERS = "DevMine.broadcast.user";
 
 	const PLAYER_MSG_TYPE_MESSAGE = 0;
 	const PLAYER_MSG_TYPE_TIP = 1;
@@ -384,7 +384,7 @@ class Server{
 	 * @return string
 	 */
 	public function getName() : string{
-		return "Tesseract";
+		return "DevMine";
 	}
 
 	/**
@@ -399,7 +399,7 @@ class Server{
 	 * Returns a formatted string of how long the server has been running for
 	 */
 	public function getUptime(){
-		$time = microtime(true) - \pocketmine\START_TIME;
+		$time = microtime(true) - \DevMine\START_TIME;
 
 		$seconds = floor($time % 60);
 		$minutes = null;
@@ -419,29 +419,29 @@ class Server{
 		$uptime = ($minutes !== null ?
 				($hours !== null ?
 					($days !== null ?
-						"$days " . $this->getLanguage()->translateString("%pocketmine.command.status.days") . " "
-						: "") . "$hours " . $this->getLanguage()->translateString("%pocketmine.command.status.hours") . " "
-					: "") . "$minutes " . $this->getLanguage()->translateString("%pocketmine.command.status.minutes") . " "
-				: "") . "$seconds " . $this->getLanguage()->translateString("%pocketmine.command.status.seconds");
+						"$days " . $this->getLanguage()->translateString("%DevMine.command.status.days") . " "
+						: "") . "$hours " . $this->getLanguage()->translateString("%DevMine.command.status.hours") . " "
+					: "") . "$minutes " . $this->getLanguage()->translateString("%DevMine.command.status.minutes") . " "
+				: "") . "$seconds " . $this->getLanguage()->translateString("%DevMine.command.status.seconds");
 		return $uptime;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPocketMineVersion(){
-		return \pocketmine\VERSION;
+	public function getDevMineVersion(){
+		return \DevMine\VERSION;
 	}
 
 	public function getFormattedVersion($prefix = ""){
-		return (\pocketmine\VERSION !== ""? $prefix . \pocketmine\VERSION : "");
+		return (\DevMine\VERSION !== ""? $prefix . \DevMine\VERSION : "");
 	}
 
 	/**
 	 * @return string
 	 */
 	public function getCodename(){
-		return \pocketmine\CODENAME;
+		return \DevMine\CODENAME;
 	}
 
 	/**
@@ -455,7 +455,7 @@ class Server{
 	 * @return string
 	 */
 	public function getApiVersion(){
-		return \pocketmine\API_VERSION;
+		return \DevMine\API_VERSION;
 	}
 
 	/**
@@ -845,10 +845,10 @@ class Server{
 					return $nbt->getData();
 				}catch(\Throwable $e){ //zlib decode error / corrupt data
 					rename($path . "$name.dat", $path . "$name.dat.bak");
-					$this->logger->notice($this->getLanguage()->translateString("pocketmine.data.playerCorrupted", [$name]));
+					$this->logger->notice($this->getLanguage()->translateString("DevMine.data.playerCorrupted", [$name]));
 				}
 			}else{
-				$this->logger->notice($this->getLanguage()->translateString("pocketmine.data.playerNotFound", [$name]));
+				$this->logger->notice($this->getLanguage()->translateString("DevMine.data.playerNotFound", [$name]));
 			}
 		}
 		$spawn = $this->getDefaultLevel()->getSafeSpawn();
@@ -892,7 +892,7 @@ class Server{
 		$nbt->Motion->setTagType(NBT::TAG_Double);
 		$nbt->Rotation->setTagType(NBT::TAG_Float);
 
-		/*if(file_exists($path . "$name.yml")){ //Importing old PocketMine-MP files
+		/*if(file_exists($path . "$name.yml")){ //Importing old DevMine-MP files
 			$data = new Config($path . "$name.yml", Config::YAML, []);
 			$nbt["playerGameType"] = (int) $data->get("gamemode");
 			$nbt["Level"] = $data->get("position")["level"];
@@ -903,7 +903,7 @@ class Server{
 			$nbt["SpawnX"] = (int) $data->get("spawn")["x"];
 			$nbt["SpawnY"] = (int) $data->get("spawn")["y"];
 			$nbt["SpawnZ"] = (int) $data->get("spawn")["z"];
-			$this->logger->notice($this->getLanguage()->translateString("pocketmine.data.playerOld", [$name]));
+			$this->logger->notice($this->getLanguage()->translateString("DevMine.data.playerOld", [$name]));
 			foreach($data->get("inventory") as $slot => $item){
 				if(count($item) === 3){
 					$nbt->Inventory[$slot + 9] = new CompoundTag("", [
@@ -965,7 +965,7 @@ class Server{
 					file_put_contents($this->getDataPath() . "players/" . strtolower($name) . ".dat", $nbt->writeCompressed());
 				}
 			}catch(\Throwable $e){
-				$this->logger->critical($this->getLanguage()->translateString("pocketmine.data.saveError", [$name, $e->getMessage()]));
+				$this->logger->critical($this->getLanguage()->translateString("DevMine.data.saveError", [$name, $e->getMessage()]));
 				$this->logger->logException($e);
 			}
 		}
@@ -1151,7 +1151,7 @@ class Server{
 		if($this->isLevelLoaded($name)){
 			return true;
 		}elseif(!$this->isLevelGenerated($name)){
-			$this->logger->notice($this->getLanguage()->translateString("pocketmine.level.notFound", [$name]));
+			$this->logger->notice($this->getLanguage()->translateString("DevMine.level.notFound", [$name]));
 
 			return false;
 		}
@@ -1161,7 +1161,7 @@ class Server{
 		$provider = LevelProviderManager::getProvider($path);
 
 		if($provider === null){
-			$this->logger->error($this->getLanguage()->translateString("pocketmine.level.loadError", [$name, "Unknown provider"]));
+			$this->logger->error($this->getLanguage()->translateString("DevMine.level.loadError", [$name, "Unknown provider"]));
 
 			return false;
 		}
@@ -1174,7 +1174,7 @@ class Server{
 			$level = new Level($this, $name, $path, $provider);
 		}catch(\Throwable $e){
 
-			$this->logger->error($this->getLanguage()->translateString("pocketmine.level.loadError", [$name, $e->getMessage()]));
+			$this->logger->error($this->getLanguage()->translateString("DevMine.level.loadError", [$name, $e->getMessage()]));
 			if($this->logger instanceof MainLogger){
 				$this->logger->logException($e);
 			}
@@ -1197,7 +1197,7 @@ class Server{
 	 *
 	 * @param string $name
 	 * @param int    $seed
-	 * @param string $generator Class name that extends pocketmine\level\generator\Noise
+	 * @param string $generator Class name that extends devmine\worlds\generator\Noise
 	 * @param array  $options
 	 *
 	 * @return bool
@@ -1223,7 +1223,7 @@ class Server{
 
 		try{
 			$path = $this->getDataPath() . "worlds/" . $name . "/";
-			/** @var \pocketmine\level\format\LevelProvider $provider */
+			/** @var \devmine\worlds\format\LevelProvider $provider */
 			$provider::generate($path, $name, $seed, $generator, $options);
 
 			$level = new Level($this, $name, $path, $provider);
@@ -1233,7 +1233,7 @@ class Server{
 
 			$level->setTickRate($this->baseTickRate);
 		}catch(\Throwable $e){
-			$this->logger->error($this->getLanguage()->translateString("pocketmine.level.generateError", [$name, $e->getMessage()]));
+			$this->logger->error($this->getLanguage()->translateString("DevMine.level.generateError", [$name, $e->getMessage()]));
 			if($this->logger instanceof MainLogger){
 				$this->logger->logException($e);
 			}
@@ -1244,7 +1244,7 @@ class Server{
 
 		$this->getPluginManager()->callEvent(new LevelLoadEvent($level));
 
-		$this->getLogger()->notice($this->getLanguage()->translateString("pocketmine.level.backgroundGeneration", [$name]));
+		$this->getLogger()->notice($this->getLanguage()->translateString("DevMine.level.backgroundGeneration", [$name]));
 
 		$centerX = $level->getSpawnLocation()->getX() >> 4;
 		$centerZ = $level->getSpawnLocation()->getZ() >> 4;
@@ -1685,14 +1685,14 @@ class Server{
 			$this->dataPath = realpath($dataPath) . DIRECTORY_SEPARATOR;
 			$this->pluginPath = realpath($pluginPath) . DIRECTORY_SEPARATOR;
 
-			if(!file_exists($this->dataPath . "pocketmine.yml")){
-				$content = file_get_contents($this->filePath . "src/pocketmine/resources/pocketmine.yml");
-				@file_put_contents($this->dataPath . "pocketmine.yml", $content);
+			if(!file_exists($this->dataPath . "DevMine.yml")){
+				$content = file_get_contents($this->filePath . "src/devmine/server/resources/DevMine.yml");
+				@file_put_contents($this->dataPath . "DevMine.yml", $content);
 			}
-			$this->config = new Config($configPath = $this->dataPath . "pocketmine.yml", Config::YAML, []);
+			$this->config = new Config($configPath = $this->dataPath . "DevMine.yml", Config::YAML, []);
 			$this->console = new CommandReader($logger);
 
-			$version = new VersionString($this->getPocketMineVersion());
+			$version = new VersionString($this->getDevMineVersion());
 			$this->version = $version;
 			$mcpe = $this->getVersion() . " §c(Protocol: §d" . Info::CURRENT_PROTOCOL . "§c)";
 			$code = $this->getCodename();
@@ -1716,16 +1716,16 @@ class Server{
 §e#§b     |_|\___||___/___/\___|_|  \__,_|\___|\__|   §e#  ------------------------------------------
 §e#                                                 #    §cCodename: §d$code
 §e#                                                 #    §cAPI Version: §d$api
-§e#     §bwww.github.com/TesseractTeam/Tesseract      §e#    §cLanguage: §d$lang
+§e#     §bwww.github.com/DevMineTeam/DevMine      §e#    §cLanguage: §d$lang
 §e#					          #    §cPackage: §d$package
 §e###################################################  ------------------------------------------");
 
 			$nowLang = $this->getProperty("settings.language", "eng");
 
 			//Crashes unsupported builds without the correct configuration
-			if(strpos(\pocketmine\VERSION, "unsupported") !== false and getenv("GITLAB_CI") === false){
+			if(strpos(\DevMine\VERSION, "unsupported") !== false and getenv("GITLAB_CI") === false){
 				if($this->getProperty("settings.enable-testing", false) !== true){
-					throw new ServerException("This build is not intended for production use. You may set 'settings.enable-testing: true' under pocketmine.yml to allow use of non-production builds. Do so at your own risk and ONLY if you know what you are doing.");
+					throw new ServerException("This build is not intended for production use. You may set 'settings.enable-testing: true' under DevMine.yml to allow use of non-production builds. Do so at your own risk and ONLY if you know what you are doing.");
 				}else{
 					$this->logger->warning("You are using an unsupported build. Do not use this build in a production environment.");
 				}
@@ -1737,17 +1737,17 @@ class Server{
 			}
 
 			$lang = $this->getProperty("settings.language", BaseLang::FALLBACK_LANGUAGE);
-			if(file_exists($this->filePath . "src/pocketmine/resources/tesseract_$lang.yml")){
-				$content = file_get_contents($file = $this->filePath . "src/pocketmine/resources/tesseract_$lang.yml");
+			if(file_exists($this->filePath . "src/devmine/server/resources/DevMine_$lang.yml")){
+				$content = file_get_contents($file = $this->filePath . "src/devmine/server/resources/DevMine_$lang.yml");
 			}else{
-				$content = file_get_contents($file = $this->filePath . "src/pocketmine/resources/tesseract_eng.yml");
+				$content = file_get_contents($file = $this->filePath . "src/devmine/server/resources/DevMine_eng.yml");
 			}
 
-			if(!file_exists($this->dataPath . "tesseract.yml")){
-				@file_put_contents($this->dataPath . "tesseract.yml", $content);
+			if(!file_exists($this->dataPath . "DevMine.yml")){
+				@file_put_contents($this->dataPath . "DevMine.yml", $content);
 			}
 			$internelConfig = new Config($file, Config::YAML, []);
-			$this->advancedConfig = new Config($this->dataPath . "tesseract.yml", Config::YAML, []);
+			$this->advancedConfig = new Config($this->dataPath . "DevMine.yml", Config::YAML, []);
 			$cfgVer = $this->getAdvancedProperty("config.version", 0, $internelConfig);
 			$advVer = $this->getAdvancedProperty("config.version", 0);
 
@@ -1841,13 +1841,13 @@ class Server{
 				$this->setConfigInt("difficulty", 3);
 			}
 
-			define("pocketmine\\DEBUG", (int) $this->getProperty("debug.level", 1));
+			define("DevMine\\DEBUG", (int) $this->getProperty("debug.level", 1));
 			if($this->logger instanceof MainLogger){
-				$this->logger->setLogDebug(\pocketmine\DEBUG > 1);
+				$this->logger->setLogDebug(\DevMine\DEBUG > 1);
 			}
 
-			if(\pocketmine\DEBUG >= 0){
-				@cli_set_process_title($this->getName() . " " . $this->getPocketMineVersion());
+			if(\DevMine\DEBUG >= 0){
+				@cli_set_process_title($this->getName() . " " . $this->getDevMineVersion());
 			}
 
 			$this->logger->info(TextFormat::BLUE."Everything seems to be alright. Server started!");
@@ -1901,7 +1901,7 @@ class Server{
 			LevelProviderManager::addProvider(PMAnvil::class);
 			LevelProviderManager::addProvider(McRegion::class);
 			if(extension_loaded("leveldb")){
-				$this->logger->debug($this->getLanguage()->translateString("pocketmine.debug.enable"));
+				$this->logger->debug($this->getLanguage()->translateString("DevMine.debug.enable"));
 				LevelProviderManager::addProvider(LevelDB::class);
 			}
 
@@ -1954,7 +1954,7 @@ class Server{
 			$this->properties->save(true);
 
 			if(!($this->getDefaultLevel() instanceof Level)){
-				$this->getLogger()->emergency($this->getLanguage()->translateString("pocketmine.level.defaultError"));
+				$this->getLogger()->emergency($this->getLanguage()->translateString("DevMine.level.defaultError"));
 				$this->forceShutdown();
 
 				return;
@@ -1980,7 +1980,7 @@ class Server{
 			
 
 			if($cfgVer > $advVer){
-				$this->logger->notice("Your tesseract.yml needs update");
+				$this->logger->notice("Your DevMine.yml needs update");
 				$this->logger->notice("Current Version: $advVer   Latest Version: $cfgVer");
 			}
 
@@ -2402,7 +2402,7 @@ class Server{
 	}
 
 	/**
-	 * Starts the PocketMine-MP server and starts processing ticks and packets
+	 * Starts the DevMine-MP server and starts processing ticks and packets
 	 */
 	public function start(){
 		if($this->getConfigBoolean("enable-query", true) === true){
@@ -2433,9 +2433,9 @@ class Server{
 			$this->dispatchSignals = true;
 		}
 
-		$this->logger->info($this->getLanguage()->translateString("pocketmine.server.defaultGameMode", [self::getGamemodeString($this->getGamemode())]));
+		$this->logger->info($this->getLanguage()->translateString("DevMine.server.defaultGameMode", [self::getGamemodeString($this->getGamemode())]));
 
-		$this->logger->info($this->getLanguage()->translateString("pocketmine.server.startFinished", [round(microtime(true) - \pocketmine\START_TIME, 3)]));
+		$this->logger->info($this->getLanguage()->translateString("DevMine.server.startFinished", [round(microtime(true) - \DevMine\START_TIME, 3)]));
 
 		$this->tickProcessor();
 		$this->forceShutdown();
@@ -2501,15 +2501,15 @@ class Server{
 
 		ini_set("error_reporting", 0);
 		ini_set("memory_limit", -1); //Fix error dump not dumped on memory problems
-		$this->logger->emergency($this->getLanguage()->translateString("pocketmine.crash.create"));
+		$this->logger->emergency($this->getLanguage()->translateString("DevMine.crash.create"));
 		try{
 			$dump = new CrashDump($this);
 		}catch(\Throwable $e){
-			$this->logger->critical($this->getLanguage()->translateString("pocketmine.crash.error", $e->getMessage()));
+			$this->logger->critical($this->getLanguage()->translateString("DevMine.crash.error", $e->getMessage()));
 			return;
 		}
 
-		$this->logger->emergency($this->getLanguage()->translateString("pocketmine.crash.submit", [$dump->getPath()]));
+		$this->logger->emergency($this->getLanguage()->translateString("DevMine.crash.submit", [$dump->getPath()]));
 
 
 		if($this->getProperty("auto-report.enabled", true) !== false){
@@ -2530,7 +2530,7 @@ class Server{
 			if($report){
 				$reply = Utils::postURL("http://" . $this->getProperty("auto-report.host", "crash.pocketmine.net") . "/submit/api", [
 					"report" => "yes",
-					"name" => $this->getName() . " " . $this->getPocketMineVersion(),
+					"name" => $this->getName() . " " . $this->getDevMineVersion(),
 					"email" => "crash@pocketmine.net",
 					"reportPaste" => base64_encode($dump->getEncodedData())
 				]);
@@ -2538,7 +2538,7 @@ class Server{
 				if(($data = json_decode($reply)) !== false and isset($data->crashId)){
 					$reportId = $data->crashId;
 					$reportUrl = $data->crashUrl;
-					$this->logger->emergency($this->getLanguage()->translateString("pocketmine.crash.archive", [$reportUrl, $reportId]));
+					$this->logger->emergency($this->getLanguage()->translateString("DevMine.crash.archive", [$reportUrl, $reportId]));
 				}
 			}
 		}
@@ -2691,8 +2691,8 @@ class Server{
 					}
 				}
 			}catch(\Throwable $e){
-				$this->logger->critical($this->getLanguage()->translateString("pocketmine.level.tickError", [$level->getName(), $e->getMessage()]));
-				if(\pocketmine\DEBUG > 1 and $this->logger instanceof MainLogger){
+				$this->logger->critical($this->getLanguage()->translateString("DevMine.level.tickError", [$level->getName(), $e->getMessage()]));
+				if(\DevMine\DEBUG > 1 and $this->logger instanceof MainLogger){
 					$this->logger->logException($e);
 				}
 			}
@@ -2785,7 +2785,7 @@ class Server{
 				$this->queryHandler->handle($address, $port, $payload);
 			}
 		}catch(\Throwable $e){
-			if(\pocketmine\DEBUG > 1){
+			if(\DevMine\DEBUG > 1){
 				if($this->logger instanceof MainLogger){
 					$this->logger->logException($e);
 				}
@@ -2900,7 +2900,7 @@ class Server{
 			}
 
 			if($this->getTicksPerSecondAverage() < 1){
-				$this->logger->warning($this->getLanguage()->translateString("pocketmine.server.tickOverload"));
+				$this->logger->warning($this->getLanguage()->translateString("DevMine.server.tickOverload"));
 			}
 		}
 

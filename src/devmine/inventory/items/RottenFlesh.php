@@ -19,9 +19,9 @@
  *
  */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\entity\Effect;
+use devmine\creatures\entities\Effect;
 
 class RottenFlesh extends Food{
 	public function __construct($meta = 0, $count = 1){

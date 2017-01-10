@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
@@ -23,11 +23,11 @@
  * Implementation of the UT3 Query Protocol (GameSpot)
  * Source: http://wiki.unrealadmin.org/UT3_query_protocol
  */
-namespace pocketmine\network\query;
+namespace devmine\server\network\query;
 
-use pocketmine\Server;
-use pocketmine\utils\Binary;
-use pocketmine\utils\Utils;
+use devmine\server\server;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\Utils;
 
 class QueryHandler{
 	private $server, $lastToken, $token, $longData, $shortData, $timeout;
@@ -37,10 +37,10 @@ class QueryHandler{
 
 	public function __construct(){
 		$this->server = Server::getInstance();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.start"));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("DevMine.server.query.start"));
 		$addr = ($ip = $this->server->getIp()) != "" ? $ip : "0.0.0.0";
 		$port = $this->server->getPort();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.info", [$port]));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("DevMine.server.query.info", [$port]));
 		/*
 		The Query protocol is built on top of the existing Minecraft PE UDP network stack.
 		Because the 0xFE packet does not exist in the MCPE protocol,
@@ -53,7 +53,7 @@ class QueryHandler{
 		$this->regenerateToken();
 		$this->lastToken = $this->token;
 		$this->regenerateInfo();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.running", [$addr, $port]));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("DevMine.server.query.running", [$addr, $port]));
 	}
 
 	public function regenerateInfo(){

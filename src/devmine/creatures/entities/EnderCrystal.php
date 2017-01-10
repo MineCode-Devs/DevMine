@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\level\format\Chunk;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\worlds\format\Chunk;
 
 class EnderCrystal extends Vehicle{
 	const NETWORK_ID = 71;

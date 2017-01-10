@@ -13,30 +13,30 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
 
-use pocketmine\command\CommandSender;
-use pocketmine\entity\Effect;
-use pocketmine\entity\InstantEffect;
-use pocketmine\event\TranslationContainer;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\CommandSender;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\InstantEffect;
+use devmine\events\TranslationContainer;
+use devmine\utilities\main\TextFormat;
 
 class EffectCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.effect.description",
+			"%DevMine.command.effect.description",
 			"%commands.effect.usage"
 		);
-		$this->setPermission("pocketmine.command.effect;pocketmine.command.effect.other");
+		$this->setPermission("DevMine.command.effect;DevMine.command.effect.other");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
@@ -56,7 +56,7 @@ class EffectCommand extends VanillaCommand{
 			return true;
 		}
 		
-		if($player->getName()!=$sender->getName() && !$sender->hasPermission("pocketmine.command.effect.other")){
+		if($player->getName()!=$sender->getName() && !$sender->hasPermission("DevMine.command.effect.other")){
 			$sender->sendMessage("You don't have permission to give effect to other player .");
 			return true;
 		}

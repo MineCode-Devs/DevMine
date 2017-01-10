@@ -20,12 +20,12 @@
  */
 
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\network\protocol\MobEquipmentPacket;
-use pocketmine\item\Item as ItemItem;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\network\protocol\MobEquipmentPacket;
+use devmine\inventory\items\Item as ItemItem;
 
 class Stray extends Skeleton{
 	const NETWORK_ID = 46;

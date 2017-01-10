@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
 
 interface FoodSource{
 	public function getResidue();

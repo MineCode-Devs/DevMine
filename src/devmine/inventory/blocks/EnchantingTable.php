@@ -13,25 +13,25 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\inventory\EnchantInventory;
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
+use devmine\inventory\layout\EnchantInventory;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
 
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\Player;
-use pocketmine\tile\EnchantTable;
-use pocketmine\tile\Tile;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\EnchantTable;
+use devmine\inventory\solidentity\Tile;
 
 class EnchantingTable extends Transparent{
 

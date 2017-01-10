@@ -19,20 +19,20 @@
  *
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\block\Hopper as HopperBlock;
-use pocketmine\entity\Item as DroppedItem;
-use pocketmine\inventory\HopperInventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\level\format\Chunk;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\StringTag;
+use devmine\inventory\blocks\Hopper as HopperBlock;
+use devmine\creatures\entities\Item as DroppedItem;
+use devmine\inventory\layout\HopperInventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\worlds\format\Chunk;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\StringTag;
 
 class Hopper extends Spawnable implements InventoryHolder, Container, Nameable{
 	/** @var HopperInventory */

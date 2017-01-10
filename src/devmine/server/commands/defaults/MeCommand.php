@@ -13,28 +13,28 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class MeCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.me.description",
+			"%DevMine.command.me.description",
 			"%commands.me.usage"
 		);
-		$this->setPermission("pocketmine.command.me");
+		$this->setPermission("DevMine.command.me");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

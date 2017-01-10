@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Living;
-use pocketmine\item\Item;
+use devmine\creatures\entities\Living;
+use devmine\inventory\items\Item;
 
 class EntityDeathEvent extends EntityEvent{
 	public static $handlerList = null;
@@ -48,7 +48,7 @@ class EntityDeathEvent extends EntityEvent{
 	}
 
 	/**
-	 * @return \pocketmine\item\Item[]
+	 * @return \devmine\inventory\items\Item[]
 	 */
 	public function getDrops(){
 		return $this->drops;

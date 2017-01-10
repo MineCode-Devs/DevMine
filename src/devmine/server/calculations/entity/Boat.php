@@ -19,17 +19,17 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\math\Vector3;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\network\protocol\EntityEventPacket;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\calculations\Vector3;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\server\network\protocol\EntityEventPacket;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
 
 class Boat extends Vehicle{
 	const NETWORK_ID = 90;

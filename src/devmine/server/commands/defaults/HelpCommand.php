@@ -13,30 +13,30 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\server\commands\ConsoleCommandSender;
+use devmine\events\TranslationContainer;
+use devmine\utilities\main\TextFormat;
 
 class HelpCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.help.description",
+			"%DevMine.command.help.description",
 			"%commands.help.usage",
 			["?"]
 		);
-		$this->setPermission("pocketmine.command.help");
+		$this->setPermission("DevMine.command.help");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

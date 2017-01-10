@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link   http://www.pocketmine.net/
  *
  *
  */
 
-namespace pocketmine\event\block;
+namespace devmine\events\block;
 
-use pocketmine\block\Block;
-use pocketmine\event\Cancellable;
+use devmine\inventory\blocks\Block;
+use devmine\events\Cancellable;
 
 class BlockFormEvent extends BlockGrowEvent implements Cancellable{
 	public static $handlerList = null;

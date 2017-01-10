@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\block\Block;
-use pocketmine\block\Fire;
-use pocketmine\block\Portal;
-use pocketmine\block\Solid;
-use pocketmine\level\Level;
-use pocketmine\Player;
-use pocketmine\math\Vector3;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\Fire;
+use devmine\inventory\blocks\Portal;
+use devmine\inventory\blocks\Solid;
+use devmine\worlds\Level;
+use devmine\creatures\player;
+use devmine\server\calculations\Vector3;
 
 class FlintSteel extends Tool{
 	/** @var Vector3 */

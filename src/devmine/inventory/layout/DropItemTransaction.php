@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\item\Item;
-use pocketmine\Player;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
 
 class DropItemTransaction extends BaseTransaction{
 

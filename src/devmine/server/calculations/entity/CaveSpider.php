@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class CaveSpider extends Monster{
 	const NETWORK_ID = 40;

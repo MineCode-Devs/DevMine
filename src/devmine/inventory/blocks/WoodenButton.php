@@ -19,13 +19,13 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\level\sound\ButtonClickSound;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\worlds\sound\ButtonClickSound;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
 
 class WoodenButton extends RedstoneSource{
 	protected $id = self::WOODEN_BUTTON;

@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command;
+namespace devmine\server\commands;
 
-use pocketmine\permission\Permissible;
+use devmine\server\perms\Permissible;
 
 interface CommandSender extends Permissible{
 
@@ -31,7 +31,7 @@ interface CommandSender extends Permissible{
 	public function sendMessage($message);
 
 	/**
-	 * @return \pocketmine\Server
+	 * @return \devmine\server\server
 	 */
 	public function getServer();
 

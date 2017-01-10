@@ -13,22 +13,22 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
-use pocketmine\event\entity\EntityCombustByBlockEvent;
-use pocketmine\event\entity\EntityDamageByBlockEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\item\Item;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
+use devmine\events\entity\EntityCombustByBlockEvent;
+use devmine\events\entity\EntityDamageByBlockEvent;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\inventory\items\Item;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class Lava extends Liquid{
 

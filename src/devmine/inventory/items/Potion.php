@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\item;
+namespace devmine\inventory\items;
 
-use pocketmine\Server;
-use pocketmine\Player;
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
-use pocketmine\entity\Human;
-use pocketmine\event\entity\EntityDrinkPotionEvent;
-use pocketmine\network\protocol\EntityEventPacket;
+use devmine\server\server;
+use devmine\creatures\player;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\Human;
+use devmine\events\entity\EntityDrinkPotionEvent;
+use devmine\server\network\protocol\EntityEventPacket;
 
 class Potion extends Item{
 	

@@ -19,20 +19,20 @@
  *
  */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\entity\Entity;
-use pocketmine\event\entity\EntityGenerateEvent;
-use pocketmine\item\Item;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\level\format\Chunk;
-use pocketmine\Player;
+use devmine\creatures\entities\Entity;
+use devmine\events\entity\EntityGenerateEvent;
+use devmine\inventory\items\Item;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player;
 
 class MobSpawner extends Spawnable{
 

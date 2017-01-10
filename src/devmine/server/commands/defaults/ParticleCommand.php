@@ -13,60 +13,60 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\block\Block;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\item\Item;
-use pocketmine\level\particle\AngryVillagerParticle;
-use pocketmine\level\particle\BubbleParticle;
-use pocketmine\level\particle\BlockForceFieldParticle;
-use pocketmine\level\particle\CriticalParticle;
-use pocketmine\level\particle\DustParticle;
-use pocketmine\level\particle\EnchantmentTableParticle;
-use pocketmine\level\particle\EnchantParticle;
-use pocketmine\level\particle\ExplodeParticle;
-use pocketmine\level\particle\FlameParticle;
-use pocketmine\level\particle\HappyVillagerParticle;
-use pocketmine\level\particle\HeartParticle;
-use pocketmine\level\particle\HugeExplodeParticle;
-use pocketmine\level\particle\HugeExplodeSeedParticle;
-use pocketmine\level\particle\InkParticle;
-use pocketmine\level\particle\InstantEnchantParticle;
-use pocketmine\level\particle\ItemBreakParticle;
-use pocketmine\level\particle\LavaDripParticle;
-use pocketmine\level\particle\LavaParticle;
-use pocketmine\level\particle\Particle;
-use pocketmine\level\particle\PortalParticle;
-use pocketmine\level\particle\RainSplashParticle;
-use pocketmine\level\particle\RedstoneParticle;
-use pocketmine\level\particle\SmokeParticle;
-use pocketmine\level\particle\SplashParticle;
-use pocketmine\level\particle\SporeParticle;
-use pocketmine\level\particle\TerrainParticle;
-use pocketmine\level\particle\WaterDripParticle;
-use pocketmine\level\particle\WaterParticle;
-use pocketmine\math\Vector3;
-use pocketmine\Player;
-use pocketmine\utils\Random;
-use pocketmine\utils\TextFormat;
+use devmine\inventory\blocks\Block;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\inventory\items\Item;
+use devmine\worlds\particle\AngryVillagerParticle;
+use devmine\worlds\particle\BubbleParticle;
+use devmine\worlds\particle\BlockForceFieldParticle;
+use devmine\worlds\particle\CriticalParticle;
+use devmine\worlds\particle\DustParticle;
+use devmine\worlds\particle\EnchantmentTableParticle;
+use devmine\worlds\particle\EnchantParticle;
+use devmine\worlds\particle\ExplodeParticle;
+use devmine\worlds\particle\FlameParticle;
+use devmine\worlds\particle\HappyVillagerParticle;
+use devmine\worlds\particle\HeartParticle;
+use devmine\worlds\particle\HugeExplodeParticle;
+use devmine\worlds\particle\HugeExplodeSeedParticle;
+use devmine\worlds\particle\InkParticle;
+use devmine\worlds\particle\InstantEnchantParticle;
+use devmine\worlds\particle\ItemBreakParticle;
+use devmine\worlds\particle\LavaDripParticle;
+use devmine\worlds\particle\LavaParticle;
+use devmine\worlds\particle\Particle;
+use devmine\worlds\particle\PortalParticle;
+use devmine\worlds\particle\RainSplashParticle;
+use devmine\worlds\particle\RedstoneParticle;
+use devmine\worlds\particle\SmokeParticle;
+use devmine\worlds\particle\SplashParticle;
+use devmine\worlds\particle\SporeParticle;
+use devmine\worlds\particle\TerrainParticle;
+use devmine\worlds\particle\WaterDripParticle;
+use devmine\worlds\particle\WaterParticle;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player;
+use devmine\utilities\main\Random;
+use devmine\utilities\main\TextFormat;
 
 class ParticleCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.particle.description",
-			"%pocketmine.command.particle.usage"
+			"%DevMine.command.particle.description",
+			"%DevMine.command.particle.usage"
 		);
-		$this->setPermission("pocketmine.command.particle");
+		$this->setPermission("DevMine.command.particle");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

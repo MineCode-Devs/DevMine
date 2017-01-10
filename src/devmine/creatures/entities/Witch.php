@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\Player;
-use pocketmine\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\network\protocol\AddEntityPacket;
 
 class Witch extends Monster{
 	const NETWORK_ID = 45;

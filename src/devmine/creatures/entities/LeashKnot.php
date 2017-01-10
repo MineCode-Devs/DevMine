@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
 
-use pocketmine\event\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDamageEvent;
 
-use pocketmine\level\format\FullChunk;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\worlds\format\FullChunk;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class LeashKnot extends Entity{
 	const NETWORK_ID = 88;

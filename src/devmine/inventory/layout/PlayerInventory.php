@@ -13,27 +13,27 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\entity\Human;
-use pocketmine\event\entity\EntityArmorChangeEvent;
-use pocketmine\event\entity\EntityInventoryChangeEvent;
-use pocketmine\event\player\PlayerItemHeldEvent;
-use pocketmine\item\Item;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\network\protocol\ContainerSetContentPacket;
-use pocketmine\network\protocol\ContainerSetSlotPacket;
-use pocketmine\network\protocol\MobArmorEquipmentPacket;
-use pocketmine\network\protocol\MobEquipmentPacket;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\creatures\entities\Human;
+use devmine\events\entity\EntityArmorChangeEvent;
+use devmine\events\entity\EntityInventoryChangeEvent;
+use devmine\events\player\PlayerItemHeldEvent;
+use devmine\inventory\items\Item;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\ListTag;
+use devmine\server\network\protocol\ContainerSetContentPacket;
+use devmine\server\network\protocol\ContainerSetSlotPacket;
+use devmine\server\network\protocol\MobArmorEquipmentPacket;
+use devmine\server\network\protocol\MobEquipmentPacket;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class PlayerInventory extends BaseInventory{
 

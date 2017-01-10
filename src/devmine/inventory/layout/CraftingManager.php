@@ -12,28 +12,28 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\block\Planks;
-use pocketmine\block\Quartz;
-use pocketmine\block\Sandstone;
-use pocketmine\block\Slab;
-use pocketmine\block\Stone;
-use pocketmine\block\StoneBricks;
-use pocketmine\block\StoneWall;
-use pocketmine\block\Wood;
-use pocketmine\block\Wood2;
-use pocketmine\item\Item;
-use pocketmine\item\Potion;
-use pocketmine\utils\UUID;
-use pocketmine\Server;
-use pocketmine\utils\MainLogger;
-use pocketmine\utils\Config;
+use devmine\inventory\blocks\Planks;
+use devmine\inventory\blocks\Quartz;
+use devmine\inventory\blocks\Sandstone;
+use devmine\inventory\blocks\Slab;
+use devmine\inventory\blocks\Stone;
+use devmine\inventory\blocks\StoneBricks;
+use devmine\inventory\blocks\StoneWall;
+use devmine\inventory\blocks\Wood;
+use devmine\inventory\blocks\Wood2;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Potion;
+use devmine\utilities\main\UUID;
+use devmine\server\server;
+use devmine\utilities\main\MainLogger;
+use devmine\utilities\main\Config;
 
 class CraftingManager{
 	/** @var Recipe[] */
@@ -53,8 +53,8 @@ class CraftingManager{
 	public function __construct(bool $useJson = false){
 		$this->registerBrewingStand();
 
-		// load recipes from src/pocketmine/resources/recipes.json
-		$recipes = new Config(Server::getInstance()->getFilePath() . "src/pocketmine/resources/recipes.json", Config::JSON, []);
+		// load recipes from src/devmine/server/resources/recipes.json
+		$recipes = new Config(Server::getInstance()->getFilePath() . "src/devmine/server/resources/recipes.json", Config::JSON, []);
 
 		foreach($recipes->getAll() as $recipe){
 			switch($recipe["type"]){

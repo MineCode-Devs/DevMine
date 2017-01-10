@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\network\rcon;
+namespace devmine\server\network\rcon;
 
-use pocketmine\Thread;
-use pocketmine\utils\Binary;
-use pocketmine\utils\MainLogger;
+use devmine\server\Thread;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\MainLogger;
 
 class RCONInstance extends Thread{
 	public $stop;

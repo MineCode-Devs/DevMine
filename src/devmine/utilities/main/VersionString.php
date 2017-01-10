@@ -13,17 +13,17 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
 
 /**
- * Manages PocketMine-MP version strings, and compares them
+ * Manages DevMine-MP version strings, and compares them
  */
 class VersionString{
 	private $major;
@@ -31,7 +31,7 @@ class VersionString{
 	private $minor;
 	private $development = false;
 
-	public function __construct($version = \pocketmine\VERSION){
+	public function __construct($version = \DevMine\VERSION){
 		if(is_int($version)){
 			$this->minor = $version & 0x1F;
 			$this->major = ($version >> 5) & 0x0F;

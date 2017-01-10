@@ -21,21 +21,21 @@
 
 /*
  * THIS IS COPIED FROM THE PLUGIN FlowerPot MADE BY @beito123!!
- * https://github.com/beito123/PocketMine-MP-Plugins/blob/master/test%2FFlowerPot%2Fsrc%2Fbeito%2FFlowerPot%2Fomake%2FSkull.php
+ * https://github.com/beito123/DevMine-MP-Plugins/blob/master/test%2FFlowerPot%2Fsrc%2Fbeito%2FFlowerPot%2Fomake%2FSkull.php
  *
  */
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\item\Tool;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\Player;
-use pocketmine\tile\Tile;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\tile\Skull;
+use devmine\inventory\items\Item;
+use devmine\inventory\items\Tool;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\creatures\player;
+use devmine\inventory\solidentity\Tile;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\inventory\solidentity\Skull;
 
 class SkullBlock extends Transparent{
 	

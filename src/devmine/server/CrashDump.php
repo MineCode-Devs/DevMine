@@ -13,19 +13,19 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine;
+namespace devmine\server;
 
-use pocketmine\network\protocol\Info;
-use pocketmine\plugin\PluginBase;
-use pocketmine\plugin\PluginLoadOrder;
-use pocketmine\utils\Utils;
-use pocketmine\utils\VersionString;
+use devmine\server\network\protocol\Info;
+use devmine\consumer\plugin\PluginBase;
+use devmine\consumer\plugin\PluginLoadOrder;
+use devmine\utilities\main\Utils;
+use devmine\utilities\main\VersionString;
 use raklib\RakLib;
 
 class CrashDump{
@@ -90,7 +90,7 @@ class CrashDump{
 	}
 
 	private function pluginsData(){
-		if(class_exists("pocketmine\\plugin\\PluginManager", false)){
+		if(class_exists("devmine\\consumer\\plugin\\PluginManager", false)){
 			$this->addLine();
 			$this->addLine("Loaded plugins:");
 			$this->data["plugins"] = [];
@@ -120,9 +120,9 @@ class CrashDump{
 			$this->data["parameters"] = (array) $arguments;
 			$this->data["server.properties"] = @file_get_contents($this->server->getDataPath() . "server.properties");
 			$this->data["server.properties"] = preg_replace("#^rcon\\.password=(.*)$#m", "rcon.password=******", $this->data["server.properties"]);
-			$this->data["pocketmine.yml"] = @file_get_contents($this->server->getDataPath() . "pocketmine.yml");
+			$this->data["DevMine.yml"] = @file_get_contents($this->server->getDataPath() . "DevMine.yml");
 		}else{
-			$this->data["pocketmine.yml"] = "";
+			$this->data["DevMine.yml"] = "";
 			$this->data["server.properties"] = "";
 			$this->data["parameters"] = [];
 		}
@@ -185,7 +185,7 @@ class CrashDump{
 		$this->addLine("Line: " . $error["line"]);
 		$this->addLine("Type: " . $error["type"]);
 		
-		if(strpos($error["file"], "src/pocketmine/") === false and strpos($error["file"], "src/raklib/") === false and file_exists($error["fullFile"])){
+		if(strpos($error["file"], "src/DevMine/") === false and strpos($error["file"], "src/raklib/") === false and file_exists($error["fullFile"])){
 			$this->addLine();
 			$this->addLine("THIS CRASH WAS CAUSED BY A PLUGIN");
 			$this->data["plugin"] = true;
@@ -194,7 +194,7 @@ class CrashDump{
 			$file = $reflection->getProperty("file");
 			$file->setAccessible(true);
 			foreach($this->server->getPluginManager()->getPlugins() as $plugin){
-				$filePath = \pocketmine\cleanPath($file->getValue($plugin));
+				$filePath = \DevMine\cleanPath($file->getValue($plugin));
 				if(strpos($error["file"], $filePath) === 0){
 					$this->data["plugin"] = $plugin->getName();
 					$this->addLine("BAD PLUGIN : " . $plugin->getDescription()->getFullName());
@@ -229,15 +229,15 @@ class CrashDump{
 		$version = new VersionString();
 		$this->data["general"] = [];
 		$this->data["general"]["protocol"] = Info::CURRENT_PROTOCOL;
-		$this->data["general"]["api"] = \pocketmine\API_VERSION;
-		$this->data["general"]["git"] = \pocketmine\GIT_COMMIT;
+		$this->data["general"]["api"] = \DevMine\API_VERSION;
+		$this->data["general"]["git"] = \DevMine\GIT_COMMIT;
 		$this->data["general"]["raklib"] = RakLib::VERSION;
 		$this->data["general"]["uname"] = php_uname("a");
 		$this->data["general"]["php"] = phpversion();
 		$this->data["general"]["zend"] = zend_version();
 		$this->data["general"]["php_os"] = PHP_OS;
 		$this->data["general"]["os"] = Utils::getOS();
-		$this->addLine("Tesseract version: " . \pocketmine\GIT_COMMIT . " [Protocol " . Info::CURRENT_PROTOCOL . "; API " . API_VERSION . "]");
+		$this->addLine("DevMine version: " . \DevMine\GIT_COMMIT . " [Protocol " . Info::CURRENT_PROTOCOL . "; API " . API_VERSION . "]");
 		$this->addLine("uname -a: " . php_uname("a"));
 		$this->addLine("PHP version: " . phpversion());
 		$this->addLine("Zend version: " . zend_version());

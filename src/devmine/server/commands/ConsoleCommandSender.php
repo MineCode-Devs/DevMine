@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command;
+namespace devmine\server\commands;
 
-use pocketmine\event\TextContainer;
-use pocketmine\permission\PermissibleBase;
-use pocketmine\permission\PermissionAttachment;
-use pocketmine\plugin\Plugin;
-use pocketmine\Server;
-use pocketmine\utils\MainLogger;
+use devmine\events\TextContainer;
+use devmine\server\perms\PermissibleBase;
+use devmine\server\perms\PermissionAttachment;
+use devmine\consumer\plugin\Plugin;
+use devmine\server\server;
+use devmine\utilities\main\MainLogger;
 
 class ConsoleCommandSender implements CommandSender{
 
@@ -37,7 +37,7 @@ class ConsoleCommandSender implements CommandSender{
 	}
 
 	/**
-	 * @param \pocketmine\permission\Permission|string $name
+	 * @param \devmine\server\perms\Permission|string $name
 	 *
 	 * @return bool
 	 */
@@ -46,7 +46,7 @@ class ConsoleCommandSender implements CommandSender{
 	}
 
 	/**
-	 * @param \pocketmine\permission\Permission|string $name
+	 * @param \devmine\server\perms\Permission|string $name
 	 *
 	 * @return bool
 	 */
@@ -59,7 +59,7 @@ class ConsoleCommandSender implements CommandSender{
 	 * @param string $name
 	 * @param bool   $value
 	 *
-	 * @return \pocketmine\permission\PermissionAttachment
+	 * @return \devmine\server\perms\PermissionAttachment
 	 */
 	public function addAttachment(Plugin $plugin, $name = null, $value = null){
 		return $this->perm->addAttachment($plugin, $name, $value);
@@ -79,7 +79,7 @@ class ConsoleCommandSender implements CommandSender{
 	}
 
 	/**
-	 * @return \pocketmine\permission\PermissionAttachmentInfo[]
+	 * @return \devmine\server\perms\PermissionAttachmentInfo[]
 	 */
 	public function getEffectivePermissions(){
 		return $this->perm->getEffectivePermissions();
@@ -93,7 +93,7 @@ class ConsoleCommandSender implements CommandSender{
 	}
 
 	/**
-	 * @return \pocketmine\Server
+	 * @return \devmine\server\server
 	 */
 	public function getServer(){
 		return Server::getInstance();

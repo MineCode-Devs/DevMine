@@ -19,13 +19,13 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\event\block\BlockGrowEvent;
-use pocketmine\item\Item;
-use pocketmine\level\Level;
-use pocketmine\Player;
-use pocketmine\Server;
+use devmine\events\block\BlockGrowEvent;
+use devmine\inventory\items\Item;
+use devmine\worlds\Level;
+use devmine\creatures\player;
+use devmine\server\server;
 
 class CocoaBlock extends Solid {
 

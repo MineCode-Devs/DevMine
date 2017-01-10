@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -24,92 +24,92 @@ declare(strict_types = 1);
 /**
  * All Level related classes are here, like Generators, Populators, Noise, ...
  */
-namespace pocketmine\level;
+namespace devmine\worlds;
 
-use pocketmine\block\Air;
-use pocketmine\block\Beetroot;
-use pocketmine\block\Block;
-use pocketmine\block\BrownMushroom;
-use pocketmine\block\Cactus;
-use pocketmine\block\Carrot;
-use pocketmine\block\Farmland;
-use pocketmine\block\Fire;
-use pocketmine\block\Grass;
-use pocketmine\block\Ice;
-use pocketmine\block\Leaves;
-use pocketmine\block\Leaves2;
-use pocketmine\block\MelonStem;
-use pocketmine\block\Mycelium;
-use pocketmine\block\Potato;
-use pocketmine\block\PumpkinStem;
-use pocketmine\block\RedMushroom;
-use pocketmine\block\Sapling;
-use pocketmine\block\SnowLayer;
-use pocketmine\block\Sugarcane;
-use pocketmine\block\Wheat;
-use pocketmine\entity\Arrow;
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
-use pocketmine\entity\Item as DroppedItem;
-use pocketmine\event\block\BlockBreakEvent;
-use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\block\BlockUpdateEvent;
-use pocketmine\event\level\ChunkLoadEvent;
-use pocketmine\event\level\ChunkPopulateEvent;
-use pocketmine\event\level\ChunkUnloadEvent;
-use pocketmine\event\level\LevelSaveEvent;
-use pocketmine\event\level\LevelUnloadEvent;
-use pocketmine\event\level\SpawnChangeEvent;
-use pocketmine\event\LevelTimings;
-use pocketmine\event\player\PlayerInteractEvent;
-use pocketmine\event\Timings;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\format\generic\BaseLevelProvider;
-use pocketmine\level\format\LevelProvider;
-use pocketmine\level\generator\GenerationTask;
-use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\GeneratorRegisterTask;
-use pocketmine\level\generator\GeneratorUnregisterTask;
-use pocketmine\level\generator\LightPopulationTask;
-use pocketmine\level\generator\PopulationTask;
-use pocketmine\level\particle\DestroyBlockParticle;
-use pocketmine\level\particle\Particle;
-use pocketmine\level\sound\Sound;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\math\Math;
-use pocketmine\math\Vector2;
-use pocketmine\math\Vector3;
-use pocketmine\metadata\BlockMetadataStore;
-use pocketmine\metadata\Metadatable;
-use pocketmine\metadata\MetadataValue;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\DoubleTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\ShortTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\network\protocol\BatchPacket;
-use pocketmine\network\protocol\DataPacket;
-use pocketmine\network\protocol\FullChunkDataPacket;
-use pocketmine\network\protocol\LevelEventPacket;
-use pocketmine\network\protocol\MoveEntityPacket;
-use pocketmine\network\protocol\SetEntityMotionPacket;
-use pocketmine\network\protocol\SetTimePacket;
-use pocketmine\network\protocol\UpdateBlockPacket;
-use pocketmine\Player;
-use pocketmine\plugin\Plugin;
-use pocketmine\Server;
-use pocketmine\tile\Chest;
-use pocketmine\tile\Tile;
-use pocketmine\utils\Binary;
-use pocketmine\utils\LevelException;
-use pocketmine\utils\Random;
-use pocketmine\utils\ReversePriorityQueue;
-use pocketmine\item\enchantment\enchantment;
-use pocketmine\nbt\NBT;
-use pocketmine\entity\XPOrb;
+use devmine\inventory\blocks\Air;
+use devmine\inventory\blocks\Beetroot;
+use devmine\inventory\blocks\Block;
+use devmine\inventory\blocks\BrownMushroom;
+use devmine\inventory\blocks\Cactus;
+use devmine\inventory\blocks\Carrot;
+use devmine\inventory\blocks\Farmland;
+use devmine\inventory\blocks\Fire;
+use devmine\inventory\blocks\Grass;
+use devmine\inventory\blocks\Ice;
+use devmine\inventory\blocks\Leaves;
+use devmine\inventory\blocks\Leaves2;
+use devmine\inventory\blocks\MelonStem;
+use devmine\inventory\blocks\Mycelium;
+use devmine\inventory\blocks\Potato;
+use devmine\inventory\blocks\PumpkinStem;
+use devmine\inventory\blocks\RedMushroom;
+use devmine\inventory\blocks\Sapling;
+use devmine\inventory\blocks\SnowLayer;
+use devmine\inventory\blocks\Sugarcane;
+use devmine\inventory\blocks\Wheat;
+use devmine\creatures\entities\Arrow;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
+use devmine\creatures\entities\Item as DroppedItem;
+use devmine\events\block\BlockBreakEvent;
+use devmine\events\block\BlockPlaceEvent;
+use devmine\events\block\BlockUpdateEvent;
+use devmine\events\level\ChunkLoadEvent;
+use devmine\events\level\ChunkPopulateEvent;
+use devmine\events\level\ChunkUnloadEvent;
+use devmine\events\level\LevelSaveEvent;
+use devmine\events\level\LevelUnloadEvent;
+use devmine\events\level\SpawnChangeEvent;
+use devmine\events\LevelTimings;
+use devmine\events\player\PlayerInteractEvent;
+use devmine\events\Timings;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\format\generic\BaseLevelProvider;
+use devmine\worlds\format\LevelProvider;
+use devmine\worlds\generator\GenerationTask;
+use devmine\worlds\generator\Generator;
+use devmine\worlds\generator\GeneratorRegisterTask;
+use devmine\worlds\generator\GeneratorUnregisterTask;
+use devmine\worlds\generator\LightPopulationTask;
+use devmine\worlds\generator\PopulationTask;
+use devmine\worlds\particle\DestroyBlockParticle;
+use devmine\worlds\particle\Particle;
+use devmine\worlds\sound\Sound;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\server\calculations\Math;
+use devmine\server\calculations\Vector2;
+use devmine\server\calculations\Vector3;
+use devmine\server\meta\BlockMetadataStore;
+use devmine\server\meta\Metadatable;
+use devmine\server\meta\MetadataValue;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\DoubleTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\ShortTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\server\network\protocol\BatchPacket;
+use devmine\server\network\protocol\DataPacket;
+use devmine\server\network\protocol\FullChunkDataPacket;
+use devmine\server\network\protocol\LevelEventPacket;
+use devmine\server\network\protocol\MoveEntityPacket;
+use devmine\server\network\protocol\SetEntityMotionPacket;
+use devmine\server\network\protocol\SetTimePacket;
+use devmine\server\network\protocol\UpdateBlockPacket;
+use devmine\creatures\player;
+use devmine\consumer\plugin\Plugin;
+use devmine\server\server;
+use devmine\inventory\solidentity\Chest;
+use devmine\inventory\solidentity\Tile;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\LevelException;
+use devmine\utilities\main\Random;
+use devmine\utilities\main\ReversePriorityQueue;
+use devmine\inventory\items\enchantment\enchantment;
+use devmine\creatures\player\NBT;
+use devmine\creatures\entities\XPOrb;
 
 #include <rules/Level.h>
 
@@ -332,7 +332,7 @@ class Level implements ChunkManager, Metadatable{
 		}else{
 			throw new LevelException("Provider is not a subclass of LevelProvider");
 		}
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.level.preparing", [$this->provider->getName()]));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("DevMine.level.preparing", [$this->provider->getName()]));
 		$this->generator = Generator::getGenerator($this->provider->getGenerator());
 
 		$this->folderName = $name;
@@ -503,7 +503,7 @@ class Level implements ChunkManager, Metadatable{
 			return false;
 		}
 
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.level.unloading", [$this->getName()]));
+		$this->server->getLogger()->info($this->server->getLanguage()->translateString("DevMine.level.unloading", [$this->getName()]));
 		$defaultLevel = $this->server->getDefaultLevel();
 		foreach($this->getPlayers() as $player){
 			if($this === $defaultLevel or $defaultLevel === null){
@@ -2602,7 +2602,7 @@ class Level implements ChunkManager, Metadatable{
 			$this->provider->unloadChunk($x, $z, $safe);
 		}catch(\Throwable $e){
 			$logger = $this->server->getLogger();
-			$logger->error($this->server->getLanguage()->translateString("pocketmine.level.chunkUnloadError", [$e->getMessage()]));
+			$logger->error($this->server->getLanguage()->translateString("DevMine.level.chunkUnloadError", [$e->getMessage()]));
 			$logger->logException($e);
 		}
 

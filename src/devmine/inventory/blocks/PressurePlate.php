@@ -19,15 +19,15 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\entity\Entity;
-use pocketmine\item\Item;
-use pocketmine\math\Math;
-use pocketmine\math\Vector3;
-use pocketmine\level\Level;
-use pocketmine\level\sound\GenericSound;
-use pocketmine\Player;
+use devmine\creatures\entities\Entity;
+use devmine\inventory\items\Item;
+use devmine\server\calculations\Math;
+use devmine\server\calculations\Vector3;
+use devmine\worlds\Level;
+use devmine\worlds\sound\GenericSound;
+use devmine\creatures\player;
 
 class PressurePlate extends RedstoneSource{
 	protected $activateTime = 0;

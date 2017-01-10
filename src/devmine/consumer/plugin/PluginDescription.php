@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\plugin;
+namespace devmine\consumer\plugin;
 
-use pocketmine\permission\Permission;
-use pocketmine\utils\PluginException;
+use devmine\server\perms\Permission;
+use devmine\utilities\main\PluginException;
 
 class PluginDescription{
 	private $name;
@@ -66,8 +66,8 @@ class PluginDescription{
 		$this->main = $plugin["main"];
 		$this->api = !is_array($plugin["api"]) ? [$plugin["api"]] : $plugin["api"];
 		
-		if(stripos($this->main, "pocketmine\\") === 0){
-			throw new PluginException("Invalid PluginDescription main, cannot start within the PocketMine namespace");
+		if(stripos($this->main, "DevMine\\") === 0){
+			throw new PluginException("Invalid PluginDescription main, cannot start within the DevMine namespace");
 		}
 
 		if(isset($plugin["commands"]) and is_array($plugin["commands"])){

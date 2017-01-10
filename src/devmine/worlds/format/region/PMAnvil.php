@@ -13,7 +13,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
@@ -21,12 +21,12 @@
 
 declare(strict_types = 1);
 
-namespace pocketmine\level\format\region;
+namespace devmine\worlds\format\region;
 
-use pocketmine\level\format\generic\GenericChunk;
-use pocketmine\level\format\generic\SubChunk;
-use pocketmine\nbt\NBT;
-use pocketmine\nbt\tag\{
+use devmine\worlds\format\generic\GenericChunk;
+use devmine\worlds\format\generic\SubChunk;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player\tag\{
 	ByteArrayTag,
 	ByteTag,
 	CompoundTag,
@@ -35,9 +35,9 @@ use pocketmine\nbt\tag\{
 	ListTag,
 	LongTag
 };
-use pocketmine\Player;
-use pocketmine\utils\ChunkException;
-use pocketmine\utils\MainLogger;
+use devmine\creatures\player;
+use devmine\utilities\main\ChunkException;
+use devmine\utilities\main\MainLogger;
 
 /**
  * This format is exactly the same as the PC Anvil format, with the only difference being that the stored data order

@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class UnlitRedstoneTorch extends RedstoneTorch{
 	protected $id = self::UNLIT_REDSTONE_TORCH;

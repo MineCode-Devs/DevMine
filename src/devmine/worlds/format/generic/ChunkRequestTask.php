@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\format\generic;
+namespace devmine\worlds\format\generic;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\level\Level;
-use pocketmine\nbt\NBT;
-use pocketmine\scheduler\AsyncTask;
-use pocketmine\Server;
-use pocketmine\tile\Spawnable;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\Level;
+use devmine\creatures\player\NBT;
+use devmine\server\tasks\AsyncTask;
+use devmine\server\server;
+use devmine\inventory\solidentity\Spawnable;
 
 class ChunkRequestTask extends AsyncTask{
 

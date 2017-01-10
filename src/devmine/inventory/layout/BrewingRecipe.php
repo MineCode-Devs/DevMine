@@ -19,11 +19,11 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\item\Item;
-use pocketmine\Server;
-use pocketmine\utils\UUID;
+use devmine\inventory\items\Item;
+use devmine\server\server;
+use devmine\utilities\main\UUID;
 
 class BrewingRecipe implements Recipe{
 

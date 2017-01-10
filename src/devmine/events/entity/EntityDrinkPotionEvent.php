@@ -19,12 +19,12 @@
  *
  */
 
-namespace pocketmine\event\entity;
+namespace devmine\events\entity;
 
-use pocketmine\entity\Effect;
-use pocketmine\entity\Entity;
-use pocketmine\event\Cancellable;
-use pocketmine\item\Potion;
+use devmine\creatures\entities\Effect;
+use devmine\creatures\entities\Entity;
+use devmine\events\Cancellable;
+use devmine\inventory\items\Potion;
 
 class EntityDrinkPotionEvent extends EntityEvent implements Cancellable{
 	

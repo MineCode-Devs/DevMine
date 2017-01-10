@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\event\player;
+namespace devmine\events\player;
 
-use pocketmine\event\Cancellable;
-use pocketmine\Player;
+use devmine\events\Cancellable;
+use devmine\creatures\player;
 
 /**
  * Called when a player is sent a message via sendMessage, sendPopup or sendTip

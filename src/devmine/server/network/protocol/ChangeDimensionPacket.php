@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\network\protocol;
+namespace devmine\server\network\protocol;
 
 #include <rules/DataPacket.h>
 

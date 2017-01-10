@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level\generator\object;
+namespace devmine\worlds\generator\object;
 
-use pocketmine\level\ChunkManager;
+use devmine\worlds\ChunkManager;
 
 class BigTree extends Tree{
 	private $trunkHeightMultiplier = 0.618;

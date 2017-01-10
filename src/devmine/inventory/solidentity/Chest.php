@@ -13,27 +13,27 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\tile;
+namespace devmine\inventory\solidentity;
 
-use pocketmine\inventory\ChestInventory;
-use pocketmine\inventory\DoubleChestInventory;
-use pocketmine\inventory\InventoryHolder;
-use pocketmine\item\Item;
-use pocketmine\level\format\Chunk;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\NBT;
+use devmine\inventory\layout\ChestInventory;
+use devmine\inventory\layout\DoubleChestInventory;
+use devmine\inventory\layout\InventoryHolder;
+use devmine\inventory\items\Item;
+use devmine\worlds\format\Chunk;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\NBT;
 
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ListTag;
-use pocketmine\nbt\tag\IntTag;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ListTag;
+use devmine\creatures\player\tag\IntTag;
 
-use pocketmine\nbt\tag\StringTag;
+use devmine\creatures\player\tag\StringTag;
 
 class Chest extends Spawnable implements InventoryHolder, Container, Nameable{
 

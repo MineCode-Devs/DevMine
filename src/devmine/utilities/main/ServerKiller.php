@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\utils;
+namespace devmine\utilities\main;
 
-use pocketmine\Thread;
+use devmine\server\Thread;
 
 class ServerKiller extends Thread{
 
@@ -38,7 +38,7 @@ class ServerKiller extends Thread{
 		});
 		if(time() - $start >= $this->time){
 			echo "\nTook too long to stop, server was killed forcefully!\n";
-			@\pocketmine\kill(getmypid());
+			@\DevMine\kill(getmypid());
 		}
 	}
 

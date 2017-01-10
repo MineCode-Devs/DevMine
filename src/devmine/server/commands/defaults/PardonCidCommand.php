@@ -19,22 +19,22 @@
  *
  */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
-use pocketmine\event\TranslationContainer;
-use pocketmine\utils\TextFormat;
+use devmine\server\commands\Command;
+use devmine\server\commands\CommandSender;
+use devmine\events\TranslationContainer;
+use devmine\utilities\main\TextFormat;
 
 class PardonCidCommand extends VanillaCommand{
 
 	public function __construct($name){
 		parent::__construct(
 			$name,
-			"%pocketmine.command.unban.cid.description",
+			"%DevMine.command.unban.cid.description",
 			"%commands.unbancid.usage"
 		);
-		$this->setPermission("pocketmine.command.pardoncid");
+		$this->setPermission("DevMine.command.pardoncid");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){

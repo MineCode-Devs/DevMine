@@ -13,15 +13,15 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\permission;
+namespace devmine\server\perms;
 
-use pocketmine\utils\MainLogger;
+use devmine\utilities\main\MainLogger;
 
 class BanEntry{
 	public static $format = "Y-m-d H:i:s O";

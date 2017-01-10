@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\generator\biome;
+namespace devmine\worlds\generator\biome;
 
-use pocketmine\level\generator\noise\Simplex;
-use pocketmine\utils\Random;
+use devmine\worlds\generator\noise\Simplex;
+use devmine\utilities\main\Random;
 
 class BiomeSelector{
 

@@ -13,18 +13,18 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\item\Item;
-use pocketmine\Server;
-use pocketmine\utils\UUID;
-use pocketmine\math\Vector2;
+use devmine\inventory\items\Item;
+use devmine\server\server;
+use devmine\utilities\main\UUID;
+use devmine\server\calculations\Vector2;
 
 class ShapedRecipeFromJson extends ShapedRecipe{
 	/** @var Item */

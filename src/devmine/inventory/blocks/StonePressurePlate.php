@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class StonePressurePlate extends PressurePlate{
 	protected $id = self::STONE_PRESSURE_PLATE;

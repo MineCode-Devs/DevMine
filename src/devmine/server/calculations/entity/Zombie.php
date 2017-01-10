@@ -13,23 +13,23 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
 
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\item\Item as ItemItem;
-use pocketmine\item\enchantment\Enchantment;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
-use pocketmine\math\Vector3;
-use pocketmine\event\entity\EntityDamageEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\inventory\items\Item as ItemItem;
+use devmine\inventory\items\enchantment\Enchantment;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
+use devmine\server\calculations\Vector3;
+use devmine\events\entity\EntityDamageEvent;
 
 class Zombie extends Monster{
 	const NETWORK_ID = 32;

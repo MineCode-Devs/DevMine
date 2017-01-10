@@ -19,12 +19,12 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\player\PlayerPickupExpOrbEvent;
-use pocketmine\level\sound\ExpPickupSound;
-use pocketmine\network\protocol\AddEntityPacket;
-use pocketmine\Player;
+use devmine\events\player\PlayerPickupExpOrbEvent;
+use devmine\worlds\sound\ExpPickupSound;
+use devmine\server\network\protocol\AddEntityPacket;
+use devmine\creatures\player;
 
 class XPOrb extends Entity{
 	const NETWORK_ID = 69;

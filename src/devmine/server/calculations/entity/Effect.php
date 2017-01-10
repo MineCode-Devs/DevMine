@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\player\PlayerExhaustEvent;
-use pocketmine\network\Network;
-use pocketmine\network\protocol\MobEffectPacket;
-use pocketmine\Player;
+use devmine\events\entity\EntityDamageEvent;
+use devmine\events\entity\EntityRegainHealthEvent;
+use devmine\events\player\PlayerExhaustEvent;
+use devmine\server\network\Network;
+use devmine\server\network\protocol\MobEffectPacket;
+use devmine\creatures\player;
 
 class Effect{
 	const SPEED = 1;

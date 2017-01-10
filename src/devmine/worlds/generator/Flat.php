@@ -13,29 +13,29 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\level\generator;
+namespace devmine\worlds\generator;
 
-use pocketmine\block\CoalOre;
-use pocketmine\block\DiamondOre;
-use pocketmine\block\Dirt;
-use pocketmine\block\GoldOre;
-use pocketmine\block\Gravel;
-use pocketmine\block\IronOre;
-use pocketmine\block\LapisOre;
-use pocketmine\block\RedstoneOre;
-use pocketmine\item\Item;
-use pocketmine\level\ChunkManager;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\generator\populator\Ore;
-use pocketmine\level\generator\populator\Populator;
-use pocketmine\math\Vector3;
-use pocketmine\utils\Random;
+use devmine\inventory\blocks\CoalOre;
+use devmine\inventory\blocks\DiamondOre;
+use devmine\inventory\blocks\Dirt;
+use devmine\inventory\blocks\GoldOre;
+use devmine\inventory\blocks\Gravel;
+use devmine\inventory\blocks\IronOre;
+use devmine\inventory\blocks\LapisOre;
+use devmine\inventory\blocks\RedstoneOre;
+use devmine\inventory\items\Item;
+use devmine\worlds\ChunkManager;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\generator\populator\Ore;
+use devmine\worlds\generator\populator\Populator;
+use devmine\server\calculations\Vector3;
+use devmine\utilities\main\Random;
 
 class Flat extends Generator{
 	/** @var ChunkManager */

@@ -19,7 +19,7 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class HeavyWeightedPressurePlate extends PressurePlate{
 	protected $id = self::HEAVY_WEIGHTED_PRESSURE_PLATE;

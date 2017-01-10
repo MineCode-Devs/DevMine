@@ -13,21 +13,21 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\event\TranslationContainter;
-use pocketmine\item\Item;
-use pocketmine\level\Explosion;
-use pocketmine\level\Level;
-use pocketmine\math\AxisAlignedBB;
-use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use devmine\events\TranslationContainter;
+use devmine\inventory\items\Item;
+use devmine\worlds\Explosion;
+use devmine\worlds\Level;
+use devmine\server\calculations\AxisAlignedBB;
+use devmine\creatures\player;
+use devmine\utilities\main\TextFormat;
 
 class Bed extends Transparent{
 

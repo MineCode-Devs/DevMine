@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author Pocketmine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net
  * 
  *
 */
 
- namespace pocketmine\tile;
+ namespace devmine\inventory\solidentity;
  
- use pocketmine\level\format\Chunk;
- use pocketmine\nbt\tag\CompoundTag;
- use pocketmine\nbt\tag\IntTag;
- use pocketmine\nbt\tag\StringTag;
- use pocketmine\nbt\tag\ByteTag;
- use pocketmine\nbt\tag\FloatTag;
+ use devmine\worlds\format\Chunk;
+ use devmine\creatures\player\tag\CompoundTag;
+ use devmine\creatures\player\tag\IntTag;
+ use devmine\creatures\player\tag\StringTag;
+ use devmine\creatures\player\tag\ByteTag;
+ use devmine\creatures\player\tag\FloatTag;
  
  class Beacon extends Spawnable{
  

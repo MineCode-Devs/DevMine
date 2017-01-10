@@ -13,27 +13,27 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  * 
  *
 */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
 
-use pocketmine\event\entity\EntityCombustByEntityEvent;
-use pocketmine\event\entity\EntityDamageByChildEntityEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
+use devmine\events\entity\EntityCombustByEntityEvent;
+use devmine\events\entity\EntityDamageByChildEntityEvent;
+use devmine\events\entity\EntityDamageByEntityEvent;
+use devmine\events\entity\EntityDamageEvent;
 
-use pocketmine\event\entity\ProjectileHitEvent;
-use pocketmine\item\Potion;
-use pocketmine\level\format\Chunk;
-use pocketmine\level\MovingObjectPosition;
-use pocketmine\math\Vector3;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\ShortTag;
+use devmine\events\entity\ProjectileHitEvent;
+use devmine\inventory\items\Potion;
+use devmine\worlds\format\Chunk;
+use devmine\worlds\MovingObjectPosition;
+use devmine\server\calculations\Vector3;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\ShortTag;
 
 abstract class Projectile extends Entity{
 

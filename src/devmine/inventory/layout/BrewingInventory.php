@@ -19,10 +19,10 @@
  *
  */
 
-namespace pocketmine\inventory;
+namespace devmine\inventory\layout;
 
-use pocketmine\item\Item;
-use pocketmine\tile\BrewingStand;
+use devmine\inventory\items\Item;
+use devmine\inventory\solidentity\BrewingStand;
 
 class BrewingInventory extends ContainerInventory{
 	public function __construct(BrewingStand $tile){

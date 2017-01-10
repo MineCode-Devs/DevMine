@@ -19,17 +19,17 @@
  *
  */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
-use pocketmine\item\Item;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\nbt\tag\FloatTag;
-use pocketmine\nbt\tag\IntTag;
-use pocketmine\nbt\tag\ByteTag;
-use pocketmine\nbt\tag\StringTag;
-use pocketmine\tile\Tile;
-use pocketmine\tile\ItemFrame as ItemFrameTile;
-use pocketmine\Player;
+use devmine\inventory\items\Item;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player\tag\FloatTag;
+use devmine\creatures\player\tag\IntTag;
+use devmine\creatures\player\tag\ByteTag;
+use devmine\creatures\player\tag\StringTag;
+use devmine\inventory\solidentity\Tile;
+use devmine\inventory\solidentity\ItemFrame as ItemFrameTile;
+use devmine\creatures\player;
 
 class ItemFrame extends Transparent{
 	protected $id = self::ITEM_FRAME_BLOCK;

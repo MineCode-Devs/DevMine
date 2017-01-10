@@ -19,7 +19,7 @@
  *
 */
 
-namespace pocketmine\block;
+namespace devmine\inventory\blocks;
 
 class WetSponge extends Solid{
 

@@ -13,20 +13,20 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\level\format\leveldb;
+namespace devmine\worlds\format\leveldb;
 
-use pocketmine\level\format\generic\BaseChunk;
-use pocketmine\level\format\LevelProvider;
-use pocketmine\nbt\NBT;
-use pocketmine\Player;
-use pocketmine\utils\Binary;
-use pocketmine\utils\BinaryStream;
+use devmine\worlds\format\generic\BaseChunk;
+use devmine\worlds\format\LevelProvider;
+use devmine\creatures\player\NBT;
+use devmine\creatures\player;
+use devmine\utilities\main\Binary;
+use devmine\utilities\main\BinaryStream;
 
 class Chunk extends BaseChunk{
 

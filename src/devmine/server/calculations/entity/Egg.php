@@ -19,12 +19,12 @@
  *
  */
 
-namespace pocketmine\entity;
+namespace devmine\creatures\entities;
 
-use pocketmine\level\format\Chunk;
-use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
-use pocketmine\network\protocol\AddEntityPacket;
+use devmine\worlds\format\Chunk;
+use devmine\creatures\player\tag\CompoundTag;
+use devmine\creatures\player;
+use devmine\server\network\protocol\AddEntityPacket;
 
 class Egg extends Projectile{
 	const NETWORK_ID = 82;

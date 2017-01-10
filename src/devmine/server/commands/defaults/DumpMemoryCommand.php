@@ -13,16 +13,16 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PocketMine Team
+ * @author Mostly by PocketMine team, modified by DevMine Team
  * @link http://www.pocketmine.net/
  *
  *
 */
 
-namespace pocketmine\command\defaults;
+namespace devmine\server\commands\defaults;
 
-use pocketmine\command\CommandSender;
-use pocketmine\command\Command;
+use devmine\server\commands\CommandSender;
+use devmine\server\commands\Command;
 
 
 class DumpMemoryCommand extends VanillaCommand{
@@ -33,7 +33,7 @@ class DumpMemoryCommand extends VanillaCommand{
 			"Dumps the memory",
 			"/$name [path]"
 		);
-		$this->setPermission("pocketmine.command.dumpmemory");
+		$this->setPermission("DevMine.command.dumpmemory");
 	}
 
 	public function execute(CommandSender $sender, $currentAlias, array $args){
