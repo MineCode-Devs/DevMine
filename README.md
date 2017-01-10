@@ -31,7 +31,6 @@ pocketmine\math --> devmine\server\calculations <br>
 pocketmine\lang --> devmine\utilities\languages <br>
 pocketmine\wizard --> devmine\utilities\installer <br>
 pocketmine\utils --> devmine\utilities\main <br>
-pocketmine\plugin --> devmine\plugin-features <br>
 pocketmine\level --> devmine\worlds <br>
 pocketmine\event --> devmine\events <br>
 raklib --> raklib <br>
