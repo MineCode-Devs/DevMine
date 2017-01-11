@@ -4,7 +4,7 @@
 
 namespace devmine\server;
 
-class ThreadManager extends \Volatile{
+class ThreadManager extends \BaseClassLoader{
 
 	/** @var ThreadManager */
 	private static $instance = null;
