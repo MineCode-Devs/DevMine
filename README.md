@@ -1,6 +1,9 @@
 # DevMine
 The new mcpe software that does not use pm code base! 
 
+## IMPORTANT NOTICE:
+For the purpose of this Beta Program, the yml and properties files are already pasted. When it becomes stable, we will remove them.
+
 # Why is it called DevMine?
 Simply because you need to understand php in order to convert PocketMine plugins into DevMine plugins!
 
